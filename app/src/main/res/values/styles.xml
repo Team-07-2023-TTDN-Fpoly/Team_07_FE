@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    Style button-->
+    <style name="AppCompatButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+<!--    Style TextInput-->
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="boxStrokeColor">@color/black</item>
+        <item name="errorEnabled">true</item>
+        <item name="hintTextAppearance">@style/TextAppearance.App.Hint</item> <!-- Style cho hint text -->
+        <item name="errorTextAppearance">@style/TextAppearance.App.Error</item> <!-- Style cho error text -->
+    </style>
+
+    <style name="TextAppearance.App.Hint" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/black</item> <!-- Màu cho hint text -->
+    </style>
+
+    <style name="TextAppearance.App.Error" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+<!--    Style dropdown-->
+    <style name="TextInputLayout.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+</resources>
