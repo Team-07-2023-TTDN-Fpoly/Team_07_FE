@@ -45,7 +45,7 @@
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_background"
+        android:background="@drawable/background_search"
         android:hint="Tìm kiếm..."
         />
 <!--    TextInput-->
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:background="@drawable/text_input_background"
+            android:background="@drawable/background_text_input"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:background="@drawable/text_input_background"
+            android:background="@drawable/background_text_input"
             android:textSize="16sp"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,7 +91,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/text_input_background"
+            android:background="@drawable/background_text_input"
 
             android:gravity="top"
             android:minLines="3"
@@ -114,18 +114,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-            android:background="@drawable/dropdown_background"/>
+            android:background="@drawable/background_dropdown"/>
     </com.google.android.material.textfield.TextInputLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"/>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/background_corner_full"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="12dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/background_round_white"
+            android:src="@drawable/icon_home"
+            android:padding="8dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Quản lý nhân viên"
+            android:paddingHorizontal="12dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/icon_right"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/add_item"
-        android:foreground="@drawable/button_add_item"
-        app:srcCompat="@drawable/icon_add" />
+        android:foreground="@drawable/button_add_item" />
+
 
 
 </LinearLayout>
