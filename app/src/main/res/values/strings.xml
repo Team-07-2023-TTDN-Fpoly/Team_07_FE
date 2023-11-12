@@ -1,23 +1,25 @@
 <resources>
     <string name="app_name">DressHub</string>
-<!--    Bottom navigation title-->
+    <!--    Bottom navigation title-->
     <string name="bottom_title_home">Trang chủ</string>
     <string name="bottom_title_contract">Hợp đồng</string>
     <string name="bottom_title_dress">Áo cưới</string>
     <string name="bottom_title_customer">Khách hàng</string>
     <string name="bottom_title_settings">Cài đặt</string>
 
-<!--    Title for app-->
+    <!--    Title for app-->
 
-<!--    Title -->
+    <!--    Title -->
     <string name="add_item">Thêm mới</string>
     <string name="update_item">Cập nhật</string>
     <string name="reload_item">Hoàn tác</string>
 
 
-<!--    Text for input-->
+    <!--    Text for input-->
     <string name="hint_email">Email</string>
     <string name="hint_password">Mật khẩu</string>
     <string name="hint_name">Họ và tên</string>
     <string name="hint_description">Mô tả</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
