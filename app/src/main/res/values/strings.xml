@@ -19,6 +19,13 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Mật khẩu</string>
     <string name="hint_name">Họ và tên</string>
+    <string name="hint_phone">Số điện thoại</string>
+    <string name="hint_salary">Lương cơ bản</string>
+    <string name="hint_join_date">Ngày vào làm</string>
+    <string name="hint_bỉthday">Ngày sinh</string>
+    <string name="hint_role">chức vụ</string>
+    <string name="hint_work_shift">Ca làm việc</string>
+    <string name="hint_address">Địa chỉ</string>
     <string name="hint_description">Mô tả</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
