@@ -8,7 +8,7 @@
     <string name="bottom_title_settings">Cài đặt</string>
 
     <!--    Title for app-->
-
+    <string name="loading">Chờ trong giây lát…</string>
     <!--    Title -->
     <string name="add_item">Thêm mới</string>
     <string name="update_item">Cập nhật</string>
