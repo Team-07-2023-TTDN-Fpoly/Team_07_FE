@@ -28,7 +28,16 @@ public class EmployeeRequest {
         this.email = email;
         this.password = password;
     }
-
+    public EmployeeRequest(String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, WorkShift workShift, Date join_date) {
+        this.emp_name = emp_name;
+        this.emp_phone = emp_phone;
+        this.emp_birthday = emp_birthday;
+        this.basic_salary = basic_salary;
+        this.emp_address = emp_address;
+        this.role = role;
+        this.workShift = workShift;
+        this.join_date = join_date;
+    }
     public String getEmp_name() {
         return emp_name;
     }
