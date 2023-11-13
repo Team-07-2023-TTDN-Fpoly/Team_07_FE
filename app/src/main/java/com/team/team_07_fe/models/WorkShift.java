@@ -1,6 +1,7 @@
 package com.team.team_07_fe.models;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class WorkShift {
     private int shift_id;
@@ -62,5 +63,18 @@ public class WorkShift {
 
     public void setShift_description(String shift_description) {
         this.shift_description = shift_description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorkShift item = (WorkShift) o;
+        return Objects.equals(shift_id, item.shift_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shift_id);
     }
 }
