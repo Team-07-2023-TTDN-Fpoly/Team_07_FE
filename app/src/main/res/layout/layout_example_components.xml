@@ -107,16 +107,19 @@
 <!--Dropdown-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout"
+        style="@style/TextInputLayout.ExposedDropdownMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       style="@style/TextInputLayout.ExposedDropdownMenu">
+        android:layout_height="wrap_content">
 
         <AutoCompleteTextView
             android:id="@+id/auto_complete_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/background_dropdown"
+            android:gravity="top"
             android:inputType="none"
-            android:background="@drawable/background_dropdown"/>
+            android:text="hient" />
+
     </com.google.android.material.textfield.TextInputLayout>
     <View
         android:layout_width="match_parent"
