@@ -46,7 +46,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_search"
-        android:hint="Tìm kiếm..."
+        android:paddingStart="4dp"
+        android:focusable="true"
+        app:iconifiedByDefault="false"
         />
 <!--    TextInput-->
     <com.google.android.material.textfield.TextInputLayout
@@ -119,6 +121,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"/>
+<!--    Layout chuyển màn-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -16,6 +16,8 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navView;
     private Toolbar toolbar;
+    private NavController navController;
+    private AppBarConfiguration appBarConfiguration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Passing each menu ID as a set of Ids because each
         //NavigationView
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_container);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_container);
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_contract, R.id.navigation_dress,
                 R.id.navigation_customer,R.id.navigation_settings)
                 .build();
@@ -39,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
     //Hiển thị thanh bottomBar
     public void showBottomBar(){
         navView.setVisibility(View.VISIBLE);

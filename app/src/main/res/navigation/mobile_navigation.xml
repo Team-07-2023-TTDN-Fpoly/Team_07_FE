@@ -31,5 +31,37 @@
         android:id="@+id/navigation_settings"
         android:name="com.team.team_07_fe.ui.settings.SettingsFragment"
         android:label="@string/bottom_title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_employee_manager"
+            app:destination="@id/navigation_employee_manager" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_employee_create"
+        android:name="com.team.team_07_fe.ui.employee.EmployeeCreateFragment"
+        android:label="Thêm mới nhân viên"
+        tools:layout="@layout/fragment_employee_create" />
+    <fragment
+        android:id="@+id/navigation_employee_manager"
+        android:name="com.team.team_07_fe.ui.employee.EmployeeManagerFragment"
+        android:label="Quản lý nhân viên"
+        tools:layout="@layout/fragment_employee_manager" >
+        <action
+            android:id="@+id/action_navigation_employee_manager_to_navigation_employee_create"
+            app:destination="@id/navigation_employee_create" />
+        <action
+            android:id="@+id/action_navigation_employee_manager_to_navigation_employee_update"
+            app:destination="@id/navigation_employee_update">
+            <argument
+                android:name="data_employee"
+                app:argType="com.team.team_07_fe.models.Employee"
+                app:nullable="true"
+                android:defaultValue="@null"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_employee_update"
+        android:name="com.team.team_07_fe.ui.employee.EmployeeUpdateFragment"
+        android:label="Cập nhật thông tin nhân viên"
+        tools:layout="@layout/fragment_employee_update" />
 </navigation>
