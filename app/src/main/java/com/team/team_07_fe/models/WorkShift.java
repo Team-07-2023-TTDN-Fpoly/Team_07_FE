@@ -65,6 +65,13 @@ public class WorkShift {
         this.shift_description = shift_description;
     }
 
+    //
+
+    @Override
+    public String toString() {
+        return name + " : " + timeStart + "h - " + timeEnd +"h";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

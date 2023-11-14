@@ -51,4 +51,13 @@ public class FormatHelper {
             return null;
         }
     }
+
+    //Định dạng số điện thoại
+    public static String formatPhoneNumber(String number) {
+        // Kiểm tra xem số điện thoại có đủ 10 số không
+        if (number != null && number.length() == 10) {
+            return number.substring(0, 4) + " " + number.substring(4, 7) + " " + number.substring(7);
+        }
+        return number; // Trả lại số không thay đổi nếu không đúng định dạng
+    }
 }

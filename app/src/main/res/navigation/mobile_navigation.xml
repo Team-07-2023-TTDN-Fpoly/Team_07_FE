@@ -35,6 +35,14 @@
         <action
             android:id="@+id/action_navigation_settings_to_navigation_employee_manager"
             app:destination="@id/navigation_employee_manager" />
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_employee_information"
+            app:destination="@id/navigation_employee_information">
+            <argument
+                android:name="data_employee"
+                app:argType="com.team.team_07_fe.models.Employee"
+                app:nullable="false"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/navigation_employee_create"
@@ -64,4 +72,8 @@
         android:name="com.team.team_07_fe.ui.employee.EmployeeUpdateFragment"
         android:label="Cập nhật thông tin nhân viên"
         tools:layout="@layout/fragment_employee_update" />
+    <fragment
+        android:id="@+id/navigation_employee_information"
+        android:name="com.team.team_07_fe.ui.employee.EmployeeInformationFragment"
+        android:label="Thông tin chi tiết" />
 </navigation>
