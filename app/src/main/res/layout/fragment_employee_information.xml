@@ -4,195 +4,219 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.employee.EmployeeCreateFragment">
+    tools:context=".ui.employee.EmployeeUpdateFragment">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="12dp">
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_name"
+                android:id="@+id/layout_input_id"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
-                style="@style/TextInputLayout"
-                app:startIconDrawable="@drawable/icon_person">
+                android:enabled="false"
+                android:hint="@string/hint_id"
+                app:startIconDrawable="@drawable/icon_id">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:background="@drawable/background_text_input"
-                    android:textSize="16sp"
                     android:inputType="text"
-                    android:lines="1"/>
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
-            <!--    TextInput-->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_email"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/hint_email"
-                style="@style/TextInputLayout"
                 app:startIconDrawable="@drawable/icon_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:background="@drawable/background_text_input"
-                    android:textSize="16sp"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:focusable="false"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_password"
+                android:id="@+id/layout_input_name"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_password"
-                style="@style/TextInputLayout"
-                app:startIconDrawable="@drawable/icon_password"
-                app:endIconMode="password_toggle">
+                android:hint="@string/hint_name"
+                app:startIconDrawable="@drawable/icon_person">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:background="@drawable/background_text_input"
-                    android:textSize="16sp"
-                    android:inputType="textPassword"/>
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:focusable="false"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
+            <!--    TextInput-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_phone"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone"
-                style="@style/TextInputLayout"
-                app:startIconDrawable="@drawable/icon_phone"
-                app:counterEnabled="true"
-                app:counterMaxLength="10">
+                app:startIconDrawable="@drawable/icon_phone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:background="@drawable/background_text_input"
-                    android:textSize="16sp"
                     android:inputType="number"
-                    android:lines="1"/>
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:focusable="false"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_salary"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_salary"
-                style="@style/TextInputLayout"
                 app:startIconDrawable="@drawable/icon_money">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:background="@drawable/background_text_input"
-                    android:textSize="16sp"
                     android:inputType="number"
-                    android:lines="1"/>
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:focusable="false"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_join_date"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_join_date"
-                style="@style/TextInputLayout"
                 app:startIconDrawable="@drawable/icon_calendar">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:background="@drawable/background_text_input"
-                    android:textSize="16sp"
-                    android:focusable="false"/>
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:focusable="false"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_input_birthday"
+                    style="@style/TextInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
                     android:layout_weight="1"
                     android:hint="@string/hint_bỉthday"
-                    style="@style/TextInputLayout"
-                    android:layout_marginRight="4dp"
                     app:startIconDrawable="@drawable/icon_calendar">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:background="@drawable/background_text_input"
-                        android:textSize="16sp"
-                        android:focusable="false"/>
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:focusable="false"
+                        android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_role"
+                    android:id="@+id/layout_input_role"
+                    style="@style/TextInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginLeft="4dp"
-                    style="@style/TextInputLayout.ExposedDropdownMenu">
+                    android:layout_weight="1"
+                    android:hint="@string/hint_role">
 
-                <AutoCompleteTextView
-                    android:id="@+id/dropdown_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/background_dropdown"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_text_input"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:focusable="false"
+                        android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_address"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_address"
-                style="@style/TextInputLayout"
                 app:startIconDrawable="@drawable/icon_address">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:background="@drawable/background_text_input"
-                    android:textSize="16sp"/>
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:focusable="false"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_work_shift"
+                android:id="@+id/layout_input_work_shift"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextInputLayout.ExposedDropdownMenu">
+                android:hint="@string/hint_work_shift">
 
-                <AutoCompleteTextView
-                    android:id="@+id/dropdown_work_shift"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/background_dropdown"/>
+                    android:background="@drawable/background_text_input"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:focusable="false"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_add_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/AppCompatButtonStyle"
-                android:text="@string/add_item"
-                android:layout_marginVertical="12dp"
-                />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </RelativeLayout>

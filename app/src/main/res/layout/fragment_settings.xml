@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".ui.settings.SettingsFragment">
+    tools:context=".ui.settings.SettingsFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_employee_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/background_corner_full"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="12dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/background_round_white"
+            android:src="@drawable/icon_information"
+            android:padding="8dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thông tin chi tiết"
+            android:paddingHorizontal="12dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/icon_right"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_employee_manager"
@@ -19,7 +50,7 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:background="@drawable/background_round_white"
-            android:src="@drawable/icon_home"
+            android:src="@drawable/icon_employee"
             android:padding="8dp"/>
         <TextView
             android:layout_width="0dp"
@@ -35,4 +66,4 @@
             android:src="@drawable/icon_right"/>
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

@@ -16,14 +16,14 @@ import android.widget.LinearLayout;
 
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Employee;
+import com.team.team_07_fe.models.WorkShift;
+
+import java.time.LocalTime;
+import java.util.Date;
 
 public class SettingsFragment extends Fragment {
-    private LinearLayout layout_employee_manager;
+    private LinearLayout layout_employee_manager,layout_employee_information;
     private SettingsViewModel mViewModel;
-
-    public static SettingsFragment newInstance() {
-        return new SettingsFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -37,14 +37,26 @@ public class SettingsFragment extends Fragment {
 
     private void mapping(View view){
         layout_employee_manager = view.findViewById(R.id.layout_employee_manager);
+        layout_employee_information = view.findViewById(R.id.layout_employee_information);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Chuyển sang màn hình quản lý nhân viên
         layout_employee_manager.setOnClickListener(v->{
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_employee_manager);
+        });
+        //Chuyển sang màn hình xem thông tin chi tiết
+        layout_employee_information.setOnClickListener(v->{
+            Bundle bundle = new Bundle();
+            WorkShift eveningShift = new WorkShift(2, "Ca chiều", LocalTime.of(16, 0), LocalTime.of(0, 0), "Làm việc buổi tối");
+
+            Employee employee = new Employee(0, "Nguyen Van A", "0123456789", new Date(), 5000000, "Hà Nội", "Nhân viên", eveningShift, new Date(), "a@example.com");
+            bundle.putSerializable("data_employee",employee);
+            NavHostFragment.findNavController(SettingsFragment.this)
+                    .navigate(R.id.action_navigation_settings_to_navigation_employee_information,bundle);
         });
     }
 }
