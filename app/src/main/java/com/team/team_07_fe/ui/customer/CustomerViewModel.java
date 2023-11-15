@@ -21,7 +21,7 @@ public class CustomerViewModel extends ViewModel {
 //        initializeExampleList();
     }
 
-//    public LiveData<List<Customer>> getEmployeeList() {
+//    public LiveData<List<Customer>> getCustomerList() {
 //        return listCus;
 //    }
 
@@ -41,13 +41,13 @@ public class CustomerViewModel extends ViewModel {
         }
     }
 
-//    public void updateEmployee(int index, Employee employee) {
-//        List<Employee> currentList = listCus.getValue();
-//        if (currentList != null) {
-//            currentList.set(index, employee);
-//            listCus.setValue(currentList);
-//        }
-//    }
+    public void updateEmployee(int index, Customer customer) {
+        List<Customer> currentList = listCus.getValue();
+        if (currentList != null) {
+            currentList.set(index, customer);
+            listCus.setValue(currentList);
+        }
+    }
 
 //    private void initializeExampleList() {
 //        List<Employee> employees = new ArrayList<>();

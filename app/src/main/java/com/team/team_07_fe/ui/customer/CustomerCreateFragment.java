@@ -44,7 +44,7 @@ public class CustomerCreateFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_employee_create, container, false);
+        View view = inflater.inflate(R.layout.fragment_customer_create, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(CustomerViewModel.class);
         loadingDialog = new LoadingDialog(requireContext());
         mapping(view);
@@ -120,7 +120,7 @@ public class CustomerCreateFragment extends Fragment {
         }else{
             layout_input_phone.setError(null);
         }
-        if(TextUtils.isEmpty(phoneSecond) || phone.length() != 10 ||!Patterns.PHONE.matcher(phoneSecond).matches()){
+        if (TextUtils.isEmpty(phoneSecond) || phoneSecond.length() != 10 || !Patterns.PHONE.matcher(phoneSecond).matches()) {
             layout_input_phoneSecond.setError("Vui lòng nhập đúng định dạng!");
             isValid = false;
         }else{

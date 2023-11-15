@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.employee.EmployeeCreateFragment">
+    tools:context=".ui.customer.CustomerUpdateFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,6 +13,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="12dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_input_id"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/hint_id"
+                app:startIconDrawable="@drawable/icon_id">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_text_input"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_name"
                 android:layout_width="match_parent"
