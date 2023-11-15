@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.contract.ContractUpdateFragment"
     >
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +17,24 @@
             android:orientation="vertical"
             android:padding="12dp">
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_input_id"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/hint_id"
+                app:startIconDrawable="@drawable/icon_id">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_text_input"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_đt"
@@ -244,16 +262,24 @@
                 android:orientation="horizontal"
                 android:layout_marginVertical="12dp">
 
-
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_reload_item"
+                    style="@style/AppCompatButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/reload_item"
+                    android:layout_marginVertical="8dp"/>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_them_moi"
+                    android:id="@+id/btn_update_item"
                     style="@style/AppCompatButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="Cập nhật"
+                    android:text="@string/update_item"
                     android:layout_marginVertical="8dp"
                     />
             </LinearLayout>
