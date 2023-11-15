@@ -53,7 +53,7 @@ public class SettingsFragment extends Fragment {
             Bundle bundle = new Bundle();
             WorkShift eveningShift = new WorkShift(2, "Ca chiều", LocalTime.of(16, 0), LocalTime.of(0, 0), "Làm việc buổi tối");
 
-            Employee employee = new Employee(0, "Nguyen Van A", "0123456789", new Date(), 5000000, "Hà Nội", "Nhân viên", eveningShift, new Date(), "a@example.com");
+            Employee employee = new Employee("0", "Nguyen Van A", "0123456789", new Date(), 5000000, "Hà Nội", "Nhân viên", eveningShift, new Date(), "a@example.com","0",false);
             bundle.putSerializable("data_employee",employee);
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_employee_information,bundle);
