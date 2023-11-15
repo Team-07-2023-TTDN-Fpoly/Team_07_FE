@@ -17,7 +17,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -31,6 +30,7 @@ import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
+import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -113,7 +113,7 @@ public class EmployeeCreateFragment extends Fragment {
             if(!TextUtils.isEmpty(join_date)){
                 formatJoinDate = FormatHelper.convertStringtoDate(join_date);
             }
-            mViewModel.addEmployee(new Employee(3,name,phone,formatBirthday,Long.parseLong(salary),address,selectRole,selectWorkShift,formatJoinDate,email));
+            mViewModel.addEmployee(new Employee("3",name,phone,formatBirthday,Long.parseLong(salary),address,selectRole,selectWorkShift,formatJoinDate,email,"3",false));
             Toast.makeText(requireContext(), "Thêm mới nhân viên thành công!", Toast.LENGTH_SHORT).show();
         }
     }

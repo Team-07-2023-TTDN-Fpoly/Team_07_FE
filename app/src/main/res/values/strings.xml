@@ -13,6 +13,7 @@
     <string name="add_item">Thêm mới</string>
     <string name="update_item">Cập nhật</string>
     <string name="reload_item">Hoàn tác</string>
+    <string name="cancel_item">Hủy</string>
 
 
     <!--    Text for input-->
