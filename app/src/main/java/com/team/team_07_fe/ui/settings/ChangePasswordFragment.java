@@ -54,16 +54,9 @@ public class ChangePasswordFragment extends Fragment {
 
         String newPass = newPassword.getText().toString();
         String confirmPass = confirmPassword.getText().toString();
-
-        if (newPass.equals(confirmPassword)) {
-            // Gửi sự kiện đổi mật khẩu đến Activity
-            passwordChangeListener.onPasswordChanged(newPassword, true);
-
-            // Hiển thị thông báo
+        
             Toast.makeText(getActivity(), "Mật khẩu đã được thay đổi", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), "Mật khẩu mới và xác nhận mật khẩu không khớp", Toast.LENGTH_SHORT).show();
-        }
+
 
     }
 }
