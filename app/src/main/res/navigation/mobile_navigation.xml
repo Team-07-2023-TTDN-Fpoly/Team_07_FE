@@ -31,7 +31,22 @@
         android:id="@+id/navigation_customer"
         android:name="com.team.team_07_fe.ui.customer.CustomerManagerFragment"
         android:label="Quản lý khách hàng"
-        tools:layout="@layout/fragment_customer_manager" />
+        tools:layout="@layout/fragment_customer_manager" >
+        <action
+            android:id="@+id/action_navigation_customer_to_navigation_customer_create"
+            app:destination="@id/navigation_customer_create" />
+        <action
+            android:id="@+id/action_navigation_customer_to_navigation_customer_update"
+            app:destination="@id/navigation_customer_update" />
+        <action
+            android:id="@+id/action_navigation_customer_to_navigation_customer_information"
+            app:destination="@id/navigation_customer_information" />
+        <!--        <argument-->
+<!--            android:name="data_customer"-->
+<!--            app:argType="com.team.team_07_fe.models.Employee"-->
+<!--            app:nullable="true"-->
+<!--            android:defaultValue="@null"/>-->
+    </fragment>
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.team.team_07_fe.ui.settings.SettingsFragment"
@@ -89,4 +104,19 @@
         android:id="@+id/navigation_employee_information"
         android:name="com.team.team_07_fe.ui.employee.EmployeeInformationFragment"
         android:label="Thông tin chi tiết" />
+    <fragment
+        android:id="@+id/navigation_customer_create"
+        android:name="com.team.team_07_fe.ui.customer.CustomerCreateFragment"
+        android:label="Thêm mới khách hàng"
+        tools:layout="@layout/fragment_customer_create" />
+    <fragment
+        android:id="@+id/navigation_customer_update"
+        android:name="com.team.team_07_fe.ui.customer.CustomerCreateFragment"
+        android:label="Update khách hàng"
+        tools:layout="@layout/fragment_customer_update" />
+    <fragment
+        android:id="@+id/navigation_customer_information"
+        android:name="com.team.team_07_fe.ui.customer.CustomerCreateFragment"
+        android:label="Update khách hàng"
+        tools:layout="@layout/fragment_customer_information" />
 </navigation>
