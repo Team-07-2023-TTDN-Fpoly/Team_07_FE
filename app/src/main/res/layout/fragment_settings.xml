@@ -66,4 +66,34 @@
             android:src="@drawable/icon_right"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layout_dresstype_manager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_corner_top"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="12dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/background_round_white"
+            android:src="@drawable/qao"
+            android:padding="8dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Quản lý loại áo cưới"
+            android:paddingHorizontal="12dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/icon_right"/>
+    </LinearLayout>
+
 </LinearLayout>
