@@ -43,9 +43,6 @@
                 app:argType="com.team.team_07_fe.models.Employee"
                 app:nullable="false"/>
         </action>
-        <action
-            android:id="@+id/action_navigation_settings_to_dressTypeManagerFragment"
-            app:destination="@id/navigation_dresstype_manager" />
     </fragment>
     <fragment
         android:id="@+id/navigation_employee_create"
@@ -79,9 +76,4 @@
         android:id="@+id/navigation_employee_information"
         android:name="com.team.team_07_fe.ui.employee.EmployeeInformationFragment"
         android:label="Thông tin chi tiết" />
-    <fragment
-        android:id="@+id/navigation_dresstype_manager"
-        android:name="com.team.team_07_fe.ui.dresstype.DressTypeManagerFragment"
-        android:label="Quản lý loại áo cưới"
-        tools:layout="@layout/fragment_dress_type_manager" />
 </navigation>
