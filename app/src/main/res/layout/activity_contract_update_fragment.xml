@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.contract.ContractUpdateFragment"
+    tools:context=".ui.contract.ContractUpdateFragmnet"
     >
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -57,6 +57,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <!--    TextInput-->
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_ten"
@@ -75,8 +77,6 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
-            <!--    TextInput-->
-
 
             <LinearLayout
                 android:layout_width="match_parent"

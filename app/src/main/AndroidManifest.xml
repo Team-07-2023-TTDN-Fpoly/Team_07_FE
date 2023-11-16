@@ -15,12 +15,6 @@
         android:theme="@style/Theme.Team_07_FE"
         tools:targetApi="31">
         <activity
-            android:name=".ui.contract.ContractUpdateFragment"
-            android:exported="false" />
-        <activity
-            android:name=".ui.contract.ContractManagerFragmentt"
-            android:exported="false" />
-        <activity
             android:name=".addcontractActivity"
             android:exported="false" />
         <activity
