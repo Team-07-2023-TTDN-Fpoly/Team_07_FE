@@ -32,10 +32,22 @@
             app:destination="@id/navigation_customer_create" />
         <action
             android:id="@+id/action_navigation_customer_to_navigation_customer_update"
-            app:destination="@id/navigation_customer_update" />
+            app:destination="@id/navigation_customer_update" >
+            <argument
+                android:name="data_customer"
+                app:argType="com.team.team_07_fe.models.Customer"
+                app:nullable="false"/>
+        </action>
+
         <action
             android:id="@+id/action_navigation_customer_to_navigation_customer_information"
-            app:destination="@id/navigation_customer_information" />
+            app:destination="@id/navigation_customer_information" >
+            <argument
+                android:name="data_customer"
+                app:argType="com.team.team_07_fe.models.Customer"
+                app:nullable="false"/>
+        </action>
+
         <!--        <argument-->
 <!--            android:name="data_customer"-->
 <!--            app:argType="com.team.team_07_fe.models.Employee"-->
@@ -98,12 +110,12 @@
         tools:layout="@layout/fragment_customer_create" />
     <fragment
         android:id="@+id/navigation_customer_update"
-        android:name="com.team.team_07_fe.ui.customer.CustomerCreateFragment"
-        android:label="Update khách hàng"
+        android:name="com.team.team_07_fe.ui.customer.CustomerUpdateFragment"
+        android:label="Cập nhật thông tin khách hàng"
         tools:layout="@layout/fragment_customer_update" />
     <fragment
         android:id="@+id/navigation_customer_information"
-        android:name="com.team.team_07_fe.ui.customer.CustomerCreateFragment"
-        android:label="Update khách hàng"
+        android:name="com.team.team_07_fe.ui.customer.CustomerInformationFragment"
+        android:label="Thông tin chi tiết khách hàng"
         tools:layout="@layout/fragment_customer_information" />
 </navigation>

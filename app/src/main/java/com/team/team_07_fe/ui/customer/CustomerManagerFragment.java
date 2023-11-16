@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
 public class CustomerManagerFragment extends Fragment {
 
