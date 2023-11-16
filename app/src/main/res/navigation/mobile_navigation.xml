@@ -6,6 +6,11 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
+        android:id="@+id/navigation_changePassword"
+        android:name="com.team.team_07_fe.ui.settings.ChangePasswordFragment"
+        android:label="Thay đổi mật khẩu"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
         android:id="@+id/navigation_home"
         android:name="com.team.team_07_fe.ui.home.HomeFragment"
         android:label="@string/bottom_title_home"
@@ -33,15 +38,23 @@
         android:label="@string/bottom_title_settings"
         tools:layout="@layout/fragment_settings" >
         <action
-            android:id="@+id/action_navigation_settings_to_navigation_employee_manager"
-            app:destination="@id/navigation_employee_manager" />
-        <action
-            android:id="@+id/action_navigation_settings_to_navigation_employee_information"
+            android:id="@+id/action_navigation_settings_to_navigation_employee_information2"
             app:destination="@id/navigation_employee_information">
             <argument
                 android:name="data_employee"
                 app:argType="com.team.team_07_fe.models.Employee"
-                app:nullable="false"/>
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_employee_manager"
+            app:destination="@id/navigation_employee_manager" />
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_change_password"
+            app:destination="@id/navigation_changePassword">
+            <argument
+                android:name="data_employee"
+                app:argType="com.team.team_07_fe.models.Employee"
+                app:nullable="false" />
         </action>
     </fragment>
     <fragment
