@@ -16,6 +16,11 @@
         android:name="com.team.team_07_fe.ui.contract.ContractManagerFragment"
         android:label="Quản lý hợp đồng"
         tools:layout="@layout/fragment_contract_manager" />
+    <fragment
+        android:id="@+id/navigation_contract_update"
+        android:name="com.team.team_07_fe.ui.contract.ContractUpdateFragment"
+        android:label="Quản lý hợp đồng"
+        tools:layout="@layout/fragment_contract_update" />
 
     <fragment
         android:id="@+id/navigation_dress"
