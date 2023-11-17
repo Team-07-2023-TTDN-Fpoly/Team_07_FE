@@ -19,6 +19,7 @@
     <string name="hint_time_end">Giờ kết thúc</string>
     <string name="hint_id_work_shirt">Mã ca làm</string>
 
+
     <!--    Text for input-->
     <string name="hint_email">Email</string>
     <string name="hint_password">Mật khẩu</string>
