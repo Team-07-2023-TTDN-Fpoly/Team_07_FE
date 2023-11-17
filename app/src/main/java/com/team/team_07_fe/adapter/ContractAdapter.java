@@ -42,11 +42,11 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         }
 
         holder.tvName.setText(contract.getName());
-        holder.tvDate.setText("Ngày ký: " + contract.getDate());
-        holder.tvPhone.setText("SĐT: " + contract.getPhone());
-        holder.tvDeposit.setText("Tiền cọc: " + contract.getDeposit());
-        holder.tvSumMoney.setText("Tổng chi phí: " + contract.getSumMoney());
-        holder.tvStatus.setText("Trạng thái: " + contract.getStatus());
+        holder.tvDate.setText(contract.getDate());
+        holder.tvPhone.setText(contract.getPhone());
+        holder.tvDeposit.setText(contract.getDeposit());
+        holder.tvSumMoney.setText(contract.getSumMoney());
+        holder.tvStatus.setText(contract.getStatus());
     }
 
     @Override

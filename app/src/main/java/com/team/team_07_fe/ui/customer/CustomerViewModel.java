@@ -1,4 +1,4 @@
-package com.team.team_07_fe.viewmodels;
+package com.team.team_07_fe.ui.customer;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
-import com.team.team_07_fe.utils.FormatHelper;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -15,37 +14,12 @@ import java.util.Date;
 import java.util.List;
 
 public class CustomerViewModel extends ViewModel {
-    private MutableLiveData<List<Customer>> livecus;
-
-    public CustomerViewModel() {
-        livecus= new MutableLiveData<>();
-        Listviewcustomer();
-    }
-    public LiveData<List<Customer>> getCustomerList(){
-        return livecus;
-    }
-
-    public void DeleteCustomer(Customer customer){
-        List<Customer> customers= livecus.getValue();
-        if (customers != null){
-            customers.remove(customers);
-            livecus.setValue(customers);
-        }
-    }
-    public void AddCustomer(Customer customer){
-        List<Customer> customers=livecus.getValue();
-        if (customers != null){
-            customers.add((Customer) customers);
-        }
-    }
-    private void Listviewcustomer(){
-        List<Customer> customers = new ArrayList<>();
-        customers.add(new Customer(1,"nguye van a","0355555","0265555","a@gmail.com", FormatHelper.convertStringtoDate("1/2/2012"),"ha noi"));
-        customers.add(new Customer(1,"nguye van b","03555955","026995555","ab@gmail.com",FormatHelper.convertStringtoDate("1/2/2015"),"ha noi"));
-        livecus.setValue(customers);
-    }
     // TODO: Implement the ViewModel
     private MutableLiveData<List<Customer>> listCus;
+    public CustomerViewModel(){
+        listCus = new MutableLiveData<>();
+//        initializeExampleList();
+    }
 
 //    public LiveData<List<Customer>> getCustomerList() {
 //        return listCus;
