@@ -26,6 +26,7 @@ import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
+import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
 
 import java.util.Calendar;
@@ -76,8 +77,9 @@ public class CustomerCreateFragment extends Fragment {
             if (!TextUtils.isEmpty(birthday)) {
                 formatBirthday = FormatHelper.convertStringtoDate(birthday);
             }
-            mViewModel.addCustomer(new Customer(3,name,phone,phoneSecond,email,formatBirthday,address));
+            mViewModel.AddCustomer(new Customer(3,name,phone,phoneSecond,email,formatBirthday,address));
             Toast.makeText(requireContext(), "Thêm mới khách hàng thành công!", Toast.LENGTH_SHORT).show();
+            requireActivity().onBackPressed();
         }
     }
 
