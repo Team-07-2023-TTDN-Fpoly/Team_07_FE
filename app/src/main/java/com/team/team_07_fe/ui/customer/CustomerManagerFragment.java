@@ -16,21 +16,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.CustomerAdapter;
 import com.team.team_07_fe.models.Customer;
+import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
 import java.io.Serializable;
 import java.util.List;
 
 
 public class CustomerManagerFragment extends Fragment {
-
-    private CustomerViewModel mViewModel;
     private CustomerAdapter customerAdapter;
     private RecyclerView recyclerView;
     private EditText Search_customer;
