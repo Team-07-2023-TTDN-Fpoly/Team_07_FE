@@ -31,22 +31,7 @@
         android:id="@+id/navigation_customer"
         android:name="com.team.team_07_fe.ui.customer.CustomerManagerFragment"
         android:label="Quản lý khách hàng"
-        tools:layout="@layout/fragment_customer_manager" >
-        <action
-            android:id="@+id/action_navigation_customer_to_navigation_customer_create"
-            app:destination="@id/navigation_customer_create" />
-        <action
-            android:id="@+id/action_navigation_customer_to_navigation_customer_update"
-            app:destination="@id/navigation_customer_update" />
-        <action
-            android:id="@+id/action_navigation_customer_to_navigation_customer_information"
-            app:destination="@id/navigation_customer_information" />
-        <!--        <argument-->
-<!--            android:name="data_customer"-->
-<!--            app:argType="com.team.team_07_fe.models.Employee"-->
-<!--            app:nullable="true"-->
-<!--            android:defaultValue="@null"/>-->
-    </fragment>
+        tools:layout="@layout/fragment_customer_manager" />
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.team.team_07_fe.ui.settings.SettingsFragment"
