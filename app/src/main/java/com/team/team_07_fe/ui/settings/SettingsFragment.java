@@ -22,7 +22,7 @@ import java.time.LocalTime;
 import java.util.Date;
 
 public class SettingsFragment extends Fragment {
-    private LinearLayout layout_employee_manager,layout_employee_information;
+    private LinearLayout layout_employee_manager,layout_employee_information, layout_statistics;
     private SettingsViewModel mViewModel;
 
     @Override
@@ -38,6 +38,7 @@ public class SettingsFragment extends Fragment {
     private void mapping(View view){
         layout_employee_manager = view.findViewById(R.id.layout_employee_manager);
         layout_employee_information = view.findViewById(R.id.layout_employee_information);
+        layout_statistics = view.findViewById(R.id.layout_statistics);
     }
 
     @Override
@@ -47,6 +48,11 @@ public class SettingsFragment extends Fragment {
         layout_employee_manager.setOnClickListener(v->{
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_employee_manager);
+        });
+        //Chuyển sang màn hình thống kê
+        layout_statistics.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(SettingsFragment.this)
+                    .navigate(R.id.action_navigation_statistics_screen_to_navigation_create_detail);
         });
         //Chuyển sang màn hình xem thông tin chi tiết
         layout_employee_information.setOnClickListener(v->{

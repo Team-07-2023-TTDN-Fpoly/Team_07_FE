@@ -43,6 +43,9 @@
                 app:argType="com.team.team_07_fe.models.Employee"
                 app:nullable="false"/>
         </action>
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_statistics_screen"
+            app:destination="@id/navigation_statistics_screen" />
     </fragment>
     <fragment
         android:id="@+id/navigation_employee_create"
@@ -54,19 +57,9 @@
         android:name="com.team.team_07_fe.ui.employee.EmployeeManagerFragment"
         android:label="Quản lý nhân viên"
         tools:layout="@layout/fragment_employee_manager" >
-        <action
-            android:id="@+id/action_navigation_employee_manager_to_navigation_employee_create"
-            app:destination="@id/navigation_employee_create" />
-        <action
-            android:id="@+id/action_navigation_employee_manager_to_navigation_employee_update"
-            app:destination="@id/navigation_employee_update">
-            <argument
-                android:name="data_employee"
-                app:argType="com.team.team_07_fe.models.Employee"
-                app:nullable="true"
-                android:defaultValue="@null"/>
-        </action>
+
     </fragment>
+
     <fragment
         android:id="@+id/navigation_employee_update"
         android:name="com.team.team_07_fe.ui.employee.EmployeeUpdateFragment"
@@ -76,4 +69,27 @@
         android:id="@+id/navigation_employee_information"
         android:name="com.team.team_07_fe.ui.employee.EmployeeInformationFragment"
         android:label="Thông tin chi tiết" />
+    <fragment
+        android:id="@+id/navigation_create_detail"
+        android:name="com.team.team_07_fe.fragment.CreateDetailFragment"
+        android:label="Thêm mới chi trả">
+        <action
+            android:id="@+id/action_navigation_create_detail_to_navigation_update_detail"
+            app:destination="@id/navigation_update_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_update_detail"
+        android:name="com.team.team_07_fe.fragment.UpdateDetailFragment"
+        android:label="Cập nhật chi trả"/>
+
+
+    <fragment
+        android:id="@+id/navigation_statistics_screen"
+        android:name="com.team.team_07_fe.fragment.StatisticsScreenFragment"
+        android:label="Thống kê"
+        tools:layout="@layout/fragment_statistics_screen">
+        <action
+            android:id="@+id/action_navigation_statistics_screen_to_navigation_create_detail"
+            app:destination="@id/navigation_create_detail" />
+    </fragment>
 </navigation>
