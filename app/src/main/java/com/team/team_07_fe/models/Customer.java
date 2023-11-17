@@ -14,10 +14,20 @@ public class Customer implements Serializable {
     private String cus_address;
 
     // ten,phone1,phone2,NS,DC
-    public Customer(String cus_name, String cus_phone, String cus_phoneSecond , Date cus_birthday, String cus_address) {
+//    public Customer(String cus_name, String cus_phone, String cus_phoneSecond , Date cus_birthday, String cus_address) {
+//        this.cus_name = cus_name;
+//        this.cus_phone = cus_phone;
+//        this.cus_phoneSecond = cus_phoneSecond;
+//        this.cus_birthday = cus_birthday;
+//        this.cus_address = cus_address;
+//    }
+
+
+    public Customer(String cus_name, String cus_phone, String cus_phoneSecond, String email, Date cus_birthday, String cus_address) {
         this.cus_name = cus_name;
         this.cus_phone = cus_phone;
         this.cus_phoneSecond = cus_phoneSecond;
+        this.email = email;
         this.cus_birthday = cus_birthday;
         this.cus_address = cus_address;
     }

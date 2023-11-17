@@ -1,5 +1,6 @@
 package com.team.team_07_fe.adapter;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Customer;
+import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.ui.customer.CustomerManagerFragment;
+import com.team.team_07_fe.utils.OnClickListener;
 
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> {
     private List<Customer> list;
     private Context context;
+    private static OnClickListener onClickUpdateCustomerClickListener;
+    private static OnClickListener onClickDeleteCustomerClickListener;
 
     public CustomerAdapter(Context context, List<Customer> list){
         this.list= list;
@@ -27,6 +32,13 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     public void setList(List<Customer> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+    public void setOnClickUpdateCustomerClickListener(OnClickListener onClickUpdateCustomerClickListener) {
+        CustomerAdapter.onClickUpdateCustomerClickListener = onClickUpdateCustomerClickListener;
+    }
+
+    public void setOnClickDeleteCustomerClickListener(OnClickListener onClickDeleteCustomerClickListener) {
+        CustomerAdapter.onClickDeleteCustomerClickListener = onClickDeleteCustomerClickListener;
     }
 
     @NonNull
@@ -48,6 +60,18 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             holder.tv_cusemail.setText("Email: "+ item.getEmail());
             holder.tv_cusaddres.setText("Địa chỉ: " + item.getCus_address());
 
+            holder.btn_delete_item.setOnClickListener(v->{
+                if(onClickDeleteCustomerClickListener!=null){
+                    onClickDeleteCustomerClickListener.onClick(position);
+                }
+            });
+
+            holder.itemView.setOnClickListener(v->{
+                if(onClickUpdateCustomerClickListener!=null){
+                    onClickUpdateCustomerClickListener.onClick(position);
+                }
+            });
+
         }
     }
 
@@ -56,11 +80,11 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         return list.size();
     }
     public Customer getItem(int position){
-        return  list.get(position);
+        return list.get(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-    private TextView tv_cusid, tv_cusname,tv_cusphonemary,tv_cusphonesob,tv_cusbariday,tv_cusemail,tv_cusaddres;
+    private TextView tv_cusid, tv_cusname,tv_cusphonemary,tv_cusphonesob,tv_cusbariday,tv_cusemail,tv_cusaddres,btn_delete_item;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -70,6 +94,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             tv_cusbariday=itemView.findViewById(R.id.tv_cusngaysinh);
             tv_cusemail=itemView.findViewById(R.id.tv_cusemail);
             tv_cusaddres=itemView.findViewById(R.id.tv_cusaddres);
+            btn_delete_item=itemView.findViewById(R.id.btn_delete_item);
         }
     }
 }

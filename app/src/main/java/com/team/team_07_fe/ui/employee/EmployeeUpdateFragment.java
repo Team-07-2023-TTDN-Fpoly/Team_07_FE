@@ -149,6 +149,7 @@ public class EmployeeUpdateFragment extends Fragment {
                 .setPositiveButton(R.string.yes,(dialog, which) -> {
                     loadingDialog.show();
                     mViewModel.updateEmployee(Integer.parseInt(id),employeeRequest);
+                    refreshFragment();
                     dialog.dismiss();
                 })
                 .setNegativeButton(R.string.no,((dialog, which) -> {
