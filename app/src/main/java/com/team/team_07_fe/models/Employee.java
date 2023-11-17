@@ -1,5 +1,6 @@
 package com.team.team_07_fe.models;
 
+import com.google.gson.annotations.SerializedName;
 import com.team.team_07_fe.utils.FormatHelper;
 
 import java.io.Serializable;
@@ -7,16 +8,41 @@ import java.util.Date;
 
 
 public class Employee implements Serializable {
-    private int emp_id;
+    @SerializedName("emp_id")
+    private String emp_id;
+
+    @SerializedName("emp_name")
     private String emp_name;
+
+    @SerializedName("emp_phone")
     private String emp_phone;
+
+    @SerializedName("emp_birthday")
     private Date emp_birthday;
+
+    @SerializedName("basic_salary")
     private long basic_salary;
+
+    @SerializedName("emp_address")
     private String emp_address;
+
+    @SerializedName("role")
     private String role;
+
+    @SerializedName("workShift")
     private WorkShift workShift;
+
+    @SerializedName("join_date")
     private Date join_date;
+
+    @SerializedName("email")
     private String email;
+
+    @SerializedName("auth_id")
+    private String auth_id;
+
+    @SerializedName("is_disable")
+    private boolean is_disable;
 
 
     public Employee(String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, WorkShift workShift, Date join_date) {
@@ -30,7 +56,7 @@ public class Employee implements Serializable {
         this.join_date = join_date;
     }
 
-    public Employee(int emp_id, String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, WorkShift workShift, Date join_date, String email) {
+    public Employee(String emp_id, String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, WorkShift workShift, Date join_date, String email,String auth_id,boolean is_disable) {
         this.emp_id = emp_id;
         this.emp_name = emp_name;
         this.emp_phone = emp_phone;
@@ -41,13 +67,15 @@ public class Employee implements Serializable {
         this.workShift = workShift;
         this.join_date = join_date;
         this.email = email;
+        this.auth_id = auth_id;
+        this.is_disable = is_disable;
     }
 
-    public int getEmp_id() {
+    public String getEmp_id() {
         return emp_id;
     }
 
-    public void setEmp_id(int emp_id) {
+    public void setEmp_id(String emp_id) {
         this.emp_id = emp_id;
     }
 
@@ -121,5 +149,21 @@ public class Employee implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAuth_id() {
+        return auth_id;
+    }
+
+    public void setAuth_id(String auth_id) {
+        this.auth_id = auth_id;
+    }
+
+    public boolean isIs_disable() {
+        return is_disable;
+    }
+
+    public void setIs_disable(boolean is_disable) {
+        this.is_disable = is_disable;
     }
 }

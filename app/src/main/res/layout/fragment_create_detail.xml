@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"/>
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/create_detai_input_text"
+        android:id="@+id/create_detail_input_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mô tả"
