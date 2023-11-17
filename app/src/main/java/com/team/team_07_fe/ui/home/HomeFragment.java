@@ -33,8 +33,8 @@ public class HomeFragment extends Fragment {
             "Đổi mật khẩu"
     };
     int[] imgItem = {
-            R.drawable.photography,
-            R.drawable.team,
+            R.drawable.icon_dress,
+            R.drawable.icon_employee,
             R.drawable.bill,
             R.drawable.analytics,
             R.drawable.lock_reset
