@@ -68,9 +68,11 @@ public class HomeFragment extends Fragment {
 
     public List<Contract> getListContract(){
         List<Contract> list = new ArrayList<>();
-        list.add(new Contract("Lê Nguyên Sáng", "20/10/2023", "0899202665","3.000.000 VND", "14.000.000 VND", "Đã thanh toán"));
-        list.add(new Contract("Nguyễn Văn Hùng", "20/10/2023", "0899202665","3.000.000 VND", "14.000.000 VND", "Đã thanh toán"));
-        list.add(new Contract("Lê Nguyên Sáng", "20/10/2023", "0899202665","3.000.000 VND", "14.000.000 VND", "Đã thanh toán"));
+        list.add(new Contract("Lê Nguyên Sáng", "20/10/2023", "0899202665","3.000.000 VND", "14.000.000 VND", "Chưa thanh toán"));
+        list.add(new Contract("Nguyễn Văn Hùng", "20/10/2023", "0899202665","5.000.000 VND", "20.000.000 VND", "Đã thanh toán"));
+        list.add(new Contract("Trương Công Nghĩa", "20/10/2023", "0899202665","7.000.000 VND", "20.000.000 VND", "Chưa thanh toán"));
+        list.add(new Contract("Bùi Ngọc Nguyên Vũ", "20/10/2023", "0899202665","14.000.000 VND", "30.000.000 VND", "Chưa thanh toán"));
+        list.add(new Contract("Nguyễn Thanh Hoàng", "20/10/2023", "0899202665","28.000.000 VND", "30.000.000 VND", "Đã thanh toán"));
         return list;
     }
 }

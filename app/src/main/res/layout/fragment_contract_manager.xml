@@ -7,6 +7,7 @@
     tools:context=".ui.contract.ContractManagerFragment"
     android:paddingHorizontal="12dp"
     android:paddingTop="12dp">
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"

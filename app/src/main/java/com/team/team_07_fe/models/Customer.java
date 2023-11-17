@@ -47,20 +47,28 @@ public class Customer implements Serializable {
         this.cus_name = cus_name;
     }
 
-    public String getCus_phone() {
-        return cus_phone;
+    public String getCus_phoneimary() {
+        return cus_phoneimary;
     }
 
-    public void setCus_phone(String cus_phone) {
-        this.cus_phone = cus_phone;
+    public void setCus_phoneimary(String cus_phoneimary) {
+        this.cus_phoneimary = cus_phoneimary;
     }
 
-    public String getCus_phoneSecond() {
-        return cus_phoneSecond;
+    public String getCus_phonesob() {
+        return cus_phonesob;
     }
 
-    public void setCus_phoneSecond(String cus_phoneSecond) {
-        this.cus_phoneSecond = cus_phoneSecond;
+    public void setCus_phonesob(String cus_phonesob) {
+        this.cus_phonesob = cus_phonesob;
+    }
+
+    public String getCus_birthday() {
+        return cus_birthday;
+    }
+
+    public void setCus_birthday(String cus_birthday) {
+        this.cus_birthday = cus_birthday;
     }
 
     public String getEmail() {
@@ -71,19 +79,25 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    public Date getCus_birthday() {
-        return cus_birthday;
-    }
-
-    public void setCus_birthday(Date cus_birthday) {
-        this.cus_birthday = cus_birthday;
-    }
-
     public String getCus_address() {
         return cus_address;
     }
 
     public void setCus_address(String cus_address) {
         this.cus_address = cus_address;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer item = (Customer) o;
+        return Objects.equals(cus_id, item.cus_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cus_id);
     }
 }

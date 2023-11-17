@@ -6,6 +6,11 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
+        android:id="@+id/navigation_changePassword"
+        android:name="com.team.team_07_fe.ui.settings.ChangePasswordFragment"
+        android:label="Thay đổi mật khẩu"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
         android:id="@+id/navigation_home"
         android:name="com.team.team_07_fe.ui.home.HomeFragment"
         android:label="@string/bottom_title_home"
@@ -31,27 +36,20 @@
         android:id="@+id/navigation_customer"
         android:name="com.team.team_07_fe.ui.customer.CustomerManagerFragment"
         android:label="Quản lý khách hàng"
-        tools:layout="@layout/fragment_customer_manager" >
-        <action
-            android:id="@+id/action_navigation_customer_to_navigation_customer_create"
-            app:destination="@id/navigation_customer_create" />
-        <action
-            android:id="@+id/action_navigation_customer_to_navigation_customer_update"
-            app:destination="@id/navigation_customer_update" />
-        <action
-            android:id="@+id/action_navigation_customer_to_navigation_customer_information"
-            app:destination="@id/navigation_customer_information" />
-        <!--        <argument-->
-<!--            android:name="data_customer"-->
-<!--            app:argType="com.team.team_07_fe.models.Employee"-->
-<!--            app:nullable="true"-->
-<!--            android:defaultValue="@null"/>-->
-    </fragment>
+        tools:layout="@layout/fragment_customer_manager" />
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.team.team_07_fe.ui.settings.SettingsFragment"
         android:label="@string/bottom_title_settings"
         tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_employee_information"
+            app:destination="@id/navigation_employee_information">
+            <argument
+                android:name="data_employee"
+                app:argType="com.team.team_07_fe.models.Employee"
+                app:nullable="false" />
+        </action>
         <action
             android:id="@+id/action_navigation_settings_to_navigation_employee_manager"
             app:destination="@id/navigation_employee_manager" />
@@ -59,10 +57,20 @@
             android:id="@+id/action_navigation_settings_to_navigation_employee_information"
             app:destination="@id/navigation_employee_information">
             <argument
+               android:name="data_employee"
+               app:argType="com.team.team_07_fe.models.Employee"
+                app:nullable="false"/>
+           <action
+                   android:id="@+id/action_navigation_settings_to_navigation_change_password"
+            app:destination="@id/navigation_changePassword">
+            <argument
                 android:name="data_employee"
                 app:argType="com.team.team_07_fe.models.Employee"
-                app:nullable="false"/>
+                app:nullable="false" />
         </action>
+        <action
+            android:id="@+id/action_navigation_settings_to_workShiftManagerFragment"
+            app:destination="@id/workShiftManagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_employee_create"
@@ -80,11 +88,11 @@
         <action
             android:id="@+id/action_navigation_employee_manager_to_navigation_employee_update"
             app:destination="@id/navigation_employee_update">
-            <argument
-                android:name="data_employee"
-                app:argType="com.team.team_07_fe.models.Employee"
-                app:nullable="true"
-                android:defaultValue="@null"/>
+           <argument
+               android:name="data_employee"
+               app:argType="com.team.team_07_fe.models.Employee"
+               app:nullable="true"
+               android:defaultValue="@null"/>
         </action>
     </fragment>
     <fragment
@@ -111,4 +119,19 @@
         android:name="com.team.team_07_fe.ui.customer.CustomerCreateFragment"
         android:label="Update khách hàng"
         tools:layout="@layout/fragment_customer_information" />
+
+    <fragment
+        android:id="@+id/workShiftManagerFragment"
+        android:name="com.team.team_07_fe.ui.work_shift.WorkShiftManagerFragment"
+        android:label="Quản lý ca làm"
+        tools:layout="@layout/fragment_work_shift_manager" >
+        <action
+            android:id="@+id/action_workShiftManagerFragment_to_workShiftCreateFragment"
+            app:destination="@id/workShiftCreateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workShiftCreateFragment"
+        android:name="com.team.team_07_fe.ui.work_shift.WorkShiftCreateFragment"
+        android:label="Thêm mới ca làm"
+        tools:layout="@layout/fragment_work_shift_create" />
 </navigation>
