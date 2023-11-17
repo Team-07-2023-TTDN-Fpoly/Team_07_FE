@@ -79,31 +79,6 @@
 //
 //    }
 //    private void handleNavigateCreateForm(View view){
-//        NavHostFragment.findNavController(CustomerManagerFragment.this)
-//                .navigate(R.id.action_navigation_customer_to_navigation_customer_create);
-//    }
-//    private void handleNavigateUpdateForm(int position) {
-//        Customer customer = CustomerAdapter.getItem(position);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("data_customer",customer);
-//        NavHostFragment.findNavController(CustomerManagerFragment.this)
-//                .navigate(R.id.action_navigation_customer_to_navigation_customer_update,bundle);
-//    }
-////    private void handleShowUpdatePasswordForm(int position) {
-////
-////    }
-////
-////    private void handleShowConfirmDisable(int position) {
-////    }
-////    private void observeViewModel(){
-////        customerViewModel.getCustomerList().observe(getViewLifecycleOwner(), new Observer<List<Customer>>() {
-////            @Override
-////            public void onChanged(List<Customer> customers) {
-////                customerAdapter.setList(customers);
-////                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
-////            }
-////        });
-////    }
 package com.team.team_07_fe.ui.customer;
 
 import androidx.appcompat.widget.SearchView;
