@@ -7,7 +7,7 @@
         android:title="@string/bottom_title_home" />
 
     <item
-        android:id="@+id/navigation_contract"
+        android:id="@+id/navigation_contract_update"
         android:icon="@drawable/icon_contract"
         android:title="@string/bottom_title_contract" />
 
