@@ -77,8 +77,9 @@ public class CustomerCreateFragment extends Fragment {
             if (!TextUtils.isEmpty(birthday)) {
                 formatBirthday = FormatHelper.convertStringtoDate(birthday);
             }
-            mViewModel.addCustomer(new Customer(3,name,phone,phoneSecond,email,formatBirthday,address));
+            mViewModel.AddCustomer(new Customer(3,name,phone,phoneSecond,email,formatBirthday,address));
             Toast.makeText(requireContext(), "Thêm mới khách hàng thành công!", Toast.LENGTH_SHORT).show();
+            requireActivity().onBackPressed();
         }
     }
 

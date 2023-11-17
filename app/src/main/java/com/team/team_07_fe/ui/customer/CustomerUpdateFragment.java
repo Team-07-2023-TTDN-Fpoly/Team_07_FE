@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Customer;
+import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.CustomerViewModel;
@@ -30,7 +31,7 @@ public class CustomerUpdateFragment extends Fragment {
     private TextInputLayout layout_input_id,layout_input_name,layout_input_email,
             layout_input_phone,layout_input_phoneSecond,layout_input_birthday,layout_input_address;
     private CustomerViewModel mViewModel;
-    private AppCompatButton btn_reload_item,btn_update_item,btn_delete_item;
+    private AppCompatButton btn_reload_item,btn_update_item;
     private Customer originalData = null;
     private LoadingDialog loadingDialog;
     @Override
@@ -60,7 +61,6 @@ public class CustomerUpdateFragment extends Fragment {
         //Click button
         btn_reload_item.setOnClickListener(this::handleReloadData);
         btn_update_item.setOnClickListener(this::handleUpdateData);
-        btn_delete_item.setOnClickListener(this::handleDeleteData);
         //
     }
     private void handleReloadData(View view){
@@ -84,47 +84,28 @@ public class CustomerUpdateFragment extends Fragment {
         String name = layout_input_name.getEditText().getText().toString().trim();
         String phone = layout_input_phone.getEditText().getText().toString().trim();
         String phoneSecond = layout_input_phoneSecond.getEditText().getText().toString().trim();
+        String email = layout_input_email.getEditText().getText().toString().trim();
         String birthday = layout_input_birthday.getEditText().getText().toString().trim();
         String address = layout_input_address.getEditText().getText().toString().trim();
-
-
-
 
         if(validateInput(name,phone,phoneSecond)){
             Date formatBirthday = null;
             if (!TextUtils.isEmpty(birthday)) {
                 formatBirthday = FormatHelper.convertStringtoDate(birthday);
             }
-            Customer customerRequest = new Customer(name,phone,phoneSecond,formatBirthday,address);
+            Customer customerRequest = new Customer(name,phone,phoneSecond,email,formatBirthday,address);
             showDialogConfirmUpdate(id,customerRequest);
         }
 
     }
-    private void handleDeleteData(View view) {
-        if (originalData != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
-                    .setTitle("Cảnh báo!")
-                    .setMessage("Bạn có chắc muốn xóa khách hàng này không?")
-                    .setPositiveButton(R.string.yes, (dialog, which) -> {
-                        loadingDialog.show();
-                        mViewModel.removeEmployee(originalData);
-                        refreshFragment();
-                        dialog.dismiss();
-                    })
-                    .setNegativeButton(R.string.no, ((dialog, which) -> {
-                        dialog.dismiss();
-                    }));
-            builder.create().show();
-        }
-    }
     private void showDialogConfirmUpdate(String id, Customer customerRequest){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                 .setTitle("Thông báo!")
-                .setMessage("Bạn có chắc muốn cập nhật khách hàng này không? " +
+                .setMessage("Bạn có chắc muốn cập nhật nhân viên này không? " +
                         "Mọi thông tin trước đó sẽ không được lưu.")
                 .setPositiveButton(R.string.yes,(dialog, which) -> {
                     loadingDialog.show();
-                    mViewModel.updateEmployee(Integer.parseInt(id),customerRequest);
+                    mViewModel.updateCustomer(Integer.parseInt(id),customerRequest);
                     refreshFragment();
                     dialog.dismiss();
                 })
@@ -133,6 +114,7 @@ public class CustomerUpdateFragment extends Fragment {
                 }));
         builder.create().show();
     }
+
     //Set dữ liệu
     private void setData(Customer customer){ //tên, sdt1,sdt2,email,ngày sinh,địa chỉ
         // Set lại thông tin id, nếu có trường hiển thị id
