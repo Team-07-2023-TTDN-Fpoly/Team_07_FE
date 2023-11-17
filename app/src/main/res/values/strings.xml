@@ -15,6 +15,9 @@
     <string name="reload_item">Hoàn tác</string>
     <string name="cancel_item">Hủy</string>
 
+    <string name="hint_time_start">Giờ bắt đầu</string>
+    <string name="hint_time_end">Giờ kết thúc</string>
+    <string name="hint_id_work_shirt">Mã ca làm</string>
 
 
     <!--    Text for input-->

@@ -22,7 +22,8 @@ import java.time.LocalTime;
 import java.util.Date;
 
 public class SettingsFragment extends Fragment {
-    private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password, layout_dresstype_manager;
+    private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password, layout_dresstype_manager
+  ,layout_workshift_information ;
     private SettingsViewModel mViewModel;
 
     @Override
@@ -38,6 +39,7 @@ public class SettingsFragment extends Fragment {
     private void mapping(View view){
         layout_employee_manager = view.findViewById(R.id.layout_employee_manager);
         layout_employee_information = view.findViewById(R.id.layout_employee_information);
+        layout_workshift_information = view.findViewById(R.id.layout_work_shift_manager);
         layout_dresstype_manager = view.findViewById(R.id.layout_dresstype_manager);
         layout_change_password = view.findViewById(R.id.layout_change_password);
     }
@@ -68,6 +70,10 @@ public class SettingsFragment extends Fragment {
         layout_dresstype_manager.setOnClickListener(v->{
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_dressTypeManagerFragment);
+        });
+        layout_workshift_information.setOnClickListener(v->{
+            NavHostFragment.findNavController(SettingsFragment.this)
+                    .navigate(R.id.action_navigation_settings_to_workShiftManagerFragment);
         });
     }
 }
