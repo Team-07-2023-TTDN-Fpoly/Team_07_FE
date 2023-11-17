@@ -115,7 +115,7 @@ public class DressTypeManagerFragment extends Fragment {
         rvloaiao.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvloaiao.setAdapter(dressTypeAdapter);
 
-        dressTypeAdapter.setOnClickDeleteClickListener(this::handleShowConfirmDisable);
+        dressTypeAdapter.setOnClickDeleteClickListener(this::handleShowConfirmDelete);
         dressTypeAdapter.setOnClickEditClickListener(this::handleShowUpdateDialog);
     }
     private void handleShowUpdateDialog(int position) {
@@ -159,7 +159,28 @@ public class DressTypeManagerFragment extends Fragment {
     }
 
 
-    private void handleShowConfirmDisable(int position1) {
+    private void handleShowConfirmDelete(int position) {
+        DressType dressType = dressTypeAdapter.getItem(position);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Xác nhận xóa");
+        builder.setMessage("Bạn có chắc muốn xóa loại áo này?");
+
+        builder.setPositiveButton("Xóa", (dialog, which) -> {
+            // Handle deleting the dress type here
+            dressTypeViewModel.deleteDressType(dressType.getType_id());
+
+            // Dismiss the dialog
+            dialog.dismiss();
+        });
+
+        builder.setNegativeButton("Hủy bỏ", (dialog, which) -> {
+            // Dismiss the dialog if the user cancels the delete operation
+            dialog.dismiss();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 
