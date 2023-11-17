@@ -68,9 +68,9 @@ public class EmployeeUpdateFragment extends Fragment {
         mapping(view);
         //
         listWorkShift = new ArrayList<>();
-        listWorkShift.add(new WorkShift(1, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(2, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(3, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
+        listWorkShift.add(new WorkShift(1, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
+        listWorkShift.add(new WorkShift(2, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("11:00"), "Làm việc buổi sáng"));
+        listWorkShift.add(new WorkShift(3, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
         //
         roleAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listRole);
         dropdown_role.setAdapter(roleAdapter);
@@ -147,7 +147,6 @@ public class EmployeeUpdateFragment extends Fragment {
                 .setMessage("Bạn có chắc muốn cập nhật nhân viên này không? " +
                         "Mọi thông tin trước đó sẽ không được lưu.")
                 .setPositiveButton(R.string.yes,(dialog, which) -> {
-                    loadingDialog.show();
                     mViewModel.updateEmployee(Integer.parseInt(id),employeeRequest);
                     refreshFragment();
                     dialog.dismiss();

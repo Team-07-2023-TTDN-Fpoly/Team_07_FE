@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.utils.FormatHelper;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -27,9 +28,9 @@ public class WorkShiftViewModel extends ViewModel {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            workShifts.add(new WorkShift(1, "Ca sáng", LocalTime.of(16, 0), LocalTime.of(0, 0), "Làm việc buổi sáng"));
-            workShifts.add(new WorkShift(1, "Ca sáng", LocalTime.of(16, 0), LocalTime.of(0, 0), "Làm việc buổi sáng"));
-            workShifts.add(new WorkShift(1, "Ca sáng", LocalTime.of(16, 0), LocalTime.of(0, 0), "Làm việc buổi sáng"));
+            workShifts.add(new WorkShift(1, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
+            workShifts.add(new WorkShift(1, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
+            workShifts.add(new WorkShift(1, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
         }
 
         listWork.setValue(workShifts);
