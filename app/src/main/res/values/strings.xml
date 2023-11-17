@@ -13,26 +13,7 @@
     <string name="add_item">Thêm mới</string>
     <string name="update_item">Cập nhật</string>
     <string name="reload_item">Hoàn tác</string>
-    <string name="delete_item">Xóa</string>
-
-    <!-- Dress -->
-    <string name="title_dress">Tình trạng áo cưới</string>
-    <string name="content_list_all_dress">Tất cả áo cưới</string>
-    <string name="content_dress_rented">Đang được thuê</string>
-    <string name="content_dress_renting">Sẵn sàng cho thuê</string>
-    <string name="content_dress_washing">Đang giặt</string>
-    <string name="title_manager_dress">Quản lý áo cưới</string>
-    <string name="title_list_dress">Danh sách áo cưới</string>
-    <string name="text_name_dress">Tên áo cưới</string>
-    <string name="text_price_dress">Giá: 5.000.000 VND</string>
-    <string name="text_size_dress">Size: S</string>
-    <string name="text_color_dress">Màu: Trắng</string>
-    <string name="text_type_dress">Loại áo: Truyền Thống</string>
     <string name="cancel_item">Hủy</string>
-
-    <string name="hint_time_start">Giờ bắt đầu</string>
-    <string name="hint_time_end">Giờ kết thúc</string>
-    <string name="hint_id_work_shirt">Mã ca làm</string>
 
 
     <!--    Text for input-->

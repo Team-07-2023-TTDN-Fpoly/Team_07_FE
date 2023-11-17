@@ -78,11 +78,11 @@
             android:text="Danh sách hợp đồng"
             android:textSize="20dp"
             android:textStyle="bold" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvContract"
             android:layout_width="match_parent"
-            android:layout_height="263dp" />
+            android:layout_height="wrap_content"
+            android:id="@+id/rcvContract"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

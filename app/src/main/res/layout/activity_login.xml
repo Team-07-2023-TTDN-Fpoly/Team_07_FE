@@ -65,42 +65,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_email"
-            style="@style/TextInputLayout"
-            app:startIconDrawable="@drawable/icon_email"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+        <EditText
+            android:id="@+id/ed_email"
+            android:layout_width="350dp"
+            android:layout_height="56dp"
+            android:background="@drawable/ed_border"
+            android:hint="Nhập email"
+            android:padding="10dp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:background="@drawable/background_text_input"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_password"
-            style="@style/TextInputLayout"
-            app:startIconDrawable="@drawable/icon_password"
-            app:endIconMode="password_toggle"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_pass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:background="@drawable/background_text_input"
-                android:textSize="16sp"
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/ed_password"
+            android:layout_width="350dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ed_border"
+            android:hint="Nhập mật khẩu"
+            android:padding="10dp" />
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="350dp"

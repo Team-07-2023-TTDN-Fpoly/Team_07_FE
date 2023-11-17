@@ -41,7 +41,7 @@ public class CustomerInformationFragment extends Fragment {
     }
     //Gán data người dùng cho input
     private void setData(Customer customer){ //tên, sdt1,sdt2,email,ngày sinh,địa chỉ
-        // Set lại thông tin id, nếu có trường hi   ển thị id
+        // Set lại thông tin id, nếu có trường hiển thị id
         if (layout_input_id.getEditText() != null) {
             layout_input_id.getEditText().setText(String.valueOf(customer.getCus_id()));
         }
@@ -51,8 +51,8 @@ public class CustomerInformationFragment extends Fragment {
         layout_input_email.getEditText().setText(customer.getEmail());
         layout_input_email.getEditText().setEnabled(false);
         // Set lại số điện thoại
-        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
-        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
+        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phone()));
+        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneSecond()));
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String
         if (customer.getCus_birthday() != null) {
             String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_birthday());
@@ -67,9 +67,9 @@ public class CustomerInformationFragment extends Fragment {
     private void mapping(View view){
         layout_input_id = view.findViewById(R.id.layout_input_id);
         layout_input_name = view.findViewById(R.id.layout_input_name);
+        layout_input_email = view.findViewById(R.id.layout_input_email);
         layout_input_phone = view.findViewById(R.id.layout_input_phone);
         layout_input_phoneSecond = view.findViewById(R.id.layout_input_phoneSecond);
-        layout_input_email = view.findViewById(R.id.layout_input_email);
         layout_input_birthday = view.findViewById(R.id.layout_input_birthday);
         layout_input_address = view.findViewById(R.id.layout_input_address);
     }
