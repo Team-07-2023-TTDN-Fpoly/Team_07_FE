@@ -27,9 +27,9 @@ import com.team.team_07_fe.R;
 import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
-import com.team.team_07_fe.request.EmployeeRequest;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
+import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -160,7 +160,7 @@ public class EmployeeUpdateFragment extends Fragment {
     private void setData(Employee employee) {
         // Set lại thông tin id, nếu có trường hiển thị id
         if (layout_input_id.getEditText() != null) {
-            layout_input_id.getEditText().setText(String.valueOf(employee.getEmp_id()));
+            layout_input_id.getEditText().setText(employee.getEmp_id());
         }
         // Set lại tên nhân viên
         layout_input_name.getEditText().setText(employee.getEmp_name());

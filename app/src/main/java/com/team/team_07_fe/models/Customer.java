@@ -1,33 +1,33 @@
 package com.team.team_07_fe.models;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-public class Customer {
+public class Customer implements Serializable {
     private int cus_id;
     private String cus_name;
-    private String cus_phoneimary;
-    private String cus_phonesob;
-    private String cus_birthday;
+    private String cus_phone;
+    private String cus_phoneSecond;
     private String email;
+    private Date cus_birthday;
     private String cus_address;
 
-    public Customer(String cus_name, String cus_phoneimary, String cus_phonesob, String cus_birthday, String email, String cus_address) {
+    // ten,phone1,phone2,NS,DC
+    public Customer(String cus_name, String cus_phone, String cus_phoneSecond , Date cus_birthday, String cus_address) {
         this.cus_name = cus_name;
-        this.cus_phoneimary = cus_phoneimary;
-        this.cus_phonesob = cus_phonesob;
+        this.cus_phone = cus_phone;
+        this.cus_phoneSecond = cus_phoneSecond;
         this.cus_birthday = cus_birthday;
-        this.email = email;
         this.cus_address = cus_address;
     }
 
-    public Customer(int cus_id, String cus_name, String cus_phoneimary, String cus_phonesob, String cus_birthday, String email, String cus_address) {
+    public Customer(int cus_id, String cus_name, String cus_phone, String cus_phoneSecond, String email, Date cus_birthday, String cus_address) {
         this.cus_id = cus_id;
         this.cus_name = cus_name;
-        this.cus_phoneimary = cus_phoneimary;
-        this.cus_phonesob = cus_phonesob;
-        this.cus_birthday = cus_birthday;
+        this.cus_phone = cus_phone;
+        this.cus_phoneSecond = cus_phoneSecond;
         this.email = email;
+        this.cus_birthday = cus_birthday;
         this.cus_address = cus_address;
     }
 

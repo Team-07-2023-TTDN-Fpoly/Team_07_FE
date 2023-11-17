@@ -13,6 +13,11 @@
     <string name="add_item">Thêm mới</string>
     <string name="update_item">Cập nhật</string>
     <string name="reload_item">Hoàn tác</string>
+    <string name="cancel_item">Hủy</string>
+
+    <string name="hint_time_start">Giờ bắt đầu</string>
+    <string name="hint_time_end">Giờ kết thúc</string>
+    <string name="hint_id_work_shirt">Mã ca làm</string>
 
 
     <!--    Text for input-->
@@ -20,9 +25,11 @@
     <string name="hint_password">Mật khẩu</string>
     <string name="hint_name">Họ và tên</string>
     <string name="hint_phone">Số điện thoại</string>
+    <string name="hint_phoneSecond">Số điện thoại phụ</string>
     <string name="hint_salary">Lương cơ bản</string>
     <string name="hint_join_date">Ngày vào làm</string>
     <string name="hint_bỉthday">Ngày sinh</string>
+    <string name="hint_birthday">Ngày sinh</string>
     <string name="hint_role">Chức vụ</string>
     <string name="hint_work_shift">Ca làm việc</string>
     <string name="hint_address">Địa chỉ</string>

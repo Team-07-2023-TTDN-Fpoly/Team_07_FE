@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.team.team_07_fe.models.Employee;
@@ -54,6 +55,13 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
     public void onBindViewHolder(@NonNull EmployeeAdapter.ViewHolder holder, int position) {
         Employee item = list.get(position);
         if(item!=null){
+            if(item.isIs_disable()){
+                holder.btn_disable.setBackgroundResource(R.drawable.background_corner_full_red);
+                holder.btn_disable.setText("Mở khóa");
+            }else{
+                holder.btn_disable.setBackgroundResource(R.drawable.background_corner_full_white);
+                holder.btn_disable.setText("Vô hiệu hóa");
+            }
             holder.tv_name.setText(item.getEmp_name());
             holder.tv_phone.setText("SDT: " + item.getEmp_name());
             holder.tv_email.setText("Email: "+item.getEmail());
