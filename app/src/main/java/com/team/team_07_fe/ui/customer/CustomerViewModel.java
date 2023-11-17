@@ -1,4 +1,4 @@
-package com.team.team_07_fe.ui.customer;
+package com.team.team_07_fe.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

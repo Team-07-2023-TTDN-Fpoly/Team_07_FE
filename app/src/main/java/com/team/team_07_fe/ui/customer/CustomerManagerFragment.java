@@ -22,14 +22,11 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.CustomerAdapter;
-import com.team.team_07_fe.adapter.EmployeeAdapter;
 import com.team.team_07_fe.models.Customer;
-import com.team.team_07_fe.models.Employee;
-import com.team.team_07_fe.ui.employee.EmployeeManagerFragment;
-import com.team.team_07_fe.ui.employee.EmployeeViewModel;
 
 import java.io.Serializable;
 import java.util.List;
+
 
 public class CustomerManagerFragment extends Fragment {
 

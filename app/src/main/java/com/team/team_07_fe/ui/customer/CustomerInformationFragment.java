@@ -41,7 +41,7 @@ public class CustomerInformationFragment extends Fragment {
     }
     //Gán data người dùng cho input
     private void setData(Customer customer){ //tên, sdt1,sdt2,email,ngày sinh,địa chỉ
-        // Set lại thông tin id, nếu có trường hiển thị id
+        // Set lại thông tin id, nếu có trường hi   ển thị id
         if (layout_input_id.getEditText() != null) {
             layout_input_id.getEditText().setText(String.valueOf(customer.getCus_id()));
         }
@@ -67,9 +67,9 @@ public class CustomerInformationFragment extends Fragment {
     private void mapping(View view){
         layout_input_id = view.findViewById(R.id.layout_input_id);
         layout_input_name = view.findViewById(R.id.layout_input_name);
-        layout_input_email = view.findViewById(R.id.layout_input_email);
         layout_input_phone = view.findViewById(R.id.layout_input_phone);
         layout_input_phoneSecond = view.findViewById(R.id.layout_input_phoneSecond);
+        layout_input_email = view.findViewById(R.id.layout_input_email);
         layout_input_birthday = view.findViewById(R.id.layout_input_birthday);
         layout_input_address = view.findViewById(R.id.layout_input_address);
     }
