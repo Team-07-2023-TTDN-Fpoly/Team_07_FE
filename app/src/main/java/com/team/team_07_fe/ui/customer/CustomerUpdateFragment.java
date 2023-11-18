@@ -15,22 +15,22 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
-import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Employee;
+<<<<<<< HEAD
+import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.ui.employee.EmployeeUpdateFragment;
+=======
+>>>>>>> dbe2688bb286300385c47299f58f5443486ee7d2
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
+import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class CustomerUpdateFragment extends Fragment {
     private TextInputLayout layout_input_id,layout_input_name,layout_input_email,
@@ -132,8 +132,10 @@ public class CustomerUpdateFragment extends Fragment {
         layout_input_email.getEditText().setText(customer.getEmail());
         layout_input_email.getEditText().setEnabled(false);
         // Set lại số điện thoại
-        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phone()));
-        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneSecond()));
+//        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
+//        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
+        layout_input_phone.getEditText().setText(customer.getCus_phoneimary());
+        layout_input_phoneSecond.getEditText().setText(customer.getCus_phonesob());
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String
         if (customer.getCus_birthday() != null) {
             String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_birthday());
