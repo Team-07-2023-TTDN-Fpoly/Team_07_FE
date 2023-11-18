@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_dress"
-        android:name="com.team.team_07_fe.ui.dress.DressManagerFragment"
+        android:name="com.team.team_07_fe.ui.dress.DressListFragment"
         android:label="Quản lý áo cưới"
-        tools:layout="@layout/fragment_dress_manager" />
+        tools:layout="@layout/fragment_dress_list" />
     <fragment
         android:id="@+id/navigation_customer"
         android:name="com.team.team_07_fe.ui.customer.CustomerManagerFragment"
