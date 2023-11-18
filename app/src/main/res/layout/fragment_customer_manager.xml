@@ -15,15 +15,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-                <EditText
-                    android:id="@+id/Search_customer"
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="tim kiem"
-                    android:background="@drawable/background_seach"
-                    android:padding="10dp"
-                    android:layout_margin="10dp"
-                    android:drawableStart="@drawable/baseline_search_24" />
+                    android:background="@drawable/background_search"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingStart="4dp"
+                    android:focusable="true"
+                    app:iconifiedByDefault="false"
+                    />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

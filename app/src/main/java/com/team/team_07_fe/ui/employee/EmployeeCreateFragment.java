@@ -32,6 +32,7 @@ import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
+import java.text.Format;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,9 +62,9 @@ public class EmployeeCreateFragment extends Fragment {
         loadingDialog = new LoadingDialog(requireContext());
         //mapping
         listWorkShift = new ArrayList<>();
-        listWorkShift.add(new WorkShift(1, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(2, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(3, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
+        listWorkShift.add(new WorkShift(1, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
+        listWorkShift.add(new WorkShift(2, "Ca sáng", FormatHelper.convertStringToTime("8:00"), FormatHelper.convertStringToTime("14:00"), "Làm việc buổi sáng"));
+        listWorkShift.add(new WorkShift(3, "Ca sáng", FormatHelper.convertStringToTime("7:00"), FormatHelper.convertStringToTime("9:00"), "Làm việc buổi sáng"));
         mapping(view);
 
         //
