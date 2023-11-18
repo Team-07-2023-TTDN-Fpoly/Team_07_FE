@@ -4,10 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.customer.CustomerManagerFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_search"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingStart="4dp"
+                    android:focusable="true"
+                    app:iconifiedByDefault="false"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                        android:text="Danh sanh khach hang"
+                        android:textSize="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:textStyle="bold"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="290dp"
+                    android:layout_marginTop="-110dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:contentDescription="@string/add_item"
+                    android:foreground="@drawable/button_add_item" />
 
-</FrameLayout>
+        </LinearLayout>
+
+
+
+
+
+
+
+</RelativeLayout>

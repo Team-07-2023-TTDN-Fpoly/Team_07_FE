@@ -22,6 +22,8 @@
         android:name="com.team.team_07_fe.ui.dress.DressManagerFragment"
         android:label="Quản lý áo cưới"
         tools:layout="@layout/fragment_dress_manager" />
+
+
     <fragment
         android:id="@+id/navigation_customer"
         android:name="com.team.team_07_fe.ui.customer.CustomerManagerFragment"
