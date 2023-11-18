@@ -132,8 +132,10 @@ public class CustomerUpdateFragment extends Fragment {
         layout_input_email.getEditText().setText(customer.getEmail());
         layout_input_email.getEditText().setEnabled(false);
         // Set lại số điện thoại
-        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
-        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
+//        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
+//        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
+        layout_input_phone.getEditText().setText(customer.getCus_phoneimary());
+        layout_input_phoneSecond.getEditText().setText(customer.getCus_phonesob());
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String
         if (customer.getCus_birthday() != null) {
             String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_birthday());
