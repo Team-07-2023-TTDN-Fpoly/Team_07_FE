@@ -32,20 +32,10 @@
             app:destination="@id/navigation_customer_create" />
         <action
             android:id="@+id/action_navigation_customer_to_navigation_customer_update"
-            app:destination="@id/navigation_customer_update" >
-            <argument
-                android:name="data_customer"
-                app:argType="com.team.team_07_fe.models.Customer"
-                app:nullable="false"/>
-        </action>
+            app:destination="@id/navigation_customer_update" />
         <action
             android:id="@+id/action_navigation_customer_to_navigation_customer_information"
-            app:destination="@id/navigation_customer_information" >
-            <argument
-                android:name="data_customer"
-                app:argType="com.team.team_07_fe.models.Customer"
-                app:nullable="false"/>
-        </action>
+            app:destination="@id/navigation_customer_information" />
         <!--        <argument-->
 <!--            android:name="data_customer"-->
 <!--            app:argType="com.team.team_07_fe.models.Employee"-->

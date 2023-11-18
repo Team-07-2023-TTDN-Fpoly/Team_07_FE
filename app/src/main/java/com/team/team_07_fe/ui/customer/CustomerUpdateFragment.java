@@ -22,7 +22,12 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Customer;
+import com.team.team_07_fe.models.Employee;
+import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.ui.employee.EmployeeUpdateFragment;
+import com.team.team_07_fe.ui.employee.EmployeeViewModel;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 
@@ -113,7 +118,6 @@ public class CustomerUpdateFragment extends Fragment {
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
                         loadingDialog.show();
                         mViewModel.removeEmployee(originalData);
-                        refreshFragment();
                         dialog.dismiss();
                     })
                     .setNegativeButton(R.string.no, ((dialog, which) -> {
@@ -130,7 +134,6 @@ public class CustomerUpdateFragment extends Fragment {
                 .setPositiveButton(R.string.yes,(dialog, which) -> {
                     loadingDialog.show();
                     mViewModel.updateEmployee(Integer.parseInt(id),customerRequest);
-                    refreshFragment();
                     dialog.dismiss();
                 })
                 .setNegativeButton(R.string.no,((dialog, which) -> {
