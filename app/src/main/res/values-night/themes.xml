@@ -14,5 +14,9 @@
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
+        <!-- Áp dụng custom dialog theme vào theme ứng dụng -->
+        <item name="android:alertDialogTheme">@style/CustomDialog</item>
+        <!-- Nếu bạn đang sử dụng Material Components, bạn cũng có thể cần đặt materialAlertDialogTheme -->
+        <item name="materialAlertDialogTheme">@style/CustomDialog</item>
     </style>
 </resources>

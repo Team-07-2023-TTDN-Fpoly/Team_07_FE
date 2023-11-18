@@ -1,5 +1,6 @@
 package com.team.team_07_fe.ui.employee;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,9 +21,10 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.EmployeeAdapter;
+import com.team.team_07_fe.dialog.AdminChangePasswordDialog;
 import com.team.team_07_fe.models.Employee;
+import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -83,10 +85,25 @@ public class EmployeeManagerFragment extends Fragment {
     }
 
     private void handleShowUpdatePasswordForm(int position) {
-
+        AdminChangePasswordDialog dialog =
+                new AdminChangePasswordDialog(requireContext(),EmployeeManagerFragment.this,employeeAdapter.getItem(position).getAuth_id());
+        dialog.show();
     }
 
     private void handleShowConfirmDisable(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setCancelable(false);
+        Employee employee = employeeAdapter.getItem(position);
+        String title = employee.isIs_disable() ? "Mở khóa tài khoản" : "Vô hiệu hóa tài khoản";
+        builder.setTitle(title).setMessage("Bạn có chắc chắn với lựa chọn của mình?")
+                .setPositiveButton(R.string.yes,(dialog,which)->{
+                    employeeViewModel.disableEmployee(position,employee,!employee.isIs_disable());
+                    employeeAdapter.notifyDataSetChanged();
+                })
+                .setNegativeButton(R.string.no,(dialog,which)->{
+                    dialog.dismiss();
+                });
+        builder.create().show();
     }
 
 

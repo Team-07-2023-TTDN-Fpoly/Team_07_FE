@@ -1,21 +1,46 @@
 package com.team.team_07_fe.request;
 
+import com.google.gson.annotations.SerializedName;
 import com.team.team_07_fe.models.WorkShift;
 
 import java.util.Date;
 
 public class EmployeeRequest {
+    @SerializedName("emp_id")
+    private String emp_id;
+
+    @SerializedName("emp_name")
     private String emp_name;
+
+    @SerializedName("emp_phone")
     private String emp_phone;
+
+    @SerializedName("emp_birthday")
     private Date emp_birthday;
+
+    @SerializedName("basic_salary")
     private long basic_salary;
+
+    @SerializedName("emp_address")
     private String emp_address;
+
+    @SerializedName("role")
     private String role;
+
+    @SerializedName("workShift")
     private WorkShift workShift;
+
+    @SerializedName("join_date")
     private Date join_date;
+
+    @SerializedName("email")
     private String email;
+
+    @SerializedName("password")
     private String password;
 
+
+    //Khi tạo tài khoản
     public EmployeeRequest(String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, WorkShift workShift, Date join_date, String email, String password) {
         this.emp_name = emp_name;
         this.emp_phone = emp_phone;
@@ -28,6 +53,8 @@ public class EmployeeRequest {
         this.email = email;
         this.password = password;
     }
+
+    //Khi update thông tin
     public EmployeeRequest(String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, WorkShift workShift, Date join_date) {
         this.emp_name = emp_name;
         this.emp_phone = emp_phone;
