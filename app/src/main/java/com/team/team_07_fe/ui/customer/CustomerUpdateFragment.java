@@ -25,9 +25,6 @@ import com.team.team_07_fe.R;
 import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Employee;
-import com.team.team_07_fe.models.WorkShift;
-import com.team.team_07_fe.ui.employee.EmployeeUpdateFragment;
-import com.team.team_07_fe.ui.employee.EmployeeViewModel;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 
@@ -153,8 +150,10 @@ public class CustomerUpdateFragment extends Fragment {
         layout_input_email.getEditText().setText(customer.getEmail());
         layout_input_email.getEditText().setEnabled(false);
         // Set lại số điện thoại
-        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phone()));
-        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneSecond()));
+//        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
+//        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
+        layout_input_phone.getEditText().setText(customer.getCus_phoneimary());
+        layout_input_phoneSecond.getEditText().setText(customer.getCus_phonesob());
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String
         if (customer.getCus_birthday() != null) {
             String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_birthday());

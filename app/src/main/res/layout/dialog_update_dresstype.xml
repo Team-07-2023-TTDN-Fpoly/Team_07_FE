@@ -44,7 +44,9 @@
             android:textColor="@color/black"
             android:background="@drawable/background_text_input"
             android:textSize="16sp"
-            android:inputType="text"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="false"
             android:lines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 

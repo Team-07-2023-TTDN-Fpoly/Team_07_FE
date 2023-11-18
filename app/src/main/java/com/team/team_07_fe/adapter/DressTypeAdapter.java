@@ -1,5 +1,6 @@
 package com.team.team_07_fe.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,7 @@ public class DressTypeAdapter extends RecyclerView.Adapter<DressTypeAdapter.View
             });
         }
     }
+
 
     @Override
     public int getItemCount() {
