@@ -45,6 +45,16 @@ public class DressTypeViewModel extends ViewModel {
             listdr.setValue(new ArrayList<>(currentList));
         }
     }
+    public void deleteDressType(int type_id) {
+        // Implement the logic to delete the dress type based on the type_id
+        List<DressType> currentList = listdr.getValue();
+
+        if (currentList != null) {
+            currentList.removeIf(dressType -> dressType.getType_id() == type_id);
+            listdr.setValue(new ArrayList<>(currentList));
+        }
+    }
+
 
 
     private void initializeExampleList() {
