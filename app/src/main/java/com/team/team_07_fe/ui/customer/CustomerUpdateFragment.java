@@ -21,11 +21,8 @@ import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Employee;
-<<<<<<< HEAD
 import com.team.team_07_fe.models.WorkShift;
 import com.team.team_07_fe.ui.employee.EmployeeUpdateFragment;
-=======
->>>>>>> dbe2688bb286300385c47299f58f5443486ee7d2
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.CustomerViewModel;

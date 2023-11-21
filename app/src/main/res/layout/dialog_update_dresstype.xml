@@ -33,21 +33,21 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Ma_loai_ao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
         app:startIconDrawable="@drawable/ma">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:background="@drawable/background_text_input"
-            android:textSize="16sp"
-            android:inputType="none"
-            android:focusable="false"
+            android:background="@drawable/background_round_white"
             android:clickable="false"
-            android:lines="1"/>
+            android:focusable="false"
+            android:inputType="none"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -68,7 +68,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="69dp"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
