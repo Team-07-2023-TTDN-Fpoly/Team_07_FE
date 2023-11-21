@@ -96,7 +96,7 @@
             android:src="@drawable/icon_right"/>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/layout_dresstype_manager1"
+        android:id="@+id/layout_dresstype_manager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
