@@ -23,6 +23,7 @@ import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.EmployeeAdapter;
 import com.team.team_07_fe.dialog.AdminChangePasswordDialog;
 import com.team.team_07_fe.models.Employee;
+import com.team.team_07_fe.viewmodels.AuthViewModel;
 import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.List;
 
 public class EmployeeManagerFragment extends Fragment {
     private EmployeeViewModel employeeViewModel;
+    private AuthViewModel authViewModel;
     private EmployeeAdapter employeeAdapter;
     private SearchView searchView;
     private RecyclerView recyclerView;
@@ -48,6 +50,7 @@ public class EmployeeManagerFragment extends Fragment {
         mapping(view);
         //
         employeeViewModel = new ViewModelProvider(requireActivity()).get(EmployeeViewModel.class);
+        authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         return view;
     }
 
@@ -97,7 +100,7 @@ public class EmployeeManagerFragment extends Fragment {
         String title = employee.isIs_disable() ? "Mở khóa tài khoản" : "Vô hiệu hóa tài khoản";
         builder.setTitle(title).setMessage("Bạn có chắc chắn với lựa chọn của mình?")
                 .setPositiveButton(R.string.yes,(dialog,which)->{
-                    employeeViewModel.disableEmployee(position,employee,!employee.isIs_disable());
+                    authViewModel.disableAccount(employee.getAuth_id(),!employee.isIs_disable());
                     employeeAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton(R.string.no,(dialog,which)->{
