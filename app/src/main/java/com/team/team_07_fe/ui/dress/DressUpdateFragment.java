@@ -9,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.R;
 
 
 public class DressUpdateFragment extends Fragment {
-
+    private TextInputLayout
 
 
 

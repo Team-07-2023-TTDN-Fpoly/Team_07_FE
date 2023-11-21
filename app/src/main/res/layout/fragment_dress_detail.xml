@@ -11,13 +11,8 @@
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/image" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mã"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"/>
+        android:src="@drawable/ic_image" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -29,17 +24,12 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_text_input"
             android:layout_marginTop="10dp"
-            android:hint="Điền tại đây"
-            android:drawableLeft="@drawable/tabler_id"
+            android:hint="Mã"
+            android:drawableLeft="@drawable/ic_tabler"
             android:drawablePadding="10dp"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tên áo cưới"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"/>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -51,8 +41,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_text_input"
             android:layout_marginTop="10dp"
-            android:hint="Điền tại đây"
-            android:drawableLeft="@drawable/icon_aocuoi"
+            android:hint="Tên áo cưới"
+            android:drawableLeft="@drawable/ic_clother"
             android:drawablePadding="10dp"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -75,12 +65,7 @@
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Màu sắc"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,9 +74,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ĐIền tại đây"
+            android:hint="Màu sắc"
             style="@style/TextInputLayout"
-            app:startIconDrawable="@drawable/icon_color"
+            app:startIconDrawable="@drawable/ic_color"
             android:layout_weight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -121,12 +106,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Giá áo"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"/>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -138,22 +118,17 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_text_input"
             android:layout_marginTop="10dp"
-            android:hint="Điền tại đây"
-            android:drawableLeft="@drawable/icon_money"
+            android:hint="Giá áo"
+            android:drawableLeft="@drawable/ic_money"
             android:drawablePadding="10dp"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mô tả"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"/>
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Điền tại đây"
+        android:hint="Mô tả"
         app:errorEnabled="false"
         app:startIconDrawable="@drawable/icon_description">
 

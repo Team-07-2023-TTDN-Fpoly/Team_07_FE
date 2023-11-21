@@ -12,11 +12,8 @@ import android.view.ViewGroup;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.R;
-import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.utils.FormatHelper;
-
-import java.util.Arrays;
 
 
 public class EmployeeInformationFragment extends Fragment {
@@ -79,7 +76,7 @@ public class EmployeeInformationFragment extends Fragment {
     }
     //mapping
     private void mapping(View view){
-        layout_input_id = view.findViewById(R.id.layout_input_id);
+        layout_input_id = view.findViewById(R.id.layout_input_dressid);
         layout_input_name = view.findViewById(R.id.layout_input_name);
         layout_input_email = view.findViewById(R.id.layout_input_email);
         layout_input_phone = view.findViewById(R.id.layout_input_phone);

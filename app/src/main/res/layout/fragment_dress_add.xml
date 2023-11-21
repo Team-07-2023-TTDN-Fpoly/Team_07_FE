@@ -11,7 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/image" />
+        android:src="@drawable/ic_image" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:background="@drawable/background_text_input"
             android:layout_marginTop="10dp"
             android:hint="Điền tại đây"
-            android:drawableLeft="@drawable/icon_aocuoi"
+            android:drawableLeft="@drawable/ic_clother"
             android:drawablePadding="10dp"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:hint="ĐIền tại đây"
             style="@style/TextInputLayout"
-            app:startIconDrawable="@drawable/icon_color"
+            app:startIconDrawable="@drawable/ic_color"
             android:layout_weight="1">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -117,7 +117,7 @@
             android:background="@drawable/background_text_input"
             android:layout_marginTop="10dp"
             android:hint="Điền tại đây"
-            android:drawableLeft="@drawable/icon_money"
+            android:drawableLeft="@drawable/ic_money"
             android:drawablePadding="10dp"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
