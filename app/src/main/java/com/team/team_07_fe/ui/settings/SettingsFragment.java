@@ -28,7 +28,7 @@ import java.time.LocalTime;
 import java.util.Date;
 
 public class SettingsFragment extends Fragment {
-    private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password, layout_dresstype_manager,layout_workshift_information;
+    private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password, layout_dresstype_manager,layout_workshift_information,layout_logout;
     private SettingsViewModel mViewModel;
 
     @Override
