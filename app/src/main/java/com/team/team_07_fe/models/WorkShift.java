@@ -1,12 +1,15 @@
 package com.team.team_07_fe.models;
 
+import com.google.gson.annotations.SerializedName;
 import com.team.team_07_fe.utils.FormatHelper;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
 
-public class WorkShift {
+public class WorkShift implements Serializable {
+    @SerializedName("shift_id")
     private int shift_id;
     private String name;
     private Date timeStart;
