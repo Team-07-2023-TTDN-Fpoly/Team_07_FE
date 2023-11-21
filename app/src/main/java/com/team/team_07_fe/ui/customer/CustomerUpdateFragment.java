@@ -25,10 +25,9 @@ import com.team.team_07_fe.R;
 import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Employee;
-import com.team.team_07_fe.models.WorkShift;
-import com.team.team_07_fe.ui.employee.EmployeeUpdateFragment;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
+import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -68,7 +67,6 @@ public class CustomerUpdateFragment extends Fragment {
         //Click button
         btn_reload_item.setOnClickListener(this::handleReloadData);
         btn_update_item.setOnClickListener(this::handleUpdateData);
-        btn_delete_item.setOnClickListener(this::handleDeleteData);
         //
     }
     private void handleReloadData(View view){
@@ -104,26 +102,10 @@ public class CustomerUpdateFragment extends Fragment {
             if (!TextUtils.isEmpty(birthday)) {
                 formatBirthday = FormatHelper.convertStringtoDate(birthday);
             }// ten,phone1,phone2,NS,DC
-            Customer customerRequest = new Customer(name,phone,phoneSecond,formatBirthday,address);
+            Customer customerRequest = new Customer(name,phone,phoneSecond,email,formatBirthday,address);
             showDialogConfirmUpdate(id,customerRequest);
         }
 
-    }
-    private void handleDeleteData(View view) {
-        if (originalData != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
-                    .setTitle("Cảnh báo!")
-                    .setMessage("Bạn có chắc muốn xóa khách hàng này không?")
-                    .setPositiveButton(R.string.yes, (dialog, which) -> {
-                        loadingDialog.show();
-                        mViewModel.removeEmployee(originalData);
-                        dialog.dismiss();
-                    })
-                    .setNegativeButton(R.string.no, ((dialog, which) -> {
-                        dialog.dismiss();
-                    }));
-            builder.create().show();
-        }
     }
     private void showDialogConfirmUpdate(String id, Customer customerRequest){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
@@ -132,8 +114,10 @@ public class CustomerUpdateFragment extends Fragment {
                         "Mọi thông tin trước đó sẽ không được lưu.")
                 .setPositiveButton(R.string.yes,(dialog, which) -> {
                     loadingDialog.show();
-                    mViewModel.updateEmployee(Integer.parseInt(id),customerRequest);
+                    mViewModel.updateCustomer(Integer.parseInt(id),customerRequest);
+
                     dialog.dismiss();
+                    refreshFragment();
                 })
                 .setNegativeButton(R.string.no,((dialog, which) -> {
                     dialog.dismiss();
@@ -152,8 +136,10 @@ public class CustomerUpdateFragment extends Fragment {
         layout_input_email.getEditText().setText(customer.getEmail());
         layout_input_email.getEditText().setEnabled(false);
         // Set lại số điện thoại
-        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phone()));
-        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneSecond()));
+//        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
+//        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
+        layout_input_phone.getEditText().setText(customer.getCus_phoneimary());
+        layout_input_phoneSecond.getEditText().setText(customer.getCus_phonesob());
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String
         if (customer.getCus_birthday() != null) {
             String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_birthday());

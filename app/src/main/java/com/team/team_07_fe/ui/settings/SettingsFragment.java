@@ -22,12 +22,13 @@ import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.utils.FormatHelper;
 
 import java.time.LocalTime;
 import java.util.Date;
 
 public class SettingsFragment extends Fragment {
-    private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password, layout_logout;
+    private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password, layout_dresstype_manager,layout_workshift_information;
     private SettingsViewModel mViewModel;
 
     @Override
@@ -43,6 +44,8 @@ public class SettingsFragment extends Fragment {
     private void mapping(View view){
         layout_employee_manager = view.findViewById(R.id.layout_employee_manager);
         layout_employee_information = view.findViewById(R.id.layout_employee_information);
+        layout_workshift_information = view.findViewById(R.id.layout_work_shift_manager);
+        layout_dresstype_manager = view.findViewById(R.id.layout_dresstype_manager);
         layout_change_password = view.findViewById(R.id.layout_change_password);
         layout_logout = view.findViewById(R.id.layout_logout);
     }
@@ -58,12 +61,12 @@ public class SettingsFragment extends Fragment {
         //Chuyển sang màn hình xem thông tin chi tiết
         layout_employee_information.setOnClickListener(v->{
             Bundle bundle = new Bundle();
-            WorkShift eveningShift = new WorkShift(2, "Ca chiều", LocalTime.of(16, 0), LocalTime.of(0, 0), "Làm việc buổi tối");
+            WorkShift eveningShift = new WorkShift(2, "Ca chiều", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("14:00"), "Làm việc buổi tối");
 
             Employee employee = new Employee("0", "Nguyen Van A", "0123456789", new Date(), 5000000, "Hà Nội", "Nhân viên", eveningShift, new Date(), "a@example.com","0",false);
             bundle.putSerializable("data_employee",employee);
             NavHostFragment.findNavController(SettingsFragment.this)
-                    .navigate(R.id.action_navigation_settings_to_navigation_change_password,bundle);
+                    .navigate(R.id.action_navigation_settings_to_navigation_employee_information,bundle);
         });
         //chuyển sang màn hình thay đổi mật khẩu
         layout_change_password.setOnClickListener(v->{
@@ -76,6 +79,14 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
                 showLogoutConfirmationDialog();
             }
+        });
+        layout_dresstype_manager.setOnClickListener(v->{
+            NavHostFragment.findNavController(SettingsFragment.this)
+                    .navigate(R.id.action_navigation_settings_to_dressTypeManagerFragment);
+        });
+        layout_workshift_information.setOnClickListener(v->{
+            NavHostFragment.findNavController(SettingsFragment.this)
+                    .navigate(R.id.action_navigation_settings_to_workShiftManagerFragment);
         });
     }
     private void showLogoutConfirmationDialog() {
