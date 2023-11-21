@@ -53,7 +53,7 @@
         android:label="@string/bottom_title_settings"
         tools:layout="@layout/fragment_settings" >
         <action
-            android:id="@+id/action_navigation_settings_to_navigation_employee_information2"
+            android:id="@+id/action_navigation_settings_to_navigation_employee_information"
             app:destination="@id/navigation_employee_information">
             <argument
                 android:name="data_employee"
