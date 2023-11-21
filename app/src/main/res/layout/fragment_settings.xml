@@ -125,7 +125,7 @@
             android:src="@drawable/icon_right"/>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/layout_dresstype_manager"
+        android:id="@+id/layout_dresstype_manager1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -180,8 +180,6 @@
             android:layout_height="44dp"
             android:src="@drawable/icon_right"/>
     </LinearLayout>
-<<<<<<< HEAD
-
     <LinearLayout
         android:id="@+id/layout_dresstype_manager"
         android:layout_width="match_parent"
@@ -212,6 +210,5 @@
             android:src="@drawable/icon_right"/>
     </LinearLayout>
 
-=======
->>>>>>> dbe2688bb286300385c47299f58f5443486ee7d2
+
 </LinearLayout>

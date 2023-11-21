@@ -41,7 +41,7 @@ public class SettingsFragment extends Fragment {
         layout_employee_information = view.findViewById(R.id.layout_employee_information);
         layout_customer_manager= view.findViewById(R.id.layout_customer_manager);
         layout_workshift_information = view.findViewById(R.id.layout_work_shift_manager);
-        layout_dresstype_manager = view.findViewById(R.id.layout_dresstype_manager);
+        layout_dresstype_manager = view.findViewById(R.id.layout_dresstype_manager1);
         layout_change_password = view.findViewById(R.id.layout_change_password);
     }
 
