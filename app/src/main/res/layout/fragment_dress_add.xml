@@ -49,7 +49,7 @@
             android:layout_marginTop="10dp"
             android:hint="Loại áo cưới"
             android:drawablePadding="10dp"
-            android:drawableRight="@drawable/icon_top"
+            android:drawableRight="@drawable/subway_up_2"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +81,7 @@
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout"
+            android:id="@+id/layout_input_size"
             style="@style/TextInputLayout.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

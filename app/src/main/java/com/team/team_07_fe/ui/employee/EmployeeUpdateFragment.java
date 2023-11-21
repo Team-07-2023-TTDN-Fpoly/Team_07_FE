@@ -31,7 +31,6 @@ import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -243,7 +242,7 @@ public class EmployeeUpdateFragment extends Fragment {
         return isValid;
     }
     private void mapping(View view){
-        layout_input_id = view.findViewById(R.id.layout_input_dressid);
+        layout_input_id = view.findViewById(R.id.layout_input_id);
         layout_input_name = view.findViewById(R.id.layout_input_name);
         layout_input_email = view.findViewById(R.id.layout_input_email);
         layout_input_phone = view.findViewById(R.id.layout_input_phone);
