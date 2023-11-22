@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.utils.FormatHelper;
+
+import java.util.Arrays;
 
 
 public class EmployeeInformationFragment extends Fragment {

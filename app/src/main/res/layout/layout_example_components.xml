@@ -106,7 +106,7 @@
         android:layout_height="20dp"/>
 <!--Dropdown-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_input_size"
+        android:id="@+id/text_input_layout"
         style="@style/TextInputLayout.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
