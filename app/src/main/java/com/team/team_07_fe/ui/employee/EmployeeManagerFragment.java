@@ -26,9 +26,10 @@ import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.viewmodels.AuthViewModel;
 import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
+//Người tạo: NghiaTC
 public class EmployeeManagerFragment extends Fragment {
     private EmployeeViewModel employeeViewModel;
     private AuthViewModel authViewModel;
@@ -58,6 +59,8 @@ public class EmployeeManagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialAdapter();
+        employeeViewModel.getAllEmployee();
+        observeViewModel();
         fab.setOnClickListener(this::handleNavigateCreateForm);
     }
     private void mapping(View view){
@@ -67,7 +70,7 @@ public class EmployeeManagerFragment extends Fragment {
     }
 
     private void initialAdapter(){
-        employeeAdapter = new EmployeeAdapter(requireContext(),employeeViewModel.getEmployeeList().getValue());
+        employeeAdapter = new EmployeeAdapter(requireContext(),new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(employeeAdapter);
 
@@ -115,7 +118,11 @@ public class EmployeeManagerFragment extends Fragment {
             @Override
             public void onChanged(List<Employee> employees) {
                 employeeAdapter.setList(employees);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        employeeViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
             }
         });
     }

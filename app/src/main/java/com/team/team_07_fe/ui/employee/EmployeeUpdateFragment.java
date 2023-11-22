@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
 import com.team.team_07_fe.request.EmployeeRequest;
+import com.team.team_07_fe.ui.work_shift.WorkShiftViewModel;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.EmployeeViewModel;
@@ -37,6 +39,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+//Người tạo: NghiaTC
 public class EmployeeUpdateFragment extends Fragment {
     private TextInputLayout layout_input_id,layout_input_name,layout_input_email,
             layout_input_phone,layout_input_salary,layout_input_birthday,layout_input_join_date,layout_input_address;
@@ -51,6 +54,7 @@ public class EmployeeUpdateFragment extends Fragment {
     private WorkShift selectWorkShift = null;
     private Employee originalData =null;
     private LoadingDialog loadingDialog;
+    private WorkShiftViewModel workShiftViewModel;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,56 +67,72 @@ public class EmployeeUpdateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_employee_update, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(EmployeeViewModel.class);
+        workShiftViewModel = new ViewModelProvider(requireActivity()).get(WorkShiftViewModel.class);
         loadingDialog = new LoadingDialog(requireContext());
         //mapping
         mapping(view);
         //
         listWorkShift = new ArrayList<>();
-        listWorkShift.add(new WorkShift(1, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(2, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("11:00"), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(3, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        workShiftViewModel.getAllWorkShift();
         //
         observeData();
+
         roleAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listRole);
         dropdown_role.setAdapter(roleAdapter);
         //
         workShiftAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listWorkShift);
         dropdown_work_shift.setAdapter(workShiftAdapter);
 
+
+        //Click button
+        btn_reload_item.setOnClickListener(this::handleReloadData);
+        btn_update_item.setOnClickListener(this::handleUpdateData);
+        //
+
+
         if(getArguments()!=null){
             Employee employee = (Employee) getArguments().getSerializable("data_employee");
             originalData = employee;
             setData(employee);
         }
-        //Click button
-        btn_reload_item.setOnClickListener(this::handleReloadData);
-        btn_update_item.setOnClickListener(this::handleUpdateData);
-        //
+
         dropdown_role.setOnItemClickListener((adapterView, view1, i, l) ->{
             selectRole = (String) adapterView.getItemAtPosition(i);
         });
         dropdown_work_shift.setOnItemClickListener((adapterView, view1, i, l) -> {
             selectWorkShift = (WorkShift) adapterView.getItemAtPosition(i);
         });
+
     }
+    //Xử lý sự kiện với viewModel
     private void observeData(){
         mViewModel.getDataInput().observe(getViewLifecycleOwner(),s -> {
             if(s!=null){
-                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
                 refreshFragment();
+                mViewModel.setDataInput(null);
             }
         });
         mViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s->{
             if(s!=null){
                 loadingDialog.dismiss();
                 Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                mViewModel.setDataInput(null);
+            }
+        });
+        workShiftViewModel.getWorkShiftList().observe(getViewLifecycleOwner(),workShifts -> {
+            if(workShifts!=null){
+                listWorkShift.clear();
+                listWorkShift.addAll(workShifts);
+                workShiftAdapter.notifyDataSetChanged();
+
             }
         });
     }
@@ -150,7 +170,7 @@ public class EmployeeUpdateFragment extends Fragment {
             if(!TextUtils.isEmpty(join_date)){
                 formatJoinDate = FormatHelper.convertStringtoDate(join_date);
             }
-            EmployeeRequest employeeRequest = new EmployeeRequest(name,phone,formatBirthday,Long.parseLong(salary),address,selectRole,selectWorkShift,formatJoinDate);
+            EmployeeRequest employeeRequest = new EmployeeRequest(name,phone,formatBirthday,Long.parseLong(salary),address,selectRole,selectWorkShift.getShift_id(),formatJoinDate);
             showDialogConfirmUpdate(id,employeeRequest);
         }
 
@@ -172,6 +192,7 @@ public class EmployeeUpdateFragment extends Fragment {
     }
     //Set dữ liệu
     private void setData(Employee employee) {
+        Log.i("WORKSHIFT",employee.getWorkShift().toString());
         // Set lại thông tin id, nếu có trường hiển thị id
         if (layout_input_id.getEditText() != null) {
             layout_input_id.getEditText().setText(employee.getEmp_id());
@@ -203,22 +224,10 @@ public class EmployeeUpdateFragment extends Fragment {
             dropdown_role.setText(Role.CHOOSE, false);
         }
 
-        // Set lại ca làm việc
-        int workShiftIndex = -1;
-        for (int i = 0; i < listWorkShift.size(); i++) {
-            if (listWorkShift.get(i).getShift_id() == employee.getWorkShift().getShift_id()) {
-                workShiftIndex = i;
-                break;
-            }
+        if(employee.getWorkShift()!=null){
+            selectWorkShift = employee.getWorkShift();
+            dropdown_work_shift.setText(employee.getWorkShift().toString(),false);
         }
-        if (workShiftIndex >= 0) { // Kiểm tra xem có tìm thấy ca làm việc trong listWorkShift hay không
-            dropdown_work_shift.setText(listWorkShift.get(workShiftIndex).toString(), false);
-            selectWorkShift = listWorkShift.get(workShiftIndex); // Cập nhật biến selectWorkShift
-        } else {
-            dropdown_work_shift.setText("Vui lòng chọn ca làm việc", false);
-            selectWorkShift = null; // Cập nhật biến selectWorkShift
-        }
-
     }
     private boolean validateInput(String name,String phone, String salary){
         boolean isValid = true;
