@@ -59,7 +59,7 @@ public class EmployeeViewModel extends ViewModel {
     public void updateEmployee(String id, EmployeeRequest employeeRequest){
         employeeRepository.updateEmployee(id,employeeRequest);
     }
-    public void getAllEmployee(){
-        employeeRepository.getAllEmployee();
+    public void getAllEmployee(String search){
+        employeeRepository.getAllEmployee(search);
     }
 }

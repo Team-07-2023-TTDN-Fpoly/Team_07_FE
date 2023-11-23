@@ -12,11 +12,12 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface EmployeeService {
     //Lấy tất cả nhân viên
     @GET("/api/employee")
-    Call<ApiResponse<List<Employee>>> getAllEmployee();
+    Call<ApiResponse<List<Employee>>> getAllEmployee(@Query("search")String search);
     //Lấy thông tin của một nhân viên
     @GET("/api/employee/{id}")
     Call<ApiResponse<Employee>> getEmployeeById(@Path("id") String emp_id);

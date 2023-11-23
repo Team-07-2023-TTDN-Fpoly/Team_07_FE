@@ -17,6 +17,17 @@ public class AuthViewModel extends ViewModel {
         errorMessage = authRepository.getErrorMessage();
     }
 
+    //setter
+
+    public void setDataMessage(String dataMessage) {
+        this.dataMessage.postValue(dataMessage);
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage.postValue(errorMessage);
+    }
+
+    //
     public LiveData<String> getDataMessage() {
         return dataMessage;
     }

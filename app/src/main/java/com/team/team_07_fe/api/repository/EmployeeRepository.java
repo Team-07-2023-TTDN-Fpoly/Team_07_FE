@@ -61,8 +61,8 @@ public class EmployeeRepository {
         }
     }
     //Lệnh để lấy tất cả nhân viên
-    public void getAllEmployee(){
-        employeeService.getAllEmployee().enqueue(new Callback<ApiResponse<List<Employee>>>() {
+    public void getAllEmployee(String search){
+        employeeService.getAllEmployee(search).enqueue(new Callback<ApiResponse<List<Employee>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Employee>>> call, Response<ApiResponse<List<Employee>>> response) {
                 if(response.isSuccessful()){

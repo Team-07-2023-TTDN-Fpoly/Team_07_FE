@@ -2,6 +2,7 @@ package com.team.team_07_fe.api.repository;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
@@ -41,7 +42,7 @@ public class AuthRepository {
                 ApiResponse error = gson.fromJson(errorBody.string(), ApiResponse.class);
                 errorMessage.postValue(error.getMessage());
             } catch (Exception e) {
-                Log.i("ERROR",e.getMessage());
+                e.printStackTrace();
                 errorMessage.postValue("Lỗi không xác định!");
             }
         }
@@ -50,12 +51,19 @@ public class AuthRepository {
     public void adminChangePassword(String id,String newPassword){
         authService.adminChangePassword(id,newPassword).enqueue(new Callback<ApiResponse<Void>>() {
             @Override
-            public void onResponse(Call<ApiResponse<Void>> call, Response<ApiResponse<Void>> response) {
-                if(response.isSuccessful()){
+            public void onResponse(Call<ApiResponse<Void>> call, @NonNull Response<ApiResponse<Void>> response) {
+                if(response.isSuccessful()&& response.body()!=null){
                     ApiResponse<Void> apiResponse = response.body();
                     messageData.postValue(apiResponse.getMessage());
                 }else{
-                    handeErrorMessage(response.errorBody());
+                    try {
+                        Gson gson = new Gson();
+                        ApiResponse error = gson.fromJson(response.errorBody().string(), ApiResponse.class);
+                        errorMessage.postValue(error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        errorMessage.postValue("Lỗi không xác định!");
+                    }
                 }
             }
             @Override
@@ -68,12 +76,19 @@ public class AuthRepository {
     public void disableAccount(String id,boolean disable){
         authService.disableAccount(id,disable).enqueue(new Callback<ApiResponse<Void>>() {
             @Override
-            public void onResponse(Call<ApiResponse<Void>> call, Response<ApiResponse<Void>> response) {
-                if(response.isSuccessful()){
+            public void onResponse(Call<ApiResponse<Void>> call, @NonNull Response<ApiResponse<Void>> response) {
+                if(response.isSuccessful()&& response.body()!=null){
                     ApiResponse<Void> apiResponse = response.body();
                     messageData.postValue(apiResponse.getMessage());
                 }else{
-                    handeErrorMessage(response.errorBody());
+                    try {
+                        Gson gson = new Gson();
+                        ApiResponse error = gson.fromJson(response.errorBody().string(), ApiResponse.class);
+                        errorMessage.postValue(error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        errorMessage.postValue("Lỗi không xác định!");
+                    }
                 }
             }
             @Override
