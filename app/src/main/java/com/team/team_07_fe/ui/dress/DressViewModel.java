@@ -10,10 +10,8 @@ public class DressViewModel extends ViewModel {
 
     public DressViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("this is notifications fragment");
     }
+    public LiveData<String> getText() {return mText;}
 
-    public LiveData<String> getText() {
-        return mText;
-    }
 }
