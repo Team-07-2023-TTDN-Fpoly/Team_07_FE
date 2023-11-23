@@ -20,9 +20,10 @@ import com.team.team_07_fe.R;
 public class DressManagerFragment extends Fragment {
     private FloatingActionButton actionButton;
     private DressViewModel dressViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dress_manager,container,false);
+        View view = inflater.inflate(R.layout.fragment_dress_manager, container, false);
         dressViewModel =
                 new ViewModelProvider(this).get(DressViewModel.class);
         return view;
@@ -46,4 +47,7 @@ public class DressManagerFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
 }
+
+

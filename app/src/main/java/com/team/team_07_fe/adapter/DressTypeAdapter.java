@@ -94,5 +94,6 @@ public class DressTypeAdapter extends RecyclerView.Adapter<DressTypeAdapter.View
             btn_edit = itemView.findViewById(R.id.btn_edit);
         }
     }
+
 }
 
