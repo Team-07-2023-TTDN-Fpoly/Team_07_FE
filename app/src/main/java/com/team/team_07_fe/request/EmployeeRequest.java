@@ -6,9 +6,6 @@ import com.team.team_07_fe.models.WorkShift;
 import java.util.Date;
 
 public class EmployeeRequest {
-    @SerializedName("emp_id")
-    private String emp_id;
-
     @SerializedName("emp_name")
     private String emp_name;
 
@@ -27,8 +24,8 @@ public class EmployeeRequest {
     @SerializedName("role")
     private String role;
 
-    @SerializedName("workShift")
-    private WorkShift workShift;
+    @SerializedName("workShiftId")
+    private String workShift;
 
     @SerializedName("join_date")
     private Date join_date;
@@ -41,7 +38,7 @@ public class EmployeeRequest {
 
 
     //Khi tạo tài khoản
-    public EmployeeRequest(String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, WorkShift workShift, Date join_date, String email, String password) {
+    public EmployeeRequest(String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, String workShift, Date join_date, String email, String password) {
         this.emp_name = emp_name;
         this.emp_phone = emp_phone;
         this.emp_birthday = emp_birthday;
@@ -55,7 +52,7 @@ public class EmployeeRequest {
     }
 
     //Khi update thông tin
-    public EmployeeRequest(String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, WorkShift workShift, Date join_date) {
+    public EmployeeRequest(String emp_name, String emp_phone, Date emp_birthday, long basic_salary, String emp_address, String role, String workShift, Date join_date) {
         this.emp_name = emp_name;
         this.emp_phone = emp_phone;
         this.emp_birthday = emp_birthday;
@@ -113,11 +110,11 @@ public class EmployeeRequest {
         this.role = role;
     }
 
-    public WorkShift getWorkShift() {
+    public String getWorkShift() {
         return workShift;
     }
 
-    public void setWorkShift(WorkShift workShift) {
+    public void setWorkShift(String workShift) {
         this.workShift = workShift;
     }
 
