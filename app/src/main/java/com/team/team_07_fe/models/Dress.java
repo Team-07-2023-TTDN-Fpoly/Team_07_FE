@@ -7,7 +7,8 @@ public class Dress implements Serializable {
 
     @SerializedName("dress_name")
     private String dress_name;
-
+    @SerializedName("image")
+    private String image;
     @SerializedName("dressTypeId")
     private String dressTypeId;
 
@@ -48,7 +49,13 @@ public class Dress implements Serializable {
     public String getDress_name() {
         return dress_name;
     }
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
     public void setDress_name(String dress_name) {
         this.dress_name = dress_name;
     }

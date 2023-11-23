@@ -10,10 +10,14 @@ import java.util.Objects;
 
 public class WorkShift implements Serializable {
     @SerializedName("shift_id")
-    private int shift_id;
+    private String shift_id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("timeStart")
     private Date timeStart;
+    @SerializedName("timeEnd")
     private Date timeEnd;
+    @SerializedName("shift_description")
     private String shift_description;
 
     public WorkShift(String name, Date timeStart, Date timeEnd, String shift_description) {
@@ -23,7 +27,7 @@ public class WorkShift implements Serializable {
         this.shift_description = shift_description;
     }
 
-    public WorkShift(int shift_id, String name, Date timeStart, Date timeEnd, String shift_description) {
+    public WorkShift(String shift_id, String name, Date timeStart, Date timeEnd, String shift_description) {
         this.shift_id = shift_id;
         this.name = name;
         this.timeStart = timeStart;
@@ -31,11 +35,11 @@ public class WorkShift implements Serializable {
         this.shift_description = shift_description;
     }
 
-    public int getShift_id() {
+    public String getShift_id() {
         return shift_id;
     }
 
-    public void setShift_id(int shift_id) {
+    public void setShift_id(String shift_id) {
         this.shift_id = shift_id;
     }
 
@@ -47,16 +51,16 @@ public class WorkShift implements Serializable {
         this.name = name;
     }
 
-    public String getTimeStart() {
-        return FormatHelper.convertTimeToString(timeStart);
+    public Date getTimeStart() {
+        return timeStart;
     }
 
     public void setTimeStart(Date timeStart) {
         this.timeStart = timeStart;
     }
 
-    public String getTimeEnd() {
-        return FormatHelper.convertTimeToString(timeEnd);
+    public Date getTimeEnd() {
+        return timeEnd;
     }
 
     public void setTimeEnd(Date timeEnd) {
