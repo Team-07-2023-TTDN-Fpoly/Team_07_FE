@@ -63,9 +63,11 @@ public class CreateDetailFragment extends Fragment {
 
         if (valueInput(date, name, money, text)) {
 
+        }else{
+            mViewDetail.addDetail(new Customer(4, date, name, money, text));
+            Toast.makeText(requireContext(), "Thêm mới khách hàng thành công!", Toast.LENGTH_SHORT).show();
         }
-        mViewDetail.addDetail(new Customer(4, date, name, money, text));
-        Toast.makeText(requireContext(), "Thêm mới khách hàng thành công!", Toast.LENGTH_SHORT).show();
+
     }
 
 
@@ -118,7 +120,7 @@ public class CreateDetailFragment extends Fragment {
             create_detail_input_money.setError(null);
         }
         if (TextUtils.isEmpty(text)) {
-            create_detail_input_text.setError("Không để trống dữ liệu!");
+            create_detail_input_text.setError(null);
             isvalid = false;
         } else {
             create_detail_input_text.setError(null);
