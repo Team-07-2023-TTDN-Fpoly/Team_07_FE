@@ -27,6 +27,21 @@ public class EmployeeViewModel extends ViewModel {
         errorMessage = employeeRepository.getErrorMessage();
     }
 
+    //setters
+
+    public void setListEmp(List<Employee> listEmp) {
+        this.listEmp.postValue(listEmp);
+    }
+
+    public void setDataInput(String dataInput) {
+        this.dataInput.postValue(dataInput);
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage.postValue(errorMessage);
+    }
+
+    //getters
     public LiveData<List<Employee>> getEmployeeList() {
         return listEmp;
     }
@@ -44,7 +59,7 @@ public class EmployeeViewModel extends ViewModel {
     public void updateEmployee(String id, EmployeeRequest employeeRequest){
         employeeRepository.updateEmployee(id,employeeRequest);
     }
-    public void getAllEmployee(){
-        employeeRepository.getAllEmployee();
+    public void getAllEmployee(String search){
+        employeeRepository.getAllEmployee(search);
     }
 }

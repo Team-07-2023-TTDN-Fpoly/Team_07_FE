@@ -11,15 +11,14 @@ public class ApiResponse<T> {
     @SerializedName("data")
     private T data;
 
+    public ApiResponse(){
+
+    }
     public ApiResponse(T data,String message) {
         this.message = message;
         this.data = data;
     }
 
-
-    public enum Status{
-        SUCCESS,ERROR
-    }
 
     public String getMessage() {
         return message;

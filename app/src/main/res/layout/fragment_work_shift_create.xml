@@ -23,8 +23,7 @@
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="@string/hint_id_work_shirt"
+                android:hint="Tên ca làm"
                 app:startIconDrawable="@drawable/icon_id">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -42,7 +41,6 @@
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:hint="@string/hint_time_start"
                 app:startIconDrawable="@drawable/icon_time">
 
@@ -53,7 +51,9 @@
                     android:inputType="text"
                     android:lines="1"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:focusable="false"
+                    android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -71,7 +71,9 @@
                     android:inputType="text"
                     android:lines="1"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:focusable="false"
+                    android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:id="@+id/layout_btn_create_work"

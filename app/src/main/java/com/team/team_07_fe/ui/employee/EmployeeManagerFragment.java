@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.EmployeeAdapter;
 import com.team.team_07_fe.dialog.AdminChangePasswordDialog;
@@ -26,9 +27,10 @@ import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.viewmodels.AuthViewModel;
 import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
+//Người tạo: NghiaTC
 public class EmployeeManagerFragment extends Fragment {
     private EmployeeViewModel employeeViewModel;
     private AuthViewModel authViewModel;
@@ -58,8 +60,31 @@ public class EmployeeManagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialAdapter();
+        employeeViewModel.getAllEmployee(null);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchEmployees(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        observeViewModel();
         fab.setOnClickListener(this::handleNavigateCreateForm);
     }
+
+    private void searchEmployees(String query) {
+        if(query!=null){
+            employeeViewModel.getAllEmployee(query);
+        }else{
+            employeeViewModel.getAllEmployee(null);
+        }
+    }
+
     private void mapping(View view){
         searchView = view.findViewById(R.id.search_view);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -67,7 +92,7 @@ public class EmployeeManagerFragment extends Fragment {
     }
 
     private void initialAdapter(){
-        employeeAdapter = new EmployeeAdapter(requireContext(),employeeViewModel.getEmployeeList().getValue());
+        employeeAdapter = new EmployeeAdapter(requireContext(),new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(employeeAdapter);
 
@@ -89,7 +114,7 @@ public class EmployeeManagerFragment extends Fragment {
 
     private void handleShowUpdatePasswordForm(int position) {
         AdminChangePasswordDialog dialog =
-                new AdminChangePasswordDialog(requireContext(),EmployeeManagerFragment.this,employeeAdapter.getItem(position).getAuth_id());
+                new AdminChangePasswordDialog(requireContext(),EmployeeManagerFragment.this,authViewModel,employeeAdapter.getItem(position).getAuth_id());
         dialog.show();
     }
 
@@ -101,7 +126,6 @@ public class EmployeeManagerFragment extends Fragment {
         builder.setTitle(title).setMessage("Bạn có chắc chắn với lựa chọn của mình?")
                 .setPositiveButton(R.string.yes,(dialog,which)->{
                     authViewModel.disableAccount(employee.getAuth_id(),!employee.isIs_disable());
-                    employeeAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton(R.string.no,(dialog,which)->{
                     dialog.dismiss();
@@ -115,8 +139,32 @@ public class EmployeeManagerFragment extends Fragment {
             @Override
             public void onChanged(List<Employee> employees) {
                 employeeAdapter.setList(employees);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
             }
         });
+        employeeViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
+        authViewModel.getDataMessage().observe(getViewLifecycleOwner(),s->{
+            if(s!=null){
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                employeeViewModel.getAllEmployee(null);
+                authViewModel.setDataMessage(null);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) requireActivity()).hiddenBottomBar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
+
     }
 }

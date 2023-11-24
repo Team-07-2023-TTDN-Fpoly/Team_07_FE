@@ -19,10 +19,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_id"
-                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:enabled="false"
+                app:errorEnabled="true"
                 android:hint="@string/hint_id"
                 app:startIconDrawable="@drawable/icon_id">
 
@@ -32,16 +33,16 @@
                     android:background="@drawable/background_text_input"
                     android:inputType="text"
                     android:lines="1"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_email"
-                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:enabled="false"
+                app:errorEnabled="true"
                 android:hint="@string/hint_email"
                 app:startIconDrawable="@drawable/icon_email">
 
@@ -51,7 +52,6 @@
                     android:background="@drawable/background_text_input"
                     android:inputType="text"
                     android:lines="1"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
