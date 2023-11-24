@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_tenaocuoi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_gia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -35,11 +35,11 @@
         android:text="@string/text_price_dress"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintStart_toStartOf="@+id/tv_tenaocuoi"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tenaocuoi" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tv_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -47,11 +47,11 @@
         android:text="@string/text_size_dress"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintStart_toStartOf="@+id/tv_gia"
+        app:layout_constraintTop_toBottomOf="@+id/tv_gia" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tv_mau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -59,10 +59,11 @@
         android:text="@string/text_color_dress"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintStart_toStartOf="@+id/tv_size"
+        app:layout_constraintTop_toBottomOf="@+id/tv_size" />
 
     <TextView
+        android:id="@+id/tv_loai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
@@ -70,10 +71,11 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintStart_toStartOf="@+id/tv_mau"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mau" />
 
     <ImageView
+        android:id="@+id/btn_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_next"
@@ -94,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4">
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/btn_Delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete_item"

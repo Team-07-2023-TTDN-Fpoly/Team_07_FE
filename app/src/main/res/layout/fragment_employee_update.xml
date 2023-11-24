@@ -164,12 +164,9 @@
                         android:id="@+id/dropdown_role"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Vai trò"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/background_dropdown"
-                        android:inputType="none"
-                        android:focusable="false"
-                        android:clickable="true"/>
+                        android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -200,11 +197,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Ca làm việc"
                     android:background="@drawable/background_dropdown"
-                    android:inputType="none"
-                    android:focusable="false"
-                    android:clickable="true"/>
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
