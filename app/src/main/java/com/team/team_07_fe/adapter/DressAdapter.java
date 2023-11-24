@@ -22,7 +22,6 @@ public class DressAdapter extends RecyclerView.Adapter<DressAdapter.ViewHolder> 
 
     private static OnClickListener onClickUpdateClickListener;
     private static OnClickListener onClickAddClickListener;
-    private static OnClickListener onClickDetailClickListener;
     private static OnClickListener onClickDeleteClickListener;
     public DressAdapter(Context context,List<Dress> listDress){
         this.listDress=listDress;
@@ -55,14 +54,25 @@ public class DressAdapter extends RecyclerView.Adapter<DressAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull DressAdapter.ViewHolder holder, int position) {
     Dress itemDress = listDress.get(position);
     if(itemDress!=null) {
-    holder.tv_idDress.setText(itemDress.getId());
-    holder.tv_nameDress.setText("Tên: "+itemDress.getDress_name());
+    holder.tv_nameDress.setText(itemDress.getDress_name());
     holder.tv_typeDressId.setText("Kiểu áo: "+itemDress.getDressTypeId());
     holder.tv_priceDress.setText("Giá áo: "+itemDress.getDress_price());
     holder.tv_sizeDress.setText("Size: "+itemDress.getSize());
-    holder.tv_desDress.setText("Mô tả: "+itemDress.getDress_price());
     holder.tv_colorDress.setText("Màu sắc: "+itemDress.getColor());
+
+        holder.btn_update.setOnClickListener(v->{
+            if(onClickUpdateClickListener!=null){
+                onClickUpdateClickListener.onClick(position);
+            }
+        });
+
+        holder.btn_Delete.setOnClickListener(v->{
+            if(onClickDeleteClickListener!=null){
+                onClickDeleteClickListener.onClick(position);
+            }
+        });
     }
+
     }
 
     @Override
@@ -71,11 +81,17 @@ public class DressAdapter extends RecyclerView.Adapter<DressAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-    private TextView tv_idDress, tv_nameDress, tv_typeDressId, tv_priceDress, tv_sizeDress, tv_desDress, tv_colorDress;
+    private TextView  tv_nameDress, tv_typeDressId, tv_priceDress, tv_sizeDress, tv_colorDress, btn_update, btn_Delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            tv_nameDress = itemView.findViewById(R.id.tv_tenaocuoi);
+            tv_priceDress = itemView.findViewById(R.id.tv_gia);
+            tv_sizeDress = itemView.findViewById(R.id.tv_size);
+            tv_colorDress = itemView.findViewById(R.id.tv_mau);
+            tv_typeDressId = itemView.findViewById((R.id.tv_loai));
+            btn_update = itemView.findViewById(R.id.btn_update);
+            btn_Delete = itemView.findViewById(R.id.btn_Delete);
 
         }
     }
