@@ -18,6 +18,7 @@
     <string name="hint_time_start">Giờ bắt đầu</string>
     <string name="hint_time_end">Giờ kết thúc</string>
     <string name="hint_id_work_shirt">Mã ca làm</string>
+    <string name="hint_id_name_shirt">Tên ca làm</string>
 
     <!--    Text for input-->
     <string name="hint_email">Email</string>

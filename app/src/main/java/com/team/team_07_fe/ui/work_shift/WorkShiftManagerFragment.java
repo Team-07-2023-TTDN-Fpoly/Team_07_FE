@@ -21,11 +21,7 @@ import com.team.team_07_fe.models.WorkShift;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WorkShiftManagerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class WorkShiftManagerFragment extends Fragment {
     private WorkShiftViewModel workShiftViewModel;
     private WorkShiftAdapter workShiftAdapter;
