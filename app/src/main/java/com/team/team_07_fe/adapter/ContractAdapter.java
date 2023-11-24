@@ -19,6 +19,13 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
     private Context context;
     private List<Contract> mListContract;
 
+    private int itemLayout = R.layout.layout_item_contract;
+
+    public void setItemLayout(int layoutResId) {
+        this.itemLayout = layoutResId;
+        notifyDataSetChanged();
+    }
+
     public ContractAdapter(Context context) {
         this.context = context;
     }
@@ -27,6 +34,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         this.mListContract = list;
         notifyDataSetChanged();
     }
+    
     @NonNull
     @Override
     public ContractViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -56,6 +64,11 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         }
         return 0;
     }
+
+    public void setContracts(Object contracts) {
+    }
+
+
 
     public class ContractViewHolder extends RecyclerView.ViewHolder {
 
