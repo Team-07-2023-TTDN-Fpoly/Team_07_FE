@@ -53,7 +53,7 @@ public class DressAddFragment extends Fragment {
 
 
         if(validateInput(name,price,type, des)){
-            mViewModel.addDress(new Dress(name,type,price,color,size,des));
+//            mViewModel.addDress(new Dress(name,type,price,color,size,des));
             Toast.makeText(requireContext(), "Thêm mới áo cưới thành công!", Toast.LENGTH_SHORT).show();
             requireActivity().onBackPressed();
         }

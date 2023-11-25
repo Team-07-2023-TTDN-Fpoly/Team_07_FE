@@ -95,8 +95,8 @@ public class DressUpdateFragment extends Fragment {
 
         if (validateInput(name, id, price)) {
 
-            Dress dressRequest = new Dress(name, id, type, color, size, price);
-            showDialogConfirmUpdate(id, dressRequest);
+//            Dress dressRequest = new Dress(name, id, type, color, size, price);
+//            showDialogConfirmUpdate(id, dressRequest);
         }
     }
         private void showDialogConfirmUpdate(String id, Dress dressRequest){
