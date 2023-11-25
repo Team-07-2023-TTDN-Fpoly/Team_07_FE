@@ -5,11 +5,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+<<<<<<< HEAD:app/src/main/res/layout/fragment_create_detail.xml
+=======
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mật khẩu hiện tại"
+        style="@style/TextInputLayout"
+        app:startIconDrawable="@drawable/icon_password"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/oldPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:background="@drawable/background_text_input"
+            android:textSize="16sp"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+>>>>>>> origin/main:app/src/main/res/layout/fragment_change_password.xml
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/create_detail_input_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD:app/src/main/res/layout/fragment_create_detail.xml
         android:hint="Chọn tháng"
+=======
+        android:hint="Mật khẩu mới"
+>>>>>>> origin/main:app/src/main/res/layout/fragment_change_password.xml
         style="@style/TextInputLayout"
         app:startIconDrawable="@drawable/icon_calendar">
 
@@ -22,11 +48,19 @@
             android:inputType="text"
             android:lines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
+<<<<<<< HEAD:app/src/main/res/layout/fragment_create_detail.xml
+=======
+
+>>>>>>> origin/main:app/src/main/res/layout/fragment_change_password.xml
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/create_detail_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD:app/src/main/res/layout/fragment_create_detail.xml
         android:hint="Tên khoản chi"
+=======
+        android:hint="Xác nhận mật khẩu"
+>>>>>>> origin/main:app/src/main/res/layout/fragment_change_password.xml
         style="@style/TextInputLayout"
         app:startIconDrawable="@drawable/baseline_create_24">
 
@@ -43,6 +77,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/create_detai_input_money"
         android:layout_width="match_parent"
+<<<<<<< HEAD:app/src/main/res/layout/fragment_create_detail.xml
         android:layout_height="wrap_content"
         android:hint="Tiền chi trả"
         style="@style/TextInputLayout"
@@ -77,6 +112,31 @@
             android:background="@drawable/background_text_input"
             android:textSize="16sp"/>
     </com.google.android.material.textfield.TextInputLayout>
+=======
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginVertical="8dp"
+        android:gravity="bottom"
+        >
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/btn_cancel"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            style="@style/AppCompatButtonStyle"-->
+<!--            android:text="Hủy"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            />-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/AppCompatButtonStyle"
+            android:text="@string/update_item"
+            />
+    </LinearLayout>
+>>>>>>> origin/main:app/src/main/res/layout/fragment_change_password.xml
 
 
     <androidx.appcompat.widget.AppCompatButton

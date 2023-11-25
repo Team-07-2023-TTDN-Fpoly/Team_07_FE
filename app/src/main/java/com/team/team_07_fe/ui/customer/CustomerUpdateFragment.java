@@ -15,28 +15,31 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Employee;
-<<<<<<< HEAD
 import com.team.team_07_fe.models.WorkShift;
 import com.team.team_07_fe.ui.employee.EmployeeUpdateFragment;
-=======
->>>>>>> dbe2688bb286300385c47299f58f5443486ee7d2
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class CustomerUpdateFragment extends Fragment {
     private TextInputLayout layout_input_id,layout_input_name,layout_input_email,
             layout_input_phone,layout_input_phoneSecond,layout_input_birthday,layout_input_address;
     private CustomerViewModel mViewModel;
-    private AppCompatButton btn_reload_item,btn_update_item;
+    private AppCompatButton btn_reload_item,btn_update_item,btn_delete_item;
     private Customer originalData = null;
     private LoadingDialog loadingDialog;
     @Override
@@ -93,11 +96,14 @@ public class CustomerUpdateFragment extends Fragment {
         String birthday = layout_input_birthday.getEditText().getText().toString().trim();
         String address = layout_input_address.getEditText().getText().toString().trim();
 
+
+
+
         if(validateInput(name,phone,phoneSecond)){
             Date formatBirthday = null;
             if (!TextUtils.isEmpty(birthday)) {
                 formatBirthday = FormatHelper.convertStringtoDate(birthday);
-            }
+            }// ten,phone1,phone2,NS,DC
             Customer customerRequest = new Customer(name,phone,phoneSecond,email,formatBirthday,address);
             showDialogConfirmUpdate(id,customerRequest);
         }
@@ -106,20 +112,20 @@ public class CustomerUpdateFragment extends Fragment {
     private void showDialogConfirmUpdate(String id, Customer customerRequest){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                 .setTitle("Thông báo!")
-                .setMessage("Bạn có chắc muốn cập nhật nhân viên này không? " +
+                .setMessage("Bạn có chắc muốn cập nhật khách hàng này không? " +
                         "Mọi thông tin trước đó sẽ không được lưu.")
                 .setPositiveButton(R.string.yes,(dialog, which) -> {
                     loadingDialog.show();
                     mViewModel.updateCustomer(Integer.parseInt(id),customerRequest);
-                    refreshFragment();
+
                     dialog.dismiss();
+                    refreshFragment();
                 })
                 .setNegativeButton(R.string.no,((dialog, which) -> {
                     dialog.dismiss();
                 }));
         builder.create().show();
     }
-
     //Set dữ liệu
     private void setData(Customer customer){ //tên, sdt1,sdt2,email,ngày sinh,địa chỉ
         // Set lại thông tin id, nếu có trường hiển thị id

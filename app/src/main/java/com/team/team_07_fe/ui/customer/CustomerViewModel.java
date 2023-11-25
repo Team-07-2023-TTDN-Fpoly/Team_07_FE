@@ -31,16 +31,36 @@ public class CustomerViewModel extends ViewModel {
             livecus.setValue(currentList);
         }
     }
-    public void AddCustomer(Customer customer) {
-        List<Customer> customers = livecus.getValue();
-        if (customers != null) {
-            customers.add(customer);
-            livecus.setValue(customers);
+//    public void AddCustomer(Customer customer) {
+//        List<Customer> customers = livecus.getValue();
+//        if (customers != null) {
+//            customers.add(customer);
+//            livecus.setValue(customers);
+//        }
+//    }
+public void AddCustomer(Customer customer) {
+    List<Customer> customers = livecus.getValue();
+    if (customers != null) {
+        // Tìm giá trị ID lớn nhất trong danh sách khách hàng hiện tại
+        int maxId = 0;
+        for (Customer c : customers) {
+            if (c.getCus_id() > maxId) {
+                maxId = c.getCus_id();
+            }
         }
+
+        // Tăng giá trị ID lên 1 và gán cho khách hàng mới
+        int newId = maxId + 1;
+        customer.setCus_id(newId);
+
+        // Thêm khách hàng mới vào danh sách khách hàng và cập nhật LiveData
+        customers.add(customer);
+        livecus.setValue(customers);
     }
+}
     public void updateCustomer(int index, Customer customer) {
         List<Customer> currentList = livecus.getValue();
-        if (currentList != null) {
+        if (currentList != null && index >= 0 && index < currentList.size()) {
             currentList.set(index, customer);
             livecus.setValue(currentList);
         }
@@ -54,8 +74,10 @@ public class CustomerViewModel extends ViewModel {
 //    }
 private void Listviewcustomer() {
     List<Customer> customers = new ArrayList<>();
-    customers.add(new Customer(1, "Nguyễn Văn A", "0123456789", "0987654321", "a@gmail.com", FormatHelper.convertStringtoDate("1/2/1990"), "Hà Nội"));
-    customers.add(new Customer(2, "Nguyễn Văn B", "0123456789", "0987654321", "b@gmail.com", FormatHelper.convertStringtoDate("1/2/1995"), "Hồ Chí Minh"));
+    customers.add(new Customer(0, "Nguyễn Văn An", "0123456789", "0987654321", "an1999@gmail.com", FormatHelper.convertStringtoDate("1/2/2023"), "Đà Nẵng"));
+    customers.add(new Customer(1, "Nguyễn Thanh Bình", "0123456789", "0987654321", "binh@gmail.com", FormatHelper.convertStringtoDate("1/12/2023"), "Đà Nẵng"));
+    customers.add(new Customer(2, "Nguyễn Thanh Liên", "0123456789", "0987654321", "binh@gmail.com", FormatHelper.convertStringtoDate("1/12/2023"), "Đà Nẵng"));
+    customers.add(new Customer(3, "Nguyễn Hữu Thọ", "0123456789", "0987654321", "binh@gmail.com", FormatHelper.convertStringtoDate("1/12/2023"), "Đà Nẵng"));
     livecus.setValue(customers);
 }
 

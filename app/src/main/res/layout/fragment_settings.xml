@@ -95,35 +95,6 @@
             android:layout_height="44dp"
             android:src="@drawable/icon_right"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_customer_manager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/gray"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="12dp"
-        android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="@drawable/background_round_white"
-            android:src="@drawable/icon_customer"
-            android:padding="8dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Quản lý khách hàng"
-            android:paddingHorizontal="12dp"
-            android:textSize="16dp"
-            android:textColor="@color/black"/>
-        <ImageView
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:src="@drawable/icon_right"/>
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/layout_dresstype_manager"
         android:layout_width="match_parent"
@@ -157,7 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/background_corner_bottom"
+        android:background="@drawable/background_corner_square"
         android:paddingVertical="8dp"
         android:paddingHorizontal="12dp"
         android:gravity="center_vertical">
@@ -180,15 +151,12 @@
             android:layout_height="44dp"
             android:src="@drawable/icon_right"/>
     </LinearLayout>
-
-
     <LinearLayout
-        android:id="@+id/layout_dresstype_manager"
+        android:id="@+id/layout_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/background_corner_full"
+        android:background="@drawable/background_corner_bottom"
         android:paddingVertical="8dp"
         android:paddingHorizontal="12dp"
         android:gravity="center_vertical">
@@ -196,13 +164,13 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:background="@drawable/background_round_white"
-            android:src="@drawable/qao"
+            android:src="@drawable/logout"
             android:padding="8dp"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Quản lý loại áo cưới"
+            android:text="Đăng xuất"
             android:paddingHorizontal="12dp"
             android:textSize="16dp"
             android:textColor="@color/black"/>

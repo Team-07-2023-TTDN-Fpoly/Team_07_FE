@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView3"
+        android:id="@+id/danh_sach_ao_cuoi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -60,6 +60,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="164dp"
+        android:id="@+id/button_more"
         android:layout_height="wrap_content"
         android:contentDescription="Thêm mới"
         android:foreground="@drawable/button_add_item"

@@ -9,9 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.team.team_07_fe.R;
+
 public class DressListFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
+    // TODO: Rename parameter arguments, choose names that
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -19,6 +20,8 @@ public class DressListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private DressViewModel dressViewModel;
+
 
     public DressListFragment() {
         // Required empty public constructor
@@ -49,4 +52,5 @@ public class DressListFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dress_list, container, false);
     }
+
 }

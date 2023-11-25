@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_navigation_settings_to_navigation_employee_information"
             app:destination="@id/navigation_employee_information">
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_change_password"
+            app:destination="@id/navigation_changePassword">
             <argument
                 android:name="data_employee"
                 app:argType="com.team.team_07_fe.models.Employee"
@@ -97,4 +100,23 @@
         android:label="Cập nhật khoản chi"
         tools:layout="@layout/fragment_update_detail"/>
 
+    <fragment
+        android:id="@+id/workShiftManagerFragment"
+        android:name="com.team.team_07_fe.ui.work_shift.WorkShiftManagerFragment"
+        android:label="Quản lý ca làm"
+        tools:layout="@layout/fragment_work_shift_manager" >
+        <action
+            android:id="@+id/action_workShiftManagerFragment_to_workShiftCreateFragment"
+            app:destination="@id/workShiftCreateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workShiftCreateFragment"
+        android:name="com.team.team_07_fe.ui.work_shift.WorkShiftCreateFragment"
+        android:label="Thêm mới ca làm"
+        tools:layout="@layout/fragment_work_shift_create" />
+    <fragment
+        android:id="@+id/dressTypeManagerFragment"
+        android:name="com.team.team_07_fe.ui.dresstype.DressTypeManagerFragment"
+        android:label="Quản lý loại áo cưới"
+        tools:layout="@layout/fragment_dress_type_manager" />
 </navigation>

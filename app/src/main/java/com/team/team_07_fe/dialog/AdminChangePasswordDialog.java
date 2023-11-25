@@ -12,13 +12,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.ui.employee.EmployeeManagerFragment;
 import com.team.team_07_fe.utils.LoadingDialog;
+import com.team.team_07_fe.viewmodels.AuthViewModel;
+import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
 public class AdminChangePasswordDialog {
     private TextInputLayout layout_input_new_password,layout_input_check_password;
     private AlertDialog dialog;
     private LoadingDialog loadingDialog;
-    public AdminChangePasswordDialog(Context context, Fragment fragment, String auth_id) {
+    public AdminChangePasswordDialog(Context context, EmployeeManagerFragment fragment, AuthViewModel viewModel, String auth_id) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_admin_change_password, null);
         initializeViews(view);
         loadingDialog = new LoadingDialog(context);
@@ -38,13 +41,13 @@ public class AdminChangePasswordDialog {
                 String inputCheckPass = layout_input_check_password.getEditText().getText().toString().trim();
 
                 if (validInput(inputNewPass, inputCheckPass)) {
-                    AlertDialog.Builder newBuilder = new AlertDialog.Builder(fragment.requireContext())
+                    AlertDialog.Builder newBuilder = new AlertDialog.Builder(context)
                             .setTitle("Thông báo!")
                             .setMessage("Bạn có chắc muốn cập nhật mật khẩu cho nhân viên này không? " +
                                     "Mọi thông tin trước đó sẽ không được lưu.")
                             .setPositiveButton(R.string.yes,(dialog, which) -> {
                                 loadingDialog.show();
-                                dialog.dismiss();
+                                viewModel.adminChangePassword(auth_id,inputNewPass);
                             })
                             .setNegativeButton(R.string.no,((dialog, which) -> {
                                 dialog.dismiss();
@@ -53,8 +56,21 @@ public class AdminChangePasswordDialog {
                 }
             });
         });
-
-
+        viewModel.getDataMessage().observe(fragment.getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                dialog.dismiss();
+                Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+                viewModel.setDataMessage(null);
+            }
+        });
+        viewModel.getErrorMessage().observe(fragment.getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+                viewModel.setErrorMessage(null);
+            }
+        });
     }
     //
     private void initializeViews(View view){
@@ -89,7 +105,6 @@ public class AdminChangePasswordDialog {
         dialog.show();
     }
     public void dismiss(){
-        loadingDialog.dismiss();
         dialog.dismiss();
     }
 }
