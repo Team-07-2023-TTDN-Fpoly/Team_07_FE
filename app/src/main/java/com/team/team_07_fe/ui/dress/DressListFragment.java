@@ -3,11 +3,13 @@ package com.team.team_07_fe.ui.dress;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.team.team_07_fe.R;
 
 public class DressListFragment extends Fragment {
@@ -50,7 +52,12 @@ public class DressListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dress_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_dress_list, container, false);
+        FloatingActionButton fab = view.findViewById(R.id.button_more);
+        fab.setOnClickListener(v->{
+            NavHostFragment.findNavController(DressListFragment.this).navigate(R.id.action_navigation_dress_to_dressAddFragment);
+        });
+        return view;
     }
 
 }
