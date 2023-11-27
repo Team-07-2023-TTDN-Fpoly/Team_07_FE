@@ -144,6 +144,7 @@ public class EmployeeManagerFragment extends Fragment {
         employeeViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
             if(s!=null){
                 Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                employeeViewModel.setErrorMessage(null);
             }
         });
         authViewModel.getDataMessage().observe(getViewLifecycleOwner(),s->{
