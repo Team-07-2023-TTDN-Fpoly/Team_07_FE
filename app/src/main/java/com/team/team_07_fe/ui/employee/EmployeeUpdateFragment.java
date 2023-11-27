@@ -1,6 +1,7 @@
 package com.team.team_07_fe.ui.employee;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -36,6 +38,7 @@ import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -94,7 +97,8 @@ public class EmployeeUpdateFragment extends Fragment {
         btn_reload_item.setOnClickListener(this::handleReloadData);
         btn_update_item.setOnClickListener(this::handleUpdateData);
         //
-
+        layout_input_birthday.getEditText().setOnClickListener(this::chooseDateForBirthday);
+        layout_input_join_date.getEditText().setOnClickListener(this::chooseDateForJoin);
 
         if(getArguments()!=null){
             Employee employee = (Employee) getArguments().getSerializable("data_employee");
@@ -136,6 +140,49 @@ public class EmployeeUpdateFragment extends Fragment {
             }
         });
     }
+    //Chọn ngày sinh nhật
+    private void chooseDateForBirthday(View view){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Xử lý ngày được chọn ở đây
+                        String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                        // Ví dụ: set text cho một TextView
+                        layout_input_birthday.getEditText().setText(selectedDate);
+                    }
+                },
+                year, month, day);
+        datePickerDialog.show();
+    }
+    //Chọn ngày vào làm
+    private void chooseDateForJoin(View view){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Xử lý ngày được chọn ở đây
+                        String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                        // Ví dụ: set text cho một TextView
+                        layout_input_join_date.getEditText().setText(selectedDate);
+                    }
+                },
+                year, month, day);
+        datePickerDialog.show();
+    }
+    //Reload lai data
     private void handleReloadData(View view){
         if(originalData!=null){
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
@@ -152,12 +199,13 @@ public class EmployeeUpdateFragment extends Fragment {
             builder.create().show();
         }
     }
+    //Xử lý sự kiện cập nhật thông tin nhân viên
     private void handleUpdateData(View view){
         String name = layout_input_name.getEditText().getText().toString().trim();
         String id = originalData.getEmp_id();
         String phone = layout_input_phone.getEditText().getText().toString().trim();
         String birthday = layout_input_birthday.getEditText().getText().toString().trim();
-        String join_date = layout_input_birthday.getEditText().getText().toString().trim();
+        String join_date = layout_input_join_date.getEditText().getText().toString().trim();
         String address = layout_input_address.getEditText().getText().toString().trim();
         String salary = layout_input_salary.getEditText().getText().toString().trim();
 
@@ -204,11 +252,14 @@ public class EmployeeUpdateFragment extends Fragment {
         layout_input_email.getEditText().setEnabled(false);
         // Set lại số điện thoại
         layout_input_phone.getEditText().setText(employee.getEmp_phone());
-        // Set lại cccd (Chứng minh nhân dân hoặc thẻ căn cước)
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String
         if (employee.getEmp_birthday() != null) {
-            String birthdayStr = FormatHelper.convertDatetoString(employee.getEmp_birthday()); // Giả sử bạn có phương thức này
+            String birthdayStr = FormatHelper.convertDatetoString(employee.getEmp_birthday());
             layout_input_birthday.getEditText().setText(birthdayStr);
+        }
+        if (employee.getJoin_date() != null) {
+            String join_date = FormatHelper.convertDatetoString(employee.getJoin_date());
+            layout_input_join_date.getEditText().setText(join_date);
         }
         // Set lại lương
         layout_input_salary.getEditText().setText(String.valueOf(employee.getBasic_salary()));
@@ -216,12 +267,9 @@ public class EmployeeUpdateFragment extends Fragment {
         layout_input_address.getEditText().setText(employee.getEmp_address());
 
         // Set lại vai trò
-        int roleIndex = Arrays.asList(listRole).indexOf(employee.getRole());
-        if (roleIndex >= 0) { // Kiểm tra xem có tìm thấy vai trò trong listRole hay không
-            dropdown_role.setText(listRole[roleIndex], false);
-            selectRole = listRole[roleIndex]; // Cập nhật biến selectRole
-        } else {
-            dropdown_role.setText(Role.CHOOSE, false);
+        if (!employee.getRole().isEmpty()) { // Kiểm tra xem có tìm thấy vai trò trong listRole hay không
+            dropdown_role.setText(employee.getRole(), false);
+            selectRole = employee.getRole(); // Cập nhật biến selectRole
         }
 
         if(employee.getWorkShift()!=null){

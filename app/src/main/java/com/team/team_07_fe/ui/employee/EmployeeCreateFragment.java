@@ -110,6 +110,7 @@ public class EmployeeCreateFragment extends Fragment {
             if(s!=null){
                 loadingDialog.dismiss();
                 Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                mViewModel.setErrorMessage(null);
             }
         });
         workShiftViewModel.getWorkShiftList().observe(getViewLifecycleOwner(),workShifts -> {
@@ -127,7 +128,7 @@ public class EmployeeCreateFragment extends Fragment {
         String password = layout_input_password.getEditText().getText().toString().trim();
         String phone = layout_input_phone.getEditText().getText().toString().trim();
         String birthday = layout_input_birthday.getEditText().getText().toString().trim();
-        String join_date = layout_input_birthday.getEditText().getText().toString().trim();
+        String join_date = layout_input_join_date.getEditText().getText().toString().trim();
         String address = layout_input_address.getEditText().getText().toString().trim();
         String salary = layout_input_salary.getEditText().getText().toString().trim();
 
