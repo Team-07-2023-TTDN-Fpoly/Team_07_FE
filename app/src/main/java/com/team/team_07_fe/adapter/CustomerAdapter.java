@@ -55,10 +55,10 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         if (item !=null){
 
             holder.tv_cusname.setText(item.getCus_name());
-            holder.tv_cusphonemary.setText("SĐT: "+ item.getCus_phoneimary());
-            holder.tv_cusphonesob.setText("SDT phụ: " +item.getCus_phonesob());
-            holder.tv_cusbariday.setText("Ngày cưới: " + FormatHelper.convertDatetoString(item.getCus_birthday()));
-            holder.tv_cusemail.setText("Email: "+ item.getEmail());
+            holder.tv_cusphonemary.setText("SĐT: "+ item.getCus_phone());
+            holder.tv_cusphonesob.setText("SDT phụ: " +item.getCus_phoneSecond());
+            holder.tv_cusbariday.setText("Ngày cưới: " + FormatHelper.convertDatetoString(item.getCus_wedding_date()));
+            holder.tv_cusemail.setText("Email: "+ item.getCus_email());
             holder.tv_cusaddres.setText("Địa chỉ: " + item.getCus_address());
 
             holder.btn_delete_item.setOnClickListener(v->{
