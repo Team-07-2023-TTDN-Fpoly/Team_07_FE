@@ -135,7 +135,7 @@ public class CustomerUpdateFragment extends Fragment {
                     return; // Dừng việc tạo yêu cầu khách hàng vì có lỗi
                 }
             }// ten,phone1,phone2,NS,DC
-           CustomerRequest customerRequest = new CustomerRequest(name,phone,phoneSecond,email,formatBirthday,address);
+            CustomerRequest customerRequest = new CustomerRequest(name,phone,phoneSecond,email,formatBirthday,address);
             showDialogConfirmUpdate(id,customerRequest);
         }
 
@@ -169,8 +169,6 @@ public class CustomerUpdateFragment extends Fragment {
         layout_input_email.getEditText().setText(customer.getCus_email());
 
         // Set lại số điện thoại
-//        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
-//        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
         layout_input_phone.getEditText().setText(customer.getCus_phone());
         layout_input_phoneSecond.getEditText().setText(customer.getCus_phoneSecond());
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String

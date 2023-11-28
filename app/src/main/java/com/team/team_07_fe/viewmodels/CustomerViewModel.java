@@ -56,13 +56,6 @@ private CustomerRepository customerRepository;
     public void DeleteCustomer(String id){
         customerRepository.deleteCustomer(id);
     }
-//    public void DeleteCustomer(Customer customer){
-//        List<Customer> currentList = listCus.getValue();
-//        if (currentList != null) {
-//            currentList.remove(customer);
-//            listCus.setValue(currentList);
-//        }
-//    }
     public void getAllCustomer(String search){
         customerRepository.getAllCustomer(search);
     }

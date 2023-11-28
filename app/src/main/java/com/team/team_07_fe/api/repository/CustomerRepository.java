@@ -59,7 +59,7 @@ public class CustomerRepository {
             }
         }
     }
-    //Lệnh để lấy tất cả nhân viên
+    //Lệnh để lấy tất cả nkhách hangf
     public void getAllCustomer(String search){
         customerService.getAllCustomers(search).enqueue(new Callback<ApiResponse<List<Customer>>>() {
             @Override
@@ -79,7 +79,7 @@ public class CustomerRepository {
         });
     }
 
-    //Lệnh để lấy nhân viên
+    //Lệnh để lấy nkhách hangf
     public void getCustomer(String id){
         customerService.getCustomerById(id).enqueue(new Callback<ApiResponse<Customer>>() {
             @Override
@@ -99,7 +99,7 @@ public class CustomerRepository {
         });
     }
 
-    //Tạo mới nhân viên
+    //Tạo mới nkhách hangf
     public void createCustomer(CustomerRequest customerRequest){
         customerService.createCustomer(customerRequest).enqueue(new Callback<ApiResponse<String>>() {
             @Override
@@ -121,7 +121,7 @@ public class CustomerRepository {
             }
         });
     }
-    //Update thông tin nhân vin
+    //Update thông tin khách hangf
     public void updateCustomer(String id, CustomerRequest customerRequest){
         customerService.updateCustomer(id,customerRequest).enqueue(new Callback<ApiResponse<String>>() {
             @Override

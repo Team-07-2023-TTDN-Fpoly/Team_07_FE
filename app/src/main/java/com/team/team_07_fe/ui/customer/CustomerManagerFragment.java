@@ -48,9 +48,6 @@ public class CustomerManagerFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-//    public static CustomerManagerFragment newInstance() {
-//        return new CustomerManagerFragment();
-//    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -99,23 +96,16 @@ public class CustomerManagerFragment extends Fragment {
     }
 
 
-private void initialAdapter() {
-//    customerViewModel.getCustomerList().observe(getViewLifecycleOwner(), new Observer<List<Customer>>() {
-//        @Override
-//        public void onChanged(List<Customer> customer) {
-//            customerAdapter.setList(customer);
-//            Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
-//        }
-//    });
+    private void initialAdapter() {
 
-    customerAdapter = new CustomerAdapter(requireContext(), new ArrayList<>());
-    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-    recyclerView.setAdapter(customerAdapter);
+        customerAdapter = new CustomerAdapter(requireContext(), new ArrayList<>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(customerAdapter);
 
-    customerAdapter.setOnClickUpdateCustomerClickListener(this::handleNavigateUpdateCustomerForm);
-    customerAdapter.setOnClickDeleteCustomerClickListener(this::handleNavigateDeleteForm);
+        customerAdapter.setOnClickUpdateCustomerClickListener(this::handleNavigateUpdateCustomerForm);
+        customerAdapter.setOnClickDeleteCustomerClickListener(this::handleNavigateDeleteForm);
 
-}
+    }
 
     private void handleNavigateCreateForm(View view) {
         NavHostFragment.findNavController(CustomerManagerFragment.this)
