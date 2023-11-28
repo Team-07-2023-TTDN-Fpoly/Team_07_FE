@@ -59,6 +59,4 @@ private CustomerRepository customerRepository;
     public void getAllCustomer(String search){
         customerRepository.getAllCustomer(search);
     }
-
-
 }

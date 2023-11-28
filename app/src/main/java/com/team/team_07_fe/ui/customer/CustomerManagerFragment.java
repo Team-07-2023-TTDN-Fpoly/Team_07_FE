@@ -29,6 +29,7 @@ import com.team.team_07_fe.api.service.CustomerService;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.request.CustomerRequest;
+import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
 import java.util.ArrayList;
@@ -41,13 +42,11 @@ public class CustomerManagerFragment extends Fragment {
     private SearchView searchView;
     private FloatingActionButton fab;
     private CustomerViewModel customerViewModel;
-    private CustomerService customerService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -130,6 +129,7 @@ public class CustomerManagerFragment extends Fragment {
                     String customerId = customer.getCus_id(); // Lấy ID của khách hàng
                     customerViewModel.DeleteCustomer(customerId);// Gọi phương thức xóa khách hàng với ID
                     dialog.dismiss();
+                    Toast.makeText(requireContext(), "Xóa khách hàng thành công!", Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton(R.string.no, ((dialog, which) -> {
                     dialog.dismiss();
@@ -142,7 +142,6 @@ public class CustomerManagerFragment extends Fragment {
             @Override
             public void onChanged(List<Customer> customer) {
                 customerAdapter.setList(customer);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
             }
         });
     }
