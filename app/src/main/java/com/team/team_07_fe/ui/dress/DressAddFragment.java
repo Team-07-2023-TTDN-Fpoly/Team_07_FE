@@ -1,15 +1,24 @@
 package com.team.team_07_fe.ui.dress;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -25,7 +34,9 @@ public class DressAddFragment extends Fragment {
     layout_input_price, layout_input_des;
     private DressViewModel mViewModel;
     private AppCompatButton btn_add_item;
+    private ImageView imageView;
     private LoadingDialog loadingDialog;
+    private Uri mUri;
 
 
     @Override
@@ -53,13 +64,13 @@ public class DressAddFragment extends Fragment {
 
 
         if(validateInput(name,price,type, des)){
-            mViewModel.addDress(new Dress(name,type,price,color,size,des));
+         //   mViewModel.addDress(new Dress(name,type,price,color,size,des));///đang tìm lỗi
             Toast.makeText(requireContext(), "Thêm mới áo cưới thành công!", Toast.LENGTH_SHORT).show();
             requireActivity().onBackPressed();
         }
     }
     private void mapping(View view){
-
+        imageView = view.findViewById(R.id.imageView);
         layout_input_name = view.findViewById(R.id.layout_input_name);
         layout_input_price = view.findViewById(R.id.layout_input_price);
         layout_input_type = view.findViewById(R.id.layout_input_type);
@@ -101,4 +112,33 @@ public class DressAddFragment extends Fragment {
 
         return isValid;
     }
+    public void choseImgFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        mActivityResultLauncher.launch(Intent.createChooser(intent, "Đã chọn ảnh"));
+    }
+
+    // nhận uri khi chọn ảnh từ thư viện
+    private final ActivityResultLauncher<Intent> mActivityResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK){
+                            Intent data = result.getData();
+                            if (data == null){
+                                return;
+                            }
+                            mUri = data.getData();
+                            try {
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mUri);
+                                imageView.setImageBitmap(bitmap);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+    private void callApiResgister() {
+
+    }
+
 }
