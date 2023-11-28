@@ -15,12 +15,31 @@
         android:name="com.team.team_07_fe.ui.home.HomeFragment"
         android:label="@string/bottom_title_home"
         tools:layout="@layout/fragment_home" />
-
     <fragment
         android:id="@+id/navigation_contract"
         android:name="com.team.team_07_fe.ui.contract.ContractManagerFragment"
         android:label="Quản lý hợp đồng"
-        tools:layout="@layout/fragment_contract_manager" />
+        tools:layout="@layout/fragment_contract_manager"
+        >
+        <action
+            android:id="@+id/action_navigation_contract_to_navigation_customer_add"
+            app:destination="@id/navigation_contract_add" />
+        <action
+            android:id="@+id/action_navigation_contract_to_navigation_customer_update"
+            app:destination="@id/navigation_contract_update" >
+            <argument
+                android:name="data_contract"
+                app:argType="com.team.team_07_fe.models.Customer"
+                app:nullable="false"/>
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_contract_add"
+        android:name="com.team.team_07_fe.ui.contract.ContractAddFragment"
+        android:label="Quản lý hợp đồng"
+        tools:layout="@layout/fragment_contract_add" />
+
     <fragment
         android:id="@+id/navigation_contract_update"
         android:name="com.team.team_07_fe.ui.contract.ContractUpdateFragment"
@@ -31,7 +50,11 @@
         android:id="@+id/navigation_dress"
         android:name="com.team.team_07_fe.ui.dress.DressListFragment"
         android:label="Quản lý áo cưới"
-        tools:layout="@layout/fragment_dress_list" />
+        tools:layout="@layout/fragment_dress_list" >
+        <action
+            android:id="@+id/action_navigation_dress_to_dressAddFragment"
+            app:destination="@id/dressAddFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_customer"
@@ -157,4 +180,8 @@
         android:name="com.team.team_07_fe.ui.dresstype.DressTypeManagerFragment"
         android:label="Quản lý loại áo cưới"
         tools:layout="@layout/fragment_dress_type_manager" />
+    <fragment
+        android:id="@+id/dressAddFragment"
+        android:name="com.team.team_07_fe.ui.dress.DressAddFragment"
+        android:label="Thêm mới áo cưới" />
 </navigation>

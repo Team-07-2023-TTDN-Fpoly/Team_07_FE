@@ -62,4 +62,7 @@ public class EmployeeViewModel extends ViewModel {
     public void getAllEmployee(String search){
         employeeRepository.getAllEmployee(search);
     }
+
+
+
 }
