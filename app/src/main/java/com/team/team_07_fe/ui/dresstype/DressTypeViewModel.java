@@ -4,76 +4,61 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.team.team_07_fe.api.repository.DressTypeRepository;
 import com.team.team_07_fe.models.DressType;
+import com.team.team_07_fe.request.DressTypeRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DressTypeViewModel extends ViewModel {
-    private MutableLiveData<List<DressType>> listdr;
-    private List<DressType> originalData;
-    private int typeCounter = 5;
+    private DressTypeRepository dressTypeRepository;
+    private MutableLiveData<List<DressType>> listType;
+    private MutableLiveData<String> dataInput;
+    private MutableLiveData<String> errorMessage;
     public DressTypeViewModel(){
-        listdr = new MutableLiveData<>();
-        initializeExampleList();
-        originalData = new ArrayList<>(listdr.getValue());
+        dressTypeRepository = new DressTypeRepository();
+        listType = dressTypeRepository.getListDressType();
+        dataInput = dressTypeRepository.getDataInput();
+        errorMessage = dressTypeRepository.getErrorMessage();
     }
 
-    public LiveData<List<DressType>> getEmployeeList() {
-        return listdr;
+    //setters
+
+    public void setListType(List<DressType> listType) {
+        this.listType.postValue(listType);
     }
 
-    public void addDressType(String type_name) {
-        int newTypeId = typeCounter++;
-        DressType dressType = new DressType(newTypeId, type_name);
-        List<DressType> currentList = listdr.getValue();
-        if (currentList != null) {
-            currentList.add(dressType);
-            listdr.setValue(new ArrayList<>(currentList));
-            originalData = new ArrayList<>(currentList);
-        }
-    }
-    public void updateDressType(int type_id, String type_name) {
-        List<DressType> currentList = listdr.getValue();
-
-        if (currentList != null) {
-            for (DressType dressType : currentList) {
-                if (dressType.getType_id() == type_id) {
-                    dressType.setType_id(type_id);
-                    dressType.setType_name(type_name);
-                    break;
-                }
-            }
-
-            listdr.setValue(new ArrayList<>(currentList));
-            originalData = new ArrayList<>(currentList);
-        }
-    }
-    public void deleteDressType(int type_id) {
-        List<DressType> currentList = listdr.getValue();
-        if (currentList != null) {
-            currentList.removeIf(dressType -> dressType.getType_id() == type_id);
-            listdr.setValue(new ArrayList<>(currentList));
-            originalData = new ArrayList<>(currentList);
-        }
+    public void setDataInput(String dataInput) {
+        this.dataInput.postValue(dataInput);
     }
 
-    public List<DressType> getOriginalData() {
-        return originalData;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage.postValue(errorMessage);
     }
 
-
-
-    private void initializeExampleList() {
-        List<DressType> dressTypes = new ArrayList<>();
-
-        dressTypes.add(new DressType(1,"áo dài"));
-        dressTypes.add(new DressType(2,"vest"));
-        dressTypes.add(new DressType(3,"sườn xám"));
-        dressTypes.add(new DressType(4, "váy đuôi cá"));
-
-
-        listdr.setValue(dressTypes);
-        originalData = new ArrayList<>(dressTypes);
+    //getters
+    public LiveData<List<DressType>> getDressTypeList() {
+        return listType;
     }
+    public LiveData<String> getDataInput() {
+        return dataInput;
+    }
+    public LiveData<String> getErrorMessage() {
+        return errorMessage;
+    }
+
+    //
+    public void createDressType(DressTypeRequest dressTypeRequest){
+        dressTypeRepository.createDressType(dressTypeRequest);
+    }
+    public void updateDressType(String id, DressTypeRequest dressTypeRequest) {
+        dressTypeRepository.updateDressType(id, dressTypeRequest);
+    }
+    public void deleteDressType(String id) {
+        dressTypeRepository.deleteDressType(id);
+    }
+    public void getAllDressType(String search){
+        dressTypeRepository.getAllDressType(search);
+    }
+
 }
