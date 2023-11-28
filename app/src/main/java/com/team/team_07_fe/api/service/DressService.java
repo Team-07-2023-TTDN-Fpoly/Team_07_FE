@@ -9,7 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface DressService {
-    @GET("/api/dress")
-    Call<ApiResponse<List<Dress>>>
+    // @GET("/api/dress")
+    // Call<ApiResponse<List<Dress>>>
     // đang làm
 }
