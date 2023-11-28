@@ -95,7 +95,7 @@
                 android:id="@+id/layout_input_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_birthday"
+                android:hint="@string/hint_wedding_date"
                 style="@style/TextInputLayout"
                 app:startIconDrawable="@drawable/icon_calendar">
 

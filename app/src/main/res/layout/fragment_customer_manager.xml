@@ -15,15 +15,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-                <EditText
-                    android:id="@+id/Search_customer"
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="tim kiem"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
                     android:background="@drawable/background_seach"
-                    android:padding="10dp"
-                    android:layout_margin="10dp"
-                    android:drawableStart="@drawable/baseline_search_24" />
+                    android:focusable="true"
+                    android:paddingStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    app:iconifiedByDefault="false" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -38,22 +43,19 @@
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
                     />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="290dp"
-                    android:layout_marginTop="-110dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:contentDescription="@string/add_item"
-                    android:foreground="@drawable/button_add_item" />
-
         </LinearLayout>
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="@string/add_item"
+            android:foreground="@drawable/button_add_item" />
 
 
 

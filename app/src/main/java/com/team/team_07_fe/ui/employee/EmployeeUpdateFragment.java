@@ -27,6 +27,7 @@ import com.team.team_07_fe.R;
 import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.request.EmployeeRequest;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.EmployeeViewModel;
@@ -43,11 +44,11 @@ public class EmployeeUpdateFragment extends Fragment {
     private AutoCompleteTextView dropdown_role,dropdown_work_shift;
     private EmployeeViewModel mViewModel;
     private AppCompatButton btn_reload_item,btn_update_item;
-    private String[] listRole = {Role.CHOOSE,Role.ADMIN,Role.EMPLOYEE};
+    private String[] listRole = {Role.ADMIN,Role.EMPLOYEE};
     private List<WorkShift> listWorkShift;
     private ArrayAdapter<String> roleAdapter;
     private ArrayAdapter<WorkShift> workShiftAdapter;
-    private String selectRole = Role.CHOOSE;
+    private String selectRole ;
     private WorkShift selectWorkShift = null;
     private Employee originalData =null;
     private LoadingDialog loadingDialog;
@@ -68,25 +69,28 @@ public class EmployeeUpdateFragment extends Fragment {
         mapping(view);
         //
         listWorkShift = new ArrayList<>();
-        listWorkShift.add(new WorkShift(1, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(2, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(3, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        //
-        roleAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listRole);
-        dropdown_role.setAdapter(roleAdapter);
-        //
-        workShiftAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listWorkShift);
-        dropdown_work_shift.setAdapter(workShiftAdapter);
+        listWorkShift.add(new WorkShift(1, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
+        listWorkShift.add(new WorkShift(2, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("11:00"), "Làm việc buổi sáng"));
+        listWorkShift.add(new WorkShift(3, "Ca sáng", FormatHelper.convertStringToTime("12:00"), FormatHelper.convertStringToTime("12:00"), "Làm việc buổi sáng"));
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //
+        observeData();
+        roleAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listRole);
+        dropdown_role.setAdapter(roleAdapter);
+        //
+        workShiftAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listWorkShift);
+        dropdown_work_shift.setAdapter(workShiftAdapter);
 
         if(getArguments()!=null){
-            originalData = (Employee) getArguments().getSerializable("data_employee");
-            setData(originalData);
+            Employee employee = (Employee) getArguments().getSerializable("data_employee");
+            originalData = employee;
+            setData(employee);
         }
         //Click button
         btn_reload_item.setOnClickListener(this::handleReloadData);
@@ -97,6 +101,20 @@ public class EmployeeUpdateFragment extends Fragment {
         });
         dropdown_work_shift.setOnItemClickListener((adapterView, view1, i, l) -> {
             selectWorkShift = (WorkShift) adapterView.getItemAtPosition(i);
+        });
+    }
+    private void observeData(){
+        mViewModel.getDataInput().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                refreshFragment();
+            }
+        });
+        mViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s->{
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+            }
         });
     }
     private void handleReloadData(View view){
@@ -117,15 +135,12 @@ public class EmployeeUpdateFragment extends Fragment {
     }
     private void handleUpdateData(View view){
         String name = layout_input_name.getEditText().getText().toString().trim();
-        String id = layout_input_id.getEditText().getText().toString().trim();
+        String id = originalData.getEmp_id();
         String phone = layout_input_phone.getEditText().getText().toString().trim();
         String birthday = layout_input_birthday.getEditText().getText().toString().trim();
         String join_date = layout_input_birthday.getEditText().getText().toString().trim();
         String address = layout_input_address.getEditText().getText().toString().trim();
         String salary = layout_input_salary.getEditText().getText().toString().trim();
-
-
-
 
         if(validateInput(name,phone,salary)){
             Date formatBirthday = null;
@@ -136,19 +151,19 @@ public class EmployeeUpdateFragment extends Fragment {
             if(!TextUtils.isEmpty(join_date)){
                 formatJoinDate = FormatHelper.convertStringtoDate(join_date);
             }
-            Employee employeeRequest = new Employee(name,phone,formatBirthday,Long.parseLong(salary),address,selectRole,selectWorkShift,formatJoinDate);
+            EmployeeRequest employeeRequest = new EmployeeRequest(name,phone,formatBirthday,Long.parseLong(salary),address,selectRole,selectWorkShift,formatJoinDate);
             showDialogConfirmUpdate(id,employeeRequest);
         }
 
     }
-    private void showDialogConfirmUpdate(String id, Employee employeeRequest){
+    private void showDialogConfirmUpdate(String id, EmployeeRequest employeeRequest){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                 .setTitle("Thông báo!")
                 .setMessage("Bạn có chắc muốn cập nhật nhân viên này không? " +
                         "Mọi thông tin trước đó sẽ không được lưu.")
                 .setPositiveButton(R.string.yes,(dialog, which) -> {
                     loadingDialog.show();
-                    mViewModel.updateEmployee(Integer.parseInt(id),employeeRequest);
+                    mViewModel.updateEmployee(id,employeeRequest);
                     dialog.dismiss();
                 })
                 .setNegativeButton(R.string.no,((dialog, which) -> {
@@ -187,7 +202,6 @@ public class EmployeeUpdateFragment extends Fragment {
             selectRole = listRole[roleIndex]; // Cập nhật biến selectRole
         } else {
             dropdown_role.setText(Role.CHOOSE, false);
-            selectRole = Role.CHOOSE; // Cập nhật biến selectRole
         }
 
         // Set lại ca làm việc
@@ -231,12 +245,12 @@ public class EmployeeUpdateFragment extends Fragment {
             layout_input_salary.setError(null);
         }
 
-        if(selectRole.equals(Role.CHOOSE)){
+        if(selectRole.isEmpty()){
             isValid = false;
             Toast.makeText(requireContext(), "Vui lòng chọn chức vụ!", Toast.LENGTH_SHORT).show();
         }
 
-        if(selectWorkShift==null){
+        if(selectWorkShift == null){
             isValid = false;
             Toast.makeText(requireContext(), "Vui lòng chọn ca làm việc!", Toast.LENGTH_SHORT).show();
         }
