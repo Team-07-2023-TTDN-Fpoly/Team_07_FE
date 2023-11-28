@@ -154,5 +154,6 @@ public class WorkShiftCreateFragment extends Fragment {
                 },
                 hour, minute, true);
         timePickerDialog.show();
+
     }
 }
