@@ -46,15 +46,15 @@
         android:layout_height="wrap_content">
 
         <AutoCompleteTextView
-            android:id="@+id/dressDescription"
+            android:id="@+id/dropdown_type_dress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_text_input"
-            android:drawableRight="@drawable/subway_up_2"
-            android:drawablePadding="10dp"
+            android:layout_gravity="center_vertical"
             android:hint="Loại áo cưới"
-            android:padding="10dp" />
+            android:background="@drawable/background_dropdown"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
