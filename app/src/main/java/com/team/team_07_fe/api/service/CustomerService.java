@@ -22,7 +22,7 @@ public interface CustomerService {
     //Lấy thông tin của một khách hàng
     @GET("/api/customer/{id}")
     Call<ApiResponse<Customer>> getCustomerById(@Path("id") String cus_id);
-    //Tạo tài khoản cho khách hàng
+    //Tạo thông tin cho khách hàng
     @POST("/api/customer")
     Call<ApiResponse<String>> createCustomer(@Body CustomerRequest customerRequest);
     //Cập nhật thông tin khách hàng

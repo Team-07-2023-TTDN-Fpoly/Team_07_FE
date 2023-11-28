@@ -128,7 +128,7 @@ public class CustomerUpdateFragment extends Fragment {
                 layout_input_birthday.setError("Vui lòng chọn ngày cưới!");
                 return;
             }// ten,phone1,phone2,NS,DC
-           CustomerRequest customerRequest = new CustomerRequest(name,phone,phoneSecond,email,formatBirthday,address);
+            CustomerRequest customerRequest = new CustomerRequest(name,phone,phoneSecond,email,formatBirthday,address);
             showDialogConfirmUpdate(id,customerRequest);
         }
 
