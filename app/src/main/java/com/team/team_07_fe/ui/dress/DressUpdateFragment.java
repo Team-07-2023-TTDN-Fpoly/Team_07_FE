@@ -104,11 +104,19 @@ public class DressUpdateFragment extends Fragment {
         String des = layout_input_des.getEditText().getText().toString().trim();
 
 
+
         if (validateInput(name, id, price)) {
 
             Dress dressRequest = new Dress( id, name, type, Long.parseLong(price), size, des, color);
             showDialogConfirmUpdate(id, dressRequest);
         }
+
+//        if (validateInput(name, id, price)) {
+//
+//            Dress dressRequest = new Dress(name, id, type, color, size, price);
+//            showDialogConfirmUpdate(id, dressRequest);
+//        }
+
     }
         private void showDialogConfirmUpdate(String id, Dress dressRequest){
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())

@@ -147,12 +147,15 @@
                     style="@style/TextInputLayout.ExposedDropdownMenu">
 
                 <AutoCompleteTextView
-                    android:id="@+id/dropdown_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/background_dropdown"/>
+                        android:id="@+id/dropdown_role"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vai trò"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/background_dropdown"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:clickable="true"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -180,9 +183,12 @@
                     android:id="@+id/dropdown_work_shift"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/background_dropdown"/>
+                    android:text="Ca làm việc"
+                    android:background="@drawable/background_dropdown"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton

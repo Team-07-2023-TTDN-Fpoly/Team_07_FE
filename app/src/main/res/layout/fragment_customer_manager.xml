@@ -7,10 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.customer.CustomerManagerFragment">
 
-
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,7 +18,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/background_seach"
+                    android:background="@drawable/background_search"
                     android:focusable="true"
                     android:paddingStart="5dp"
                     android:layout_marginLeft="5dp"
@@ -32,10 +28,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                        android:text="Danh sanh khach hang"
-                        android:textSize="25dp"
-                        android:layout_marginLeft="10dp"
-                        android:textStyle="bold"/>
+                    android:layout_marginTop="7dp"
+                    android:text="Danh sách khách hàng"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
@@ -56,10 +53,5 @@
             android:layout_marginBottom="12dp"
             android:contentDescription="@string/add_item"
             android:foreground="@drawable/button_add_item" />
-
-
-
-
-
 
 </RelativeLayout>

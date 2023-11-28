@@ -23,9 +23,16 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.CustomerAdapter;
+import com.team.team_07_fe.adapter.EmployeeAdapter;
+import com.team.team_07_fe.api.repository.CustomerRepository;
+import com.team.team_07_fe.api.service.CustomerService;
 import com.team.team_07_fe.models.Customer;
+import com.team.team_07_fe.models.Employee;
+import com.team.team_07_fe.request.CustomerRequest;
+import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,10 +46,6 @@ public class CustomerManagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    public static CustomerManagerFragment newInstance() {
-        return new CustomerManagerFragment();
     }
 
     @Override
@@ -61,12 +64,30 @@ public class CustomerManagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialAdapter();
+        customerViewModel.getAllCustomer(null);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchCustomer(query);
+                return false;
+            }
 
-        fab.setOnClickListener(this::handleNavigateCreateForm);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         observeViewModel();
-//        observeViewModel();
-    }
+        fab.setOnClickListener(this::handleNavigateCreateForm);
 
+    }
+    private void searchCustomer(String query) {
+        if(query!=null){
+            customerViewModel.getAllCustomer(query);
+        }else{
+            customerViewModel.getAllCustomer(null);
+        }
+    }
     private void mapping(View view) {
         searchView = view.findViewById(R.id.search_view);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -74,22 +95,16 @@ public class CustomerManagerFragment extends Fragment {
     }
 
 
-private void initialAdapter() {
-    customerViewModel.getCustomerList().observe(getViewLifecycleOwner(), new Observer<List<Customer>>() {
-        @Override
-        public void onChanged(List<Customer> customer) {
-            customerAdapter.setList(customer);
-            Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
-        }
-    });
+    private void initialAdapter() {
 
-    customerAdapter = new CustomerAdapter(requireContext(), customerViewModel.getCustomerList().getValue());
-    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-    recyclerView.setAdapter(customerAdapter);
+        customerAdapter = new CustomerAdapter(requireContext(), new ArrayList<>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(customerAdapter);
 
-    customerAdapter.setOnClickUpdateCustomerClickListener(this::handleNavigateUpdateCustomerForm);
-    customerAdapter.setOnClickDeleteCustomerClickListener(this::handleNavigateDeleteForm);
-}
+        customerAdapter.setOnClickUpdateCustomerClickListener(this::handleNavigateUpdateCustomerForm);
+        customerAdapter.setOnClickDeleteCustomerClickListener(this::handleNavigateDeleteForm);
+
+    }
 
     private void handleNavigateCreateForm(View view) {
         NavHostFragment.findNavController(CustomerManagerFragment.this)
@@ -105,17 +120,21 @@ private void initialAdapter() {
     }
 
     private void handleNavigateDeleteForm(int position) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
-                    .setTitle("Cảnh báo!")
-                    .setMessage("Bạn có chắc muốn xóa khách hàng này không?")
-                    .setPositiveButton(R.string.yes, (dialog, which) -> {
-                        customerViewModel.DeleteCustomer(customerAdapter.getItem(position));
-                        dialog.dismiss();
-                    })
-                    .setNegativeButton(R.string.no, ((dialog, which) -> {
-                        dialog.dismiss();
-                    }));
-            builder.create().show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setTitle("Cảnh báo!")
+                .setMessage("Bạn có chắc muốn xóa khách hàng này không?")
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    // Gọi phương thức xóa khách hàng với ID tương ứng
+                    Customer customer = customerAdapter.getItem(position);
+                    String customerId = customer.getCus_id(); // Lấy ID của khách hàng
+                    customerViewModel.DeleteCustomer(customerId);// Gọi phương thức xóa khách hàng với ID
+                    dialog.dismiss();
+                    Toast.makeText(requireContext(), "Xóa khách hàng thành công!", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton(R.string.no, ((dialog, which) -> {
+                    dialog.dismiss();
+                }));
+        builder.create().show();
     }
 
     private void observeViewModel() {
@@ -123,9 +142,9 @@ private void initialAdapter() {
             @Override
             public void onChanged(List<Customer> customer) {
                 customerAdapter.setList(customer);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }
 

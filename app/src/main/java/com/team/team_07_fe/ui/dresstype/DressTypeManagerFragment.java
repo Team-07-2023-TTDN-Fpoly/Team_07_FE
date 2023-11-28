@@ -1,53 +1,47 @@
 package com.team.team_07_fe.ui.dresstype;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import com.team.team_07_fe.models.DressType;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
 import java.lang.String;
 
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.DressTypeAdapter;
-import com.team.team_07_fe.models.DressType;
-import com.team.team_07_fe.models.Employee;
-import com.team.team_07_fe.utils.FormatHelper;
+import com.team.team_07_fe.request.DressTypeRequest;
 
-import java.util.Date;
 import java.util.List;
 
 public class DressTypeManagerFragment extends Fragment {
 
     private DressTypeViewModel dressTypeViewModel;
     private DressTypeAdapter dressTypeAdapter;
+    private DressType dressTypeData= null;
     private int selectedPosition = -1;
-    private TextInputLayout Tenloaiao;
-    private AppCompatButton btn_undo;
+    private TextInputLayout  maLoaiAo, tenLoaiAo;
+    private ImageView backButton;
+    private AppCompatButton btnUndo, btnUpdate;
     private RecyclerView rvloaiao;
     private FloatingActionButton fab1;
+    private DressTypeRequest dressTypeRequest;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +64,7 @@ public class DressTypeManagerFragment extends Fragment {
         initialAdapter();
         fab1.setOnClickListener(this::showAddTypeDialog);
         observeViewModel();
+        dressTypeViewModel.getAllDressType(null);
     }
 
     private void showAddTypeDialog(View view) {
@@ -79,16 +74,21 @@ public class DressTypeManagerFragment extends Fragment {
 
         AppCompatButton btn_add_type = dialogView.findViewById(R.id.btn_add_type);
         ImageView backButton = dialogView.findViewById(R.id.imgback);
-        TextInputLayout Tenloaiao = dialogView.findViewById(R.id.Tenloaiao);
-
+        TextInputLayout tenLoaiAo = dialogView.findViewById(R.id.Tenloaiao);
 
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
 
         btn_add_type.setOnClickListener(v -> {
-            String type_name = Tenloaiao.getEditText().getText().toString().trim();
+            String type_name = tenLoaiAo.getEditText().getText().toString().trim();
+
             if (!type_name.isEmpty()) {
-                dressTypeViewModel.addDressType(type_name);
+                // Create the DressTypeRequest object
+                DressTypeRequest dressTypeRequest = new DressTypeRequest(type_name);
+
+                // Call the createDressType() method
+                dressTypeViewModel.createDressType(dressTypeRequest);
+
                 alertDialog.dismiss();
             } else {
                 Toast.makeText(requireContext(), "Vui lòng nhập tên loại áo !", Toast.LENGTH_SHORT).show();
@@ -104,37 +104,45 @@ public class DressTypeManagerFragment extends Fragment {
     private void mapping(View view){
         rvloaiao = view.findViewById(R.id.rvloaiao);
         fab1 = view.findViewById(R.id.fab1);
-        Tenloaiao = view.findViewById(R.id.Tenloaiao);
+        tenLoaiAo = view.findViewById(R.id.Tenloaiao);
+        maLoaiAo = view.findViewById(R.id.Ma_loai_ao);
+        btnUpdate = view.findViewById(R.id.btn_update);
+        btnUndo = view.findViewById(R.id.btn_undo);
+        backButton = view.findViewById(R.id.imgback);
     }
 
     private void initialAdapter(){
-        dressTypeAdapter = new DressTypeAdapter(requireContext(),dressTypeViewModel.getEmployeeList().getValue());
+        dressTypeAdapter = new DressTypeAdapter(requireContext(),dressTypeViewModel.getDressTypeList().getValue());
         rvloaiao.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvloaiao.setAdapter(dressTypeAdapter);
 
         dressTypeAdapter.setOnClickDeleteClickListener(this::handleShowConfirmDelete);
-        dressTypeAdapter.setOnClickEditClickListener(this::handleShowUpdateDialog);
+        dressTypeAdapter.setOnClickUpdateClickListener(this::handleShowUpdateDialog);
     }
 
 
     private void handleShowUpdateDialog(int position) {
         DressType dressType = dressTypeAdapter.getItem(position);
         selectedPosition = position;
-        showUpdateDialog(dressType);
+        showUpdateDialog(dressType.getType_id(), dressTypeRequest);
     }
-    private void showUpdateDialog(DressType dressType) {
+    private void showUpdateDialog(String id, DressTypeRequest dressTypeRequest) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_update_dresstype, null);
 
-        TextInputLayout maLoaiAo = dialogView.findViewById(R.id.Ma_loai_ao);
-        TextInputLayout tenLoaiAo = dialogView.findViewById(R.id.Tenloaiao);
-        AppCompatButton btnUpdate = dialogView.findViewById(R.id.btn_update);
+        TextInputLayout maLoaiAo = dialogView.findViewById(R.id.Ma_loai_ao); // Replace with the actual ID
+        TextInputLayout tenLoaiAo = dialogView.findViewById(R.id.Tenloaiao); // Replace with the actual ID
+        AppCompatButton btnUpdate = dialogView.findViewById(R.id.btn_update); // Replace with the actual ID
+        AppCompatButton btnUndo = dialogView.findViewById(R.id.btn_undo); // Replace with the actual ID
         ImageView backButton = dialogView.findViewById(R.id.imgback);
-        AppCompatButton btnUndo = dialogView.findViewById(R.id.btn_undo);
 
-        maLoaiAo.getEditText().setText(String.valueOf(dressType.getType_id()));
-        tenLoaiAo.getEditText().setText(String.valueOf(dressType.getType_name()));
+        // Get the original data for the specific DressType using the position
+        DressType originalData = dressTypeAdapter.getItem(selectedPosition);
+
+        // Set the data to the TextInputLayout
+        maLoaiAo.getEditText().setText(String.valueOf(originalData.getType_id()));
+        tenLoaiAo.getEditText().setText(originalData.getType_name());
 
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
@@ -143,10 +151,13 @@ public class DressTypeManagerFragment extends Fragment {
                 .setTitle("Cảnh báo!")
                 .setMessage("Bạn có chắc muốn cập nhật loại áo này không?")
                 .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    // Update the dress type
-                    int type_id = dressType.getType_id();
+                    // Update the DressTypeRequest with the new data
+                    String type_id = maLoaiAo.getEditText().getText().toString().trim();
                     String type_name = tenLoaiAo.getEditText().getText().toString().trim();
-                    dressTypeViewModel.updateDressType(type_id, type_name);
+                    DressTypeRequest updatedDressTypeRequest = new DressTypeRequest(type_id); // Pass the updated type_id and type_name
+
+                    // Call the ViewModel method with the updated data
+                    dressTypeViewModel.updateDressType(id, updatedDressTypeRequest);
                     alertDialog.dismiss();
                 })
                 .setNegativeButton(R.string.no, (dialog, which) -> {
@@ -154,9 +165,7 @@ public class DressTypeManagerFragment extends Fragment {
                     dialog.dismiss();
                 });
 
-        btnUpdate.setOnClickListener(v -> {
-            confirmationBuilder.create().show();
-        });
+        btnUpdate.setOnClickListener(v -> confirmationBuilder.create().show());
 
         btnUndo.setOnClickListener(v -> {
             // Show the undo confirmation dialog
@@ -164,10 +173,9 @@ public class DressTypeManagerFragment extends Fragment {
                     .setTitle("Cảnh báo!")
                     .setMessage("Bạn có chắc muốn hoàn tác không? Mọi thay đổi của bạn sẽ không được lưu.")
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
-                        // Get the original data for the specific DressType using the position
-                        DressType originalData = dressTypeAdapter.getItem(selectedPosition);
+                        // Restore the original data to the TextInputLayout
                         maLoaiAo.getEditText().setText(String.valueOf(originalData.getType_id()));
-                        tenLoaiAo.getEditText().setText(String.valueOf(originalData.getType_name()));
+                        tenLoaiAo.getEditText().setText(originalData.getType_name());
 
                         dialog.dismiss();
                     })
@@ -183,6 +191,7 @@ public class DressTypeManagerFragment extends Fragment {
 
         alertDialog.show();
     }
+
 
 
     private void handleShowConfirmDelete(int position) {
@@ -211,7 +220,7 @@ public class DressTypeManagerFragment extends Fragment {
 
 
     private void observeViewModel(){
-        dressTypeViewModel.getEmployeeList().observe(getViewLifecycleOwner(), new Observer<List<DressType>>() {
+        dressTypeViewModel.getDressTypeList().observe(getViewLifecycleOwner(), new Observer<List<DressType>>() {
             @Override
             public void onChanged(List<DressType> dressTypes) {
                 dressTypeAdapter.setList(dressTypes);

@@ -39,23 +39,23 @@ public class CustomerInformationFragment extends Fragment {
             setData(data);
         }
     }
-    //Gán data người dùng cho input
+    //Gán data cho input
     private void setData(Customer customer){ //tên, sdt1,sdt2,email,ngày sinh,địa chỉ
         // Set lại thông tin id, nếu có trường hi   ển thị id
         if (layout_input_id.getEditText() != null) {
             layout_input_id.getEditText().setText(String.valueOf(customer.getCus_id()));
         }
-        // Set lại tên khách hàng
+        // Set lại tên nhân viên
         layout_input_name.getEditText().setText(customer.getCus_name());
         // Set lại email
-        layout_input_email.getEditText().setText(customer.getEmail());
+        layout_input_email.getEditText().setText(customer.getCus_email());
         layout_input_email.getEditText().setEnabled(false);
         // Set lại số điện thoại
-        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
-        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
+        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phone()));
+        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneSecond()));
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String
-        if (customer.getCus_birthday() != null) {
-            String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_birthday());
+        if (customer.getCus_wedding_date() != null) {
+            String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_wedding_date());
             layout_input_birthday.getEditText().setText(birthdayStr);
         }
         // Set lại địa chỉ

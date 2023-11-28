@@ -15,12 +15,15 @@
             android:padding="12dp">
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_id"
-                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                app:errorEnabled="true"
+                android:focusable="false"
                 android:hint="@string/hint_id"
-                app:startIconDrawable="@drawable/icon_id">
+                app:startIconDrawable="@drawable/icon_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -28,7 +31,6 @@
                     android:background="@drawable/background_text_input"
                     android:inputType="text"
                     android:lines="1"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -123,7 +125,7 @@
                     android:textColor="@color/black"
                     android:background="@drawable/background_text_input"
                     android:textSize="16sp"
-                    android:focusable="false"/>
+                   />
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:layout_width="match_parent"

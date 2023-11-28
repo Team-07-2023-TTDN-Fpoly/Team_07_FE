@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -24,6 +25,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Customer;
+import com.team.team_07_fe.request.CustomerRequest;
+import com.team.team_07_fe.request.EmployeeRequest;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.CustomerViewModel;
@@ -59,7 +62,23 @@ public class CustomerCreateFragment extends Fragment {
 
         btn_add_item.setOnClickListener(this::handleAddCustomer);
         layout_input_birthday.getEditText().setOnClickListener(this::chooseDateForBirthday);
-
+        observeData();
+    }
+    public void observeData(){
+        mViewModel.getDataInput().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                NavHostFragment.findNavController(this).popBackStack();
+                Toast.makeText(requireContext(), "Thêm mới thành công!", Toast.LENGTH_SHORT).show();
+                mViewModel.setDataInput(null);
+            }
+        });
+        mViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     //xử lý sự kiến thêm mới
@@ -72,18 +91,22 @@ public class CustomerCreateFragment extends Fragment {
         String address = layout_input_address.getEditText().getText().toString().trim();
 
 
-        if(validateInput(name,email,phone,phoneSecond)){
+        if (validateInput(name, email, phone, phoneSecond,address)) {
             Date formatBirthday = null;
             if (!TextUtils.isEmpty(birthday)) {
                 formatBirthday = FormatHelper.convertStringtoDate(birthday);
+            }else{
+                layout_input_birthday.setError("Vui lòng chọn ngày cưới!");
+                return;
             }
-            mViewModel.AddCustomer(new Customer(3,name,phone,phoneSecond,email,formatBirthday,address));
-            Toast.makeText(requireContext(), "Thêm mới khách hàng thành công!", Toast.LENGTH_SHORT).show();
-            requireActivity().onBackPressed();
+            CustomerRequest customerRequest = new CustomerRequest(name, phone, phoneSecond, email, formatBirthday, address);
+            confirmCreateCustomer(customerRequest);
         }
     }
+    private void confirmCreateCustomer(CustomerRequest customerRequest){
+        mViewModel.createCustomer(customerRequest);
+    }
 
-    //Chọn ngày sinh nhật
     private void chooseDateForBirthday(View view){
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -106,23 +129,28 @@ public class CustomerCreateFragment extends Fragment {
     }
 
     private boolean validateInput(String name,String email,
-                                  String phone,  String phoneSecond){
+                                  String phone,  String phoneSecond,String address){
         boolean isValid = true;
 
         if(TextUtils.isEmpty(name)){
-            layout_input_name.setError("Vui lòng nhập tên nhân viên!");
+            layout_input_name.setError("Vui lòng nhập tên khách hàng!");
             isValid = false;
         }else{
             layout_input_name.setError(null);
         }
-
-        if(TextUtils.isEmpty(phone) || phone.length() != 10 ||!Patterns.PHONE.matcher(phone).matches()){
+        if(TextUtils.isEmpty(phone)){
+            layout_input_phone.setError("Vui lòng nhập số điện thoại của bạn!");
+            isValid = false;
+        }else if(phone.length() != 10 ||!Patterns.PHONE.matcher(phone).matches()) {
             layout_input_phone.setError("Vui lòng nhập đúng định dạng!");
             isValid = false;
         }else{
             layout_input_phone.setError(null);
         }
-        if (TextUtils.isEmpty(phoneSecond) || phoneSecond.length() != 10 || !Patterns.PHONE.matcher(phoneSecond).matches()) {
+        if(TextUtils.isEmpty(phoneSecond)){
+            layout_input_phoneSecond.setError("Vui lòng nhập số điện thoại phụ của bạn!");
+            isValid = false;
+        }else if(phoneSecond.length() != 10 ||!Patterns.PHONE.matcher(phone).matches()) {
             layout_input_phoneSecond.setError("Vui lòng nhập đúng định dạng!");
             isValid = false;
         }else{
@@ -136,7 +164,13 @@ public class CustomerCreateFragment extends Fragment {
             isValid = false;
         }else{
             layout_input_email.setError(null);
+        }if(TextUtils.isEmpty(address)){
+            layout_input_address.setError("Vui lòng nhập địa chỉ!");
+            isValid = false;
+        }else{
+            layout_input_address.setError(null);
         }
+
         return isValid;
     }
     private void mapping(View view){
