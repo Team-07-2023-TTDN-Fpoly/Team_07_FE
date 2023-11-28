@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.team.team_07_fe.R;
 
 
-public class ContractUpdateFragment extends Fragment {
+public class ContractCreateFragment extends Fragment {
 
-    private TextView themmoi;
+   private TextView themmoi;
 
 
 
@@ -32,7 +32,7 @@ public class ContractUpdateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contract_update, container, false);
+        View view = inflater.inflate(R.layout.fragment_contract_create, container, false);
         mapping(view);
         return view;
         // Inflate the layout for this fragment
@@ -48,7 +48,7 @@ public class ContractUpdateFragment extends Fragment {
     }
 
     private void handleNavigateCreateForm(View view) {
-        NavHostFragment.findNavController(ContractUpdateFragment.this)
+        NavHostFragment.findNavController(ContractCreateFragment.this)
                 .navigate(R.id.action_contractCreateFragment2_to_chonAoFragment);
     }
     private void mapping(View view){
