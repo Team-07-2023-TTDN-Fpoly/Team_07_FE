@@ -1,20 +1,23 @@
-package com.team.team_07_fe.ui.dress;
+package com.team.team_07_fe.ui.contract;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.team.team_07_fe.R;
 
-public class DressListFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link ContractAddFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class ContractAddFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that
+    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -22,16 +25,22 @@ public class DressListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private DressViewModel dressViewModel;
 
-
-    public DressListFragment() {
+    public ContractAddFragment() {
         // Required empty public constructor
     }
 
-
-    public static DressListFragment newInstance(String param1, String param2) {
-        DressListFragment fragment = new DressListFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ContractAddFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ContractAddFragment newInstance(String param1, String param2) {
+        ContractAddFragment fragment = new ContractAddFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -52,12 +61,6 @@ public class DressListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_dress_list, container, false);
-        FloatingActionButton fab = view.findViewById(R.id.button_more);
-        fab.setOnClickListener(v->{
-            NavHostFragment.findNavController(DressListFragment.this).navigate(R.id.action_navigation_dress_to_dressAddFragment);
-        });
-        return view;
+        return inflater.inflate(R.layout.fragment_contract_add, container, false);
     }
-
 }
