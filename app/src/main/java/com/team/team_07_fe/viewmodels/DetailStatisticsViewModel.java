@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.team.team_07_fe.adapter.DetailStatisticsAdapter;
 import com.team.team_07_fe.models.DetailStatistics;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class DetailStatisticsViewModel extends ViewModel {
     }
     public LiveData<List<DetailStatistics>> getListDetailStatistics()
     {return listDt;}
+
+
     public void addDetailStatistics(DetailStatistics detailStatistics) {
         List<DetailStatistics> currentList = listDt.getValue();
         if (currentList != null) {
@@ -35,12 +38,11 @@ public class DetailStatisticsViewModel extends ViewModel {
 
 
     private void initializeExampleList(){
-
-
         List<DetailStatistics> detailStatistics= new ArrayList<>();
-        detailStatistics.add(new DetailStatistics(new Date(), "Nguyễn Văn A", 100000, "abc"));
-        detailStatistics.add(new DetailStatistics(new Date(), "Nguyễn Văn B", 1000000, "abc"));
+        detailStatistics.add(new DetailStatistics(new Date(), "Nguyễn Văn A", 100000L, "abc"));
+        detailStatistics.add(new DetailStatistics(new Date(), "Nguyễn Văn B", 1000000L, "abc"));
         detailStatistics.addAll(detailStatistics);
 
     }
+
 }

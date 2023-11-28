@@ -27,7 +27,7 @@ import java.util.List;
 public class StatisticScreenFragment extends Fragment {
 
 
-    private DetailStatisticsViewModel detailStatisticsViewModel = new ViewModelProvider(requireActivity()).get(DetailStatisticsViewModel.class);
+    private DetailStatisticsViewModel detailStatisticsViewModel;
 
     private DetailStatisticsAdapter detailStatisticsAdapter;
     private FloatingActionButton btn_create_detail;
@@ -39,10 +39,7 @@ public class StatisticScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         View view = inflater.inflate(R.layout.fragment_statistic_screen, container, false);
-        recyclerView = view.findViewById(R.id.recyclerView);
         mapping(view);
         detailStatisticsViewModel = new ViewModelProvider(requireActivity()).get(DetailStatisticsViewModel.class);
         return view;
@@ -63,7 +60,7 @@ public class StatisticScreenFragment extends Fragment {
         detailStatisticsViewModel.getListDetailStatistics().observe(getViewLifecycleOwner(), new Observer<List<DetailStatistics>>() {
             @Override
             public void onChanged(List<DetailStatistics> detailStatistics) {
-                detailStatisticsAdapter.setList(detailStatistics);
+                detailStatisticsAdapter.setListDetail(detailStatistics);
                 Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -88,7 +85,7 @@ public class StatisticScreenFragment extends Fragment {
         detailStatisticsViewModel.getListDetailStatistics().observe(getViewLifecycleOwner(), new Observer<List<DetailStatistics>>() {
             @Override
             public void onChanged(List<DetailStatistics> detailStatistics) {
-                detailStatisticsAdapter.setList(detailStatistics);
+                detailStatisticsAdapter.setListDetail(detailStatistics);
                 Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -115,7 +112,7 @@ public class StatisticScreenFragment extends Fragment {
         detailStatisticsViewModel.getListDetailStatistics().observe(getViewLifecycleOwner(), new Observer<List<DetailStatistics>>() {
             @Override
             public void onChanged(List<DetailStatistics> detailStatistics) {
-                detailStatisticsAdapter.setList(detailStatistics);
+                detailStatisticsAdapter.setListDetail(detailStatistics);
                 Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
             }
         });

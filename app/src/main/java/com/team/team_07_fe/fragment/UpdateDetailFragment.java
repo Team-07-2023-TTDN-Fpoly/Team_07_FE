@@ -1,10 +1,16 @@
 package com.team.team_07_fe.fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,9 +18,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Customer;
+import com.team.team_07_fe.models.DetailStatistics;
+import com.team.team_07_fe.models.Dress;
+import com.team.team_07_fe.ui.dress.DressUpdateFragment;
 import com.team.team_07_fe.utils.LoadingDialog;
+import com.team.team_07_fe.viewmodels.DetailStatisticsViewModel;
+import com.team.team_07_fe.viewmodels.DressViewModel;
 
 
 public class UpdateDetailFragment extends Fragment {
@@ -23,14 +35,35 @@ public class UpdateDetailFragment extends Fragment {
     private TextInputLayout update_detail_input_date, update_detail_input_name,
             update_detail_input_money, update_detail_input_text;
     private AppCompatButton btn_reload_item, btn_update_item;
+    private DetailStatisticsViewModel mDetailStatisticsViewModel;
     private LoadingDialog loadingDialog;
     private Customer originalData = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(getArguments()!=null){
+            originalData = (Customer) getArguments().getSerializable("data_detail");
+            setData(originalData);
+        }
+        //Click button
+        btn_reload_item.setOnClickListener(this::handleReloadData);
+        btn_update_item.setOnClickListener(this::updateDetail);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_update_detail, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_update_detail, container, false);
+        mDetailStatisticsViewModel = new ViewModelProvider(requireActivity()).get(DetailStatisticsViewModel.class);
+        loadingDialog = new LoadingDialog(requireContext());
+        mapping (view);
+        return (view);
     }
 
     private void updateDetail(View view){
@@ -53,6 +86,43 @@ public class UpdateDetailFragment extends Fragment {
                     }));
             builder.create().show();
         }
+    }
+    private void showDialogConfirmUpdate(String id, DetailStatistics detailStatisticRequest){
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setTitle("Thông báo!")
+                .setMessage("Bạn có chắc muốn cập nhật mục này không " +
+                        "Hành động này sẽ không thể hoàn tác.")
+                .setPositiveButton(R.string.yes,(dialog, which) -> {
+                    mDetailStatisticsViewModel.updateDetailStatistics(Integer.parseInt(id),detailStatisticRequest);
+                    refreshFragment();
+                    dialog.dismiss();
+                })
+                .setNegativeButton(R.string.no,((dialog, which) -> {
+                    dialog.dismiss();
+                }));
+        builder.create().show();
+    }
+    public static void showAlertDialog(Context context, String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Xử lý khi người dùng bấm OK
+                        dialog.dismiss(); // Đóng dialog
+                    }
+                });
+        builder.setNegativeButton("HỦY", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // xu li khi nguoi dung bam HUY
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     private void setData(Customer customer){
         // Set lại tên khoản chi
@@ -98,5 +168,21 @@ public class UpdateDetailFragment extends Fragment {
         update_detail_input_text = view.findViewById(R.id.update_detail_input_text);
         btn_reload_item = view.findViewById(R.id.btn_reload_item);
         btn_update_item = view.findViewById(R.id.btn_update_item);
+    }
+    private void refreshFragment(){
+        loadingDialog.dismiss();
+        NavHostFragment.findNavController(UpdateDetailFragment.this)
+                .popBackStack();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)requireActivity()).hiddenBottomBar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
     }
 }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -36,7 +37,8 @@ public class CreateDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        mViewDetailStatistic = new ViewModelProvider(requireActivity()).get(DetailStatisticsViewModel.class);
+        loadingDialog = new LoadingDialog(requireContext());
         View view = inflater.inflate(R.layout.fragment_create_detail, container, false);
         mapping(view);
         return view;
@@ -62,7 +64,7 @@ public class CreateDetailFragment extends Fragment {
             if (!TextUtils.isEmpty(date)) {
                 dateforcreatedetail = FormatHelper.convertStringtoDate(date);
             }
-            mViewDetailStatistic.addDetailStatistics(new DetailStatistics(new Date(),name,1000000,text));
+            mViewDetailStatistic.addDetailStatistics(new DetailStatistics(new Date(),name, 1000000L,text));
             Toast.makeText(requireContext(), "Thêm mới khoản chi thành công!", Toast.LENGTH_SHORT).show();
             requireActivity().onBackPressed();
         }
@@ -79,18 +81,17 @@ public class CreateDetailFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int selectedYear,
                                           int selectedMonth, int dayOfMonth) {
-                        String selectedMonthYear = (selectedMonth + 1) + "/" + selectedYear;
+                        String selectedMonthYear = (selectedMonth + 1) + "/" + year;
                         create_detail_input_date.getEditText().setText(selectedMonthYear);
 
                     }
-                }, year, month, 1); // 1: Ngày mặc định, chúng ta chỉ quan tâm đến tháng và năm
-
+                } ,year, month, 1);
+        // 1: Ngày mặc định, chúng ta chỉ quan tâm đến tháng và năm
         // Chỉ hiển thị tháng và năm
-//        monthYearPickerDialog.getDatePicker().findViewById(getResources()
-//                .getIdentifier("day", "id", "android")).setVisibility(View.GONE);
-
         monthYearPickerDialog.show();
     }
+
+    ///////
     private boolean valueInput(String date, String name,
                                String money, String text) {
         boolean isvalid = true;
