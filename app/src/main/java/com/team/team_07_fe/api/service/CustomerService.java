@@ -19,13 +19,13 @@ import retrofit2.http.Query;
 public interface CustomerService {
     @GET("/api/Customer")
     Call<ApiResponse<List<Customer>>> getAllCustomers(@Query("search")String search);
-    //Lấy thông tin của một nhân viên
+    //Lấy thông tin của một khách hàng
     @GET("/api/customer/{id}")
     Call<ApiResponse<Customer>> getCustomerById(@Path("id") String cus_id);
-    //Tạo tài khoản cho nhân viên
+    //Tạo tài khoản cho khách hàng
     @POST("/api/customer")
     Call<ApiResponse<String>> createCustomer(@Body CustomerRequest customerRequest);
-    //Cập nhật thông tin nhân viên
+    //Cập nhật thông tin khách hàng
     @PUT("/api/customer/information/{id}")
     Call<ApiResponse<String>> updateCustomer(@Path("id")String cus_id, @Body CustomerRequest customerRequest);
     @DELETE("/api/customer/{id}")
