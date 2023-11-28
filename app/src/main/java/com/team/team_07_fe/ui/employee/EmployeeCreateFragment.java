@@ -11,8 +11,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,31 +28,32 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.anotition.Role;
-import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.request.EmployeeRequest;
+import com.team.team_07_fe.ui.work_shift.WorkShiftViewModel;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+//Người tạo: NghiaTC
 public class EmployeeCreateFragment extends Fragment {
     private TextInputLayout layout_input_name,layout_input_email,layout_input_password,
     layout_input_phone,layout_input_salary,layout_input_birthday,layout_input_join_date,layout_input_address;
     private AutoCompleteTextView dropdown_role,dropdown_work_shift;
     private EmployeeViewModel mViewModel;
+    private WorkShiftViewModel workShiftViewModel;
     private AppCompatButton btn_add_item;
-    private String[] listRole = {Role.CHOOSE,Role.ADMIN,Role.EMPLOYEE};
+    private String[] listRole = {Role.ADMIN,Role.EMPLOYEE};
     private List<WorkShift> listWorkShift;
     private ArrayAdapter<String> roleAdapter;
     private ArrayAdapter<WorkShift> workShiftAdapter;
     private LoadingDialog loadingDialog;
 
-    private String selectRole = Role.CHOOSE;
+    private String selectRole;
     private WorkShift selectWorkShift = null;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -58,29 +61,28 @@ public class EmployeeCreateFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_employee_create, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(EmployeeViewModel.class);
+        workShiftViewModel = new ViewModelProvider(requireActivity()).get(WorkShiftViewModel.class);
         loadingDialog = new LoadingDialog(requireContext());
         //mapping
         listWorkShift = new ArrayList<>();
-        listWorkShift.add(new WorkShift(1, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(2, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
-        listWorkShift.add(new WorkShift(3, "Ca sáng", LocalTime.of(8, 0), LocalTime.of(16, 0), "Làm việc buổi sáng"));
         mapping(view);
-
-        //
         roleAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listRole);
         dropdown_role.setAdapter(roleAdapter);
-        dropdown_role.setText(Role.CHOOSE,false);
         //
         workShiftAdapter = new ArrayAdapter<>(requireActivity(),android.R.layout.simple_dropdown_item_1line,listWorkShift);
         dropdown_work_shift.setAdapter(workShiftAdapter);
-        dropdown_work_shift.setText("Vui lòng chọn ca làm việc",false);
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //
+        workShiftViewModel.getAllWorkShift();
 
+
+        //
         btn_add_item.setOnClickListener(this::handleAddEmployee);
         layout_input_birthday.getEditText().setOnClickListener(this::chooseDateForBirthday);
         layout_input_join_date.getEditText().setOnClickListener(this::chooseDateForJoin);
@@ -91,8 +93,34 @@ public class EmployeeCreateFragment extends Fragment {
         dropdown_work_shift.setOnItemClickListener((adapterView, view1, i, l) -> {
             selectWorkShift = (WorkShift) adapterView.getItemAtPosition(i);
         });
+        observeData();
+
     }
 
+    public void observeData(){
+        mViewModel.getDataInput().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                NavHostFragment.findNavController(this).popBackStack();
+                Toast.makeText(requireContext(), "Thêm mới thành công!", Toast.LENGTH_SHORT).show();
+                mViewModel.setDataInput(null);
+            }
+        });
+        mViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                mViewModel.setErrorMessage(null);
+            }
+        });
+        workShiftViewModel.getWorkShiftList().observe(getViewLifecycleOwner(),workShifts -> {
+            if(workShifts!=null){
+                listWorkShift.clear();
+                listWorkShift.addAll(workShifts);
+                workShiftAdapter.notifyDataSetChanged();
+            }
+        });
+    }
     //xử lý sự kiến thêm mới
     private void handleAddEmployee(View view){
         String name = layout_input_name.getEditText().getText().toString().trim();
@@ -100,11 +128,12 @@ public class EmployeeCreateFragment extends Fragment {
         String password = layout_input_password.getEditText().getText().toString().trim();
         String phone = layout_input_phone.getEditText().getText().toString().trim();
         String birthday = layout_input_birthday.getEditText().getText().toString().trim();
-        String join_date = layout_input_birthday.getEditText().getText().toString().trim();
+        String join_date = layout_input_join_date.getEditText().getText().toString().trim();
         String address = layout_input_address.getEditText().getText().toString().trim();
         String salary = layout_input_salary.getEditText().getText().toString().trim();
 
         if(validateInput(name,email,password,phone,salary)){
+            loadingDialog.show();
             Date formatBirthday = null;
             Date formatJoinDate = new Date();
             if (!TextUtils.isEmpty(birthday)) {
@@ -113,9 +142,13 @@ public class EmployeeCreateFragment extends Fragment {
             if(!TextUtils.isEmpty(join_date)){
                 formatJoinDate = FormatHelper.convertStringtoDate(join_date);
             }
-            mViewModel.addEmployee(new Employee("3",name,phone,formatBirthday,Long.parseLong(salary),address,selectRole,selectWorkShift,formatJoinDate,email,"3",false));
-            Toast.makeText(requireContext(), "Thêm mới nhân viên thành công!", Toast.LENGTH_SHORT).show();
+            EmployeeRequest employeeRequest = new EmployeeRequest(name,phone,formatBirthday,Long.parseLong(salary),address,selectRole,selectWorkShift.getShift_id(),formatJoinDate,email,password);
+            confirmCreateEmployee(employeeRequest);
         }
+    }
+    // Chuyền về server
+    private void confirmCreateEmployee(EmployeeRequest employeeRequest){
+        mViewModel.createEmployee(employeeRequest);
     }
 
     //Chọn ngày sinh nhật
@@ -154,7 +187,7 @@ public class EmployeeCreateFragment extends Fragment {
                         // Xử lý ngày được chọn ở đây
                         String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                         // Ví dụ: set text cho một TextView
-                        layout_input_birthday.getEditText().setText(selectedDate);
+                        layout_input_join_date.getEditText().setText(selectedDate);
                     }
                 },
                 year, month, day);
@@ -200,7 +233,7 @@ public class EmployeeCreateFragment extends Fragment {
             layout_input_password.setError(null);
         }
 
-        if(selectRole.equals(Role.CHOOSE)){
+        if(selectRole.isEmpty()){
             isValid = false;
             Toast.makeText(requireContext(), "Vui lòng chọn chức vụ!", Toast.LENGTH_SHORT).show();
         }

@@ -23,9 +23,8 @@
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="@string/hint_id_name_shirt"
-                app:startIconDrawable="@drawable/icon_name_work">
+                android:hint="Tên ca làm"
+                app:startIconDrawable="@drawable/icon_id">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -50,9 +49,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:background="@drawable/background_text_input"
                     android:textSize="16sp"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -69,8 +68,12 @@
                     android:layout_height="wrap_content"
 
                     android:background="@drawable/background_text_input"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:id="@+id/layout_btn_create_work"

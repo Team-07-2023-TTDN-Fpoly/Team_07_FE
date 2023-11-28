@@ -106,7 +106,7 @@
         android:layout_height="20dp"/>
 <!--Dropdown-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_layout"
+        android:id="@+id/layout_input_size"
         style="@style/TextInputLayout.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -155,8 +155,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
+        android:layout_width="164dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/add_item"
         android:foreground="@drawable/button_add_item" />

@@ -19,6 +19,13 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
     private Context context;
     private List<Contract> mListContract;
 
+    private int itemLayout = R.layout.layout_item_contract;
+
+    public void setItemLayout(int layoutResId) {
+        this.itemLayout = layoutResId;
+        notifyDataSetChanged();
+    }
+
     public ContractAdapter(Context context) {
         this.context = context;
     }
@@ -27,6 +34,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         this.mListContract = list;
         notifyDataSetChanged();
     }
+    
     @NonNull
     @Override
     public ContractViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,11 +50,11 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         }
 
         holder.tvName.setText(contract.getName());
-        holder.tvDate.setText(contract.getDate());
-        holder.tvPhone.setText(contract.getPhone());
-        holder.tvDeposit.setText(contract.getDeposit());
-        holder.tvSumMoney.setText(contract.getSumMoney());
-        holder.tvStatus.setText(contract.getStatus());
+        holder.tvDate.setText("Ngày ký: " + contract.getDate());
+        holder.tvPhone.setText("SĐT: " + contract.getPhone());
+        holder.tvDeposit.setText("Tiền cọc: " + contract.getDeposit());
+        holder.tvSumMoney.setText("Tổng chi phí: " + contract.getSumMoney());
+        holder.tvStatus.setText("Trạng thái: " + contract.getStatus());
     }
 
     @Override
@@ -56,6 +64,11 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         }
         return 0;
     }
+
+    public void setContracts(Object contracts) {
+    }
+
+
 
     public class ContractViewHolder extends RecyclerView.ViewHolder {
 

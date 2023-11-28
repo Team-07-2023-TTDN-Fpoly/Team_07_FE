@@ -60,7 +60,7 @@ public class WorkShiftManagerFragment extends Fragment {
     private void initialAdapter(){
         if (workShiftViewModel != null) {
             // Your logic here
-            workShiftAdapter = new WorkShiftAdapter(requireContext(),workShiftViewModel.getWorkShiftList().getValue());
+//            workShiftAdapter = new WorkShiftAdapter(requireContext(),workShiftViewModel.getWorkShiftList().getValue());
         }
         recyclerViewW.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerViewW.setAdapter(workShiftAdapter);

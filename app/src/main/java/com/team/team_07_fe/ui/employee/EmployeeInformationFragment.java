@@ -12,13 +12,10 @@ import android.view.ViewGroup;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.R;
-import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.utils.FormatHelper;
 
-import java.util.Arrays;
-
-
+//Người tạo: NghiaTC
 public class EmployeeInformationFragment extends Fragment {
     private TextInputLayout layout_input_id,layout_input_name,layout_input_email,
             layout_input_phone,layout_input_salary,layout_input_birthday,

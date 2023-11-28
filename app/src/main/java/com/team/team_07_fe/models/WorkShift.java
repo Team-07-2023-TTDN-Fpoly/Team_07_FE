@@ -1,23 +1,33 @@
 package com.team.team_07_fe.models;
 
+import com.google.gson.annotations.SerializedName;
+import com.team.team_07_fe.utils.FormatHelper;
+
+import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.Objects;
 
-public class WorkShift {
-    private int shift_id;
+public class WorkShift implements Serializable {
+    @SerializedName("shift_id")
+    private String shift_id;
+    @SerializedName("name")
     private String name;
-    private LocalTime timeStart;
-    private LocalTime timeEnd;
+    @SerializedName("timeStart")
+    private Date timeStart;
+    @SerializedName("timeEnd")
+    private Date timeEnd;
+    @SerializedName("shift_description")
     private String shift_description;
 
-    public WorkShift(String name, LocalTime timeStart, LocalTime timeEnd, String shift_description) {
+    public WorkShift(String name, Date timeStart, Date timeEnd, String shift_description) {
         this.name = name;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.shift_description = shift_description;
     }
 
-    public WorkShift(int shift_id, String name, LocalTime timeStart, LocalTime timeEnd, String shift_description) {
+    public WorkShift(String shift_id, String name, Date timeStart, Date timeEnd, String shift_description) {
         this.shift_id = shift_id;
         this.name = name;
         this.timeStart = timeStart;
@@ -25,11 +35,11 @@ public class WorkShift {
         this.shift_description = shift_description;
     }
 
-    public int getShift_id() {
+    public String getShift_id() {
         return shift_id;
     }
 
-    public void setShift_id(int shift_id) {
+    public void setShift_id(String shift_id) {
         this.shift_id = shift_id;
     }
 
@@ -41,19 +51,19 @@ public class WorkShift {
         this.name = name;
     }
 
-    public LocalTime getTimeStart() {
+    public Date getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(LocalTime timeStart) {
+    public void setTimeStart(Date timeStart) {
         this.timeStart = timeStart;
     }
 
-    public LocalTime getTimeEnd() {
+    public Date getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(LocalTime timeEnd) {
+    public void setTimeEnd(Date timeEnd) {
         this.timeEnd = timeEnd;
     }
 
@@ -69,7 +79,7 @@ public class WorkShift {
 
     @Override
     public String toString() {
-        return name + " : " + timeStart + "h - " + timeEnd +"h";
+        return name + " : " + FormatHelper.convertTimeToString(timeStart) + "h - " + FormatHelper.convertTimeToString(timeEnd) +"h";
     }
 
     @Override
