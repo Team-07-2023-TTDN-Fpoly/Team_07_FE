@@ -81,8 +81,7 @@ public class CustomerUpdateFragment extends Fragment {
     private void observeData(){
         mViewModel.getDataInput().observe(getViewLifecycleOwner(),s -> {
             if(s!=null){
-                loadingDialog.dismiss();
-                Toast.makeText(requireContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
+//                loadingDialog.dismiss();
                 refreshFragment();
                 mViewModel.setDataInput(null);
             }
@@ -121,7 +120,6 @@ public class CustomerUpdateFragment extends Fragment {
         String address = layout_input_address.getEditText().getText().toString().trim();
 
 
-
         if(validateInput(name,phone,phoneSecond,email,address)){
             Date formatBirthday = null;
             if (!TextUtils.isEmpty(birthday)) {
@@ -151,6 +149,7 @@ public class CustomerUpdateFragment extends Fragment {
                     mViewModel.updateCustomer(id,customerRequest);
                     dialog.dismiss();
                     refreshFragment();
+                    Toast.makeText(requireContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton(R.string.no,((dialog, which) -> {
                     dialog.dismiss();
@@ -162,26 +161,22 @@ public class CustomerUpdateFragment extends Fragment {
         // Set lại thông tin id, nếu có trường hiển thị id
         if (layout_input_id.getEditText() != null) {
             layout_input_id.getEditText().setText(String.valueOf(customer.getCus_id()));
-        }
         // Set lại tên khách hàng
         layout_input_name.getEditText().setText(customer.getCus_name());
-        // Set lại email
-        layout_input_email.getEditText().setText(customer.getCus_email());
-
         // Set lại số điện thoại
-//        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
-//        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
         layout_input_phone.getEditText().setText(customer.getCus_phone());
         layout_input_phoneSecond.getEditText().setText(customer.getCus_phoneSecond());
-        // Set lại ngày sinh - bạn cần định dạng lại Date thành String
+        // Set lại email
+        layout_input_email.getEditText().setText(customer.getCus_email());
+        layout_input_email.setEnabled(true);
+        }
+        // Set lại ngày cưới - bạn cần định dạng lại Date thành String
         if (customer.getCus_wedding_date() != null) {
             String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_wedding_date());
             layout_input_birthday.getEditText().setText(birthdayStr);
         }
         // Set lại địa chỉ
         layout_input_address.getEditText().setText(customer.getCus_address());
-
-
     }
     private void chooseDateForBirthday(View view){
         Calendar calendar = Calendar.getInstance();
@@ -213,7 +208,6 @@ public class CustomerUpdateFragment extends Fragment {
         }else{
             layout_input_name.setError(null);
         }
-
         if(TextUtils.isEmpty(phone) || phone.length() != 10 ||!Patterns.PHONE.matcher(phone).matches()){
             layout_input_phone.setError("Vui lòng nhập đúng định dạng!");
             isValid = false;

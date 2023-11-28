@@ -116,7 +116,7 @@ public class CustomerRepository {
 
             @Override
             public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
-                Log.i("ERROR LIST CUSTOMER",t.getMessage());
+                Log.i("ERROR CREATE CUSTOMER",t.getMessage());
                 errorMessage.postValue("Lỗi kết nối");
             }
         });
@@ -135,7 +135,7 @@ public class CustomerRepository {
             }
             @Override
             public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
-                Log.i("ERROR LIST EMPLOYEE",t.getMessage());
+                Log.i("ERROR UPDATE CUSTOMER",t.getMessage());
                 errorMessage.postValue("Lỗi kết nối");
             }
         });
@@ -148,7 +148,6 @@ public class CustomerRepository {
                     ApiResponse<Customer> apiResponse = response.body();
                     Customer deletedCustomer = apiResponse.getData();
                     dataCustomer.postValue(deletedCustomer);
-                    // ...
                 } else {
                     handeErrorMessage(response.errorBody());
                 }
