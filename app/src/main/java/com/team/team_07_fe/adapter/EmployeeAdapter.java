@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.team.team_07_fe.models.Employee;
 import java.util.List;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.OnClickListener;
 
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHolder> {
@@ -63,8 +64,8 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
                 holder.btn_disable.setText("Vô hiệu hóa");
             }
             holder.tv_name.setText(item.getEmp_name());
-            holder.tv_phone.setText("SDT: " + item.getEmp_name());
-            holder.tv_email.setText("Email: "+item.getEmail());
+            holder.tv_phone.setText("SDT: " + FormatHelper.formatPhoneNumber(item.getEmp_phone()));
+            holder.tv_email.setText(item.getEmail());
             holder.tv_role.setText("Chức vụ: "+item.getRole());
 
             holder.btn_change_pass.setOnClickListener(v->{

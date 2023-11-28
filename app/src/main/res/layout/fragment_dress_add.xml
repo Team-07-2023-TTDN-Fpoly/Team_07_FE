@@ -20,6 +20,7 @@
         android:textStyle="bold"/>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -27,17 +28,17 @@
             android:id="@+id/dressName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_text_input"
             android:layout_marginTop="10dp"
-            android:hint="Điền tại đây"
+            android:background="@drawable/background_text_input"
             android:drawableLeft="@drawable/ic_clother"
             android:drawablePadding="10dp"
+            android:hint="Điền tại đây"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_input_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -45,11 +46,11 @@
             android:id="@+id/dressDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_text_input"
             android:layout_marginTop="10dp"
-            android:hint="Loại áo cưới"
-            android:drawablePadding="10dp"
+            android:background="@drawable/background_text_input"
             android:drawableRight="@drawable/subway_up_2"
+            android:drawablePadding="10dp"
+            android:hint="Loại áo cưới"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,20 +65,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_input_color"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:hint="ĐIền tại đây"
-            style="@style/TextInputLayout"
-            app:startIconDrawable="@drawable/ic_color"
-            android:layout_weight="1">
+            app:startIconDrawable="@drawable/ic_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dressColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:background="@drawable/background_text_input"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -107,6 +110,7 @@
         android:textStyle="bold"/>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_input_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -114,11 +118,11 @@
             android:id="@+id/dressPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_text_input"
             android:layout_marginTop="10dp"
-            android:hint="Điền tại đây"
+            android:background="@drawable/background_text_input"
             android:drawableLeft="@drawable/ic_money"
             android:drawablePadding="10dp"
+            android:hint="Điền tại đây"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
@@ -127,7 +131,9 @@
         android:text="Mô tả"
         android:layout_marginTop="10dp"
         android:textStyle="bold"/>
+
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_input_des1"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -148,7 +154,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAdd"
+        android:id="@+id/btn_add_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/AppCompatButtonStyle"

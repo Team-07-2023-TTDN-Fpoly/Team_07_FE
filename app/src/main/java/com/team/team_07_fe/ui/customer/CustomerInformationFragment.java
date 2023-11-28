@@ -48,14 +48,14 @@ public class CustomerInformationFragment extends Fragment {
         // Set lại tên khách hàng
         layout_input_name.getEditText().setText(customer.getCus_name());
         // Set lại email
-        layout_input_email.getEditText().setText(customer.getEmail());
+        layout_input_email.getEditText().setText(customer.getCus_email());
         layout_input_email.getEditText().setEnabled(false);
         // Set lại số điện thoại
-        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneimary()));
-        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phonesob()));
+        layout_input_phone.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phone()));
+        layout_input_phoneSecond.getEditText().setText(FormatHelper.formatPhoneNumber(customer.getCus_phoneSecond()));
         // Set lại ngày sinh - bạn cần định dạng lại Date thành String
-        if (customer.getCus_birthday() != null) {
-            String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_birthday());
+        if (customer.getCus_wedding_date() != null) {
+            String birthdayStr = FormatHelper.convertDatetoString(customer.getCus_wedding_date());
             layout_input_birthday.getEditText().setText(birthdayStr);
         }
         // Set lại địa chỉ

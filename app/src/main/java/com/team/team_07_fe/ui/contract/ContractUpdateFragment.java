@@ -14,6 +14,7 @@ import com.team.team_07_fe.R;
  * A simple {@link Fragment} subclass.
  * Use the {@link ContractUpdateFragment#newInstance} factory method to
  * create an instance of this fragment.
+//  
  */
 public class ContractUpdateFragment extends Fragment {
 

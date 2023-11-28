@@ -21,11 +21,7 @@ import com.team.team_07_fe.models.WorkShift;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WorkShiftManagerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class WorkShiftManagerFragment extends Fragment {
     private WorkShiftViewModel workShiftViewModel;
     private WorkShiftAdapter workShiftAdapter;
@@ -64,7 +60,7 @@ public class WorkShiftManagerFragment extends Fragment {
     private void initialAdapter(){
         if (workShiftViewModel != null) {
             // Your logic here
-            workShiftAdapter = new WorkShiftAdapter(requireContext(),workShiftViewModel.getWorkShiftList().getValue());
+//            workShiftAdapter = new WorkShiftAdapter(requireContext(),workShiftViewModel.getWorkShiftList().getValue());
         }
         recyclerViewW.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerViewW.setAdapter(workShiftAdapter);
