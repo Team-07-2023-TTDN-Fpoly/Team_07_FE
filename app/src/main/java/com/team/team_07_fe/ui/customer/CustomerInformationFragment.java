@@ -39,13 +39,13 @@ public class CustomerInformationFragment extends Fragment {
             setData(data);
         }
     }
-    //Gán data người dùng cho input
+    //Gán data cho input
     private void setData(Customer customer){ //tên, sdt1,sdt2,email,ngày sinh,địa chỉ
         // Set lại thông tin id, nếu có trường hi   ển thị id
         if (layout_input_id.getEditText() != null) {
             layout_input_id.getEditText().setText(String.valueOf(customer.getCus_id()));
         }
-        // Set lại tên khách hàng
+        // Set lại tên nhân viên
         layout_input_name.getEditText().setText(customer.getCus_name());
         // Set lại email
         layout_input_email.getEditText().setText(customer.getCus_email());
