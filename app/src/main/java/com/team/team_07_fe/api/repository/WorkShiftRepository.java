@@ -59,8 +59,8 @@ public class WorkShiftRepository {
         }
     }
     //Lệnh để lấy tất cả 
-    public void getAllWorkShift(){
-        workShiftService.getAllWorkShift().enqueue(new Callback<ApiResponse<List<WorkShift>>>() {
+    public void getAllWorkShift(String search){
+        workShiftService.getAllWorkShift(search).enqueue(new Callback<ApiResponse<List<WorkShift>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<WorkShift>>> call, Response<ApiResponse<List<WorkShift>>> response) {
                 if(response.isSuccessful()){

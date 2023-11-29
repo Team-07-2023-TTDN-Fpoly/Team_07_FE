@@ -79,7 +79,7 @@ public class EmployeeCreateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //
-        workShiftViewModel.getAllWorkShift();
+        workShiftViewModel.getAllWorkShift(null);
 
 
         //

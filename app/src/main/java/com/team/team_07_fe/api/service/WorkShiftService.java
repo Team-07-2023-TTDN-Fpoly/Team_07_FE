@@ -12,11 +12,13 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface WorkShiftService {
+
     //Lấy tất cả 
     @GET("/api/workshift")
-    Call<ApiResponse<List<WorkShift>>> getAllWorkShift();
+    Call<ApiResponse<List<WorkShift>>> getAllWorkShift(@Query("search")String search);
     //Tạo tài khoản cho 
     @POST("/api/workshift")
     @FormUrlEncoded

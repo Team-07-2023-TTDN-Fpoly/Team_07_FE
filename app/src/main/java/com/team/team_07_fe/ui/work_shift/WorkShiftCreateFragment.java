@@ -80,7 +80,7 @@ public class WorkShiftCreateFragment extends Fragment {
             if(!TextUtils.isEmpty(TimeEnd)){
                 formatEndTime = FormatHelper.convertStringtoDate(TimeEnd);
             }
-            Toast.makeText(requireContext(), "Thêm mới nhân viên thành công!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Thêm mới ca làm thành công!", Toast.LENGTH_SHORT).show();
         }
     }
     private boolean validateInput(String name,String TimeStart,String TimeEnd){

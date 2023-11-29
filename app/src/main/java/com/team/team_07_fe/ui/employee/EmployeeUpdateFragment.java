@@ -82,7 +82,7 @@ public class EmployeeUpdateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        workShiftViewModel.getAllWorkShift();
+        workShiftViewModel.getAllWorkShift(null);
         //
         observeData();
 
