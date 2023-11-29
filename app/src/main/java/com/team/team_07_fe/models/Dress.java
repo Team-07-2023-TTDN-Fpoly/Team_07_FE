@@ -10,7 +10,7 @@ public class Dress implements Serializable {
     @SerializedName("image")
     private String image;
     @SerializedName("dressTypeId")
-    private String dressTypeId;
+    private DressType dressTypeId;
 
     @SerializedName("dress_price")
     private Long dress_price;
@@ -27,7 +27,7 @@ public class Dress implements Serializable {
     @SerializedName("dress_status")
     private String dress_status;
 
-    public Dress( String id, String dress_name, String dressTypeId, Long dress_price, String size, String dress_description, String color)  {
+    public Dress( String id, String dress_name, DressType dressTypeId, Long dress_price, String size, String dress_description, String color)  {
         this.id=id;
         this.dress_name=dress_name;
         this.dressTypeId=dressTypeId;
@@ -39,7 +39,7 @@ public class Dress implements Serializable {
     }
 
 
-    public Dress(String dress_name, String dressTypeId, Long dress_price, String color, String size, String dress_description) {
+    public Dress(String dress_name, DressType dressTypeId, Long dress_price, String color, String size, String dress_description) {
         this.dress_name=dress_name;
         this.dressTypeId=dressTypeId;
         this.dress_price=dress_price;
@@ -70,11 +70,11 @@ public class Dress implements Serializable {
         this.dress_name = dress_name;
     }
 
-    public String getDressTypeId() {
+    public DressType getDressTypeId() {
         return dressTypeId;
     }
 
-    public void setDressTypeId(String dressTypeId) {
+    public void setDressTypeId(DressType dressTypeId) {
         this.dressTypeId = dressTypeId;
     }
 

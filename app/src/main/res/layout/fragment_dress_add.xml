@@ -38,23 +38,21 @@
             android:hint="Điền tại đây"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_input_type"
+        style="@style/TextInputLayout.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
-            android:id="@+id/dropdown_type_dress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:hint="Loại áo cưới"
-            android:background="@drawable/background_dropdown"
-            android:inputType="none"
-            android:focusable="false"
-            android:clickable="true" />
+    <AutoCompleteTextView
+        android:id="@+id/dropdown_type_dress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_dropdown"
+        android:gravity="top"
+        android:inputType="none"
+        android:dropDownHeight="200dp"
+        android:hint="Loại áo cưới" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
