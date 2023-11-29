@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,32 +22,57 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Dress;
+import com.team.team_07_fe.models.DressType;
+import com.team.team_07_fe.ui.dresstype.DressTypeViewModel;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.DressViewModel;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class DressAddFragment extends Fragment {
     private TextInputLayout layout_input_name, layout_input_type, layout_input_color, layout_input_size,
     layout_input_price, layout_input_des;
+    private AutoCompleteTextView dropdown_type_dress,dropdown_size;
+    private DressTypeViewModel dressTypeViewModel;
     private DressViewModel mViewModel;
     private AppCompatButton btn_add_item;
     private ImageView imageView;
     private LoadingDialog loadingDialog;
     private Uri mUri;
 
+    //Adapter danh sách loại áo cưới
+    private ArrayAdapter<DressType> dressTypeArrayAdapter;
+    private List<DressType> listDressTypeForDropdown;
+    //Lựa chọn loại áo cưới
+    private DressType selectDressTypeFromDropdown = null;
+    //Adapter cho size áo
+    private ArrayAdapter<String> sizeArrayAdapter;
+    private final String[] stringsSize = {"S","M","L"};
+    private final List<String> listSizeForDropdown = Arrays.asList(stringsSize);
+    //Lựa chọn size áo
+    private String selectSizeFromDropdown ="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dress_add, container, false);
+
         mViewModel = new ViewModelProvider(requireActivity()).get(DressViewModel.class);
+        dressTypeViewModel = new ViewModelProvider(requireActivity()).get(DressTypeViewModel.class);
+
         loadingDialog = new LoadingDialog(requireContext());
+        listDressTypeForDropdown = new ArrayList<>();
+
         mapping(view);
         //mapping
         return view;
@@ -53,17 +80,42 @@ public class DressAddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Lấy tất cả thông tin của loại áo cưới
+        dressTypeViewModel.getAllDressType(null);
+
+        //Dropdown list DressType
+        dressTypeArrayAdapter = new ArrayAdapter<>(requireContext(),android.R.layout.simple_dropdown_item_1line,listDressTypeForDropdown);
+        dropdown_type_dress.setAdapter(dressTypeArrayAdapter);
+
+        dressTypeViewModel.getDressTypeList().observe(getViewLifecycleOwner(),dressTypes -> {
+            if(dressTypes!=null){
+                listDressTypeForDropdown.clear();
+                listDressTypeForDropdown.addAll(dressTypes);
+                dressTypeArrayAdapter.notifyDataSetChanged();
+            }
+        });
+        //Dropdown list Size
+        sizeArrayAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line,listSizeForDropdown);
+        dropdown_size.setAdapter(sizeArrayAdapter);
+        //Lựa chọn dressType
+        dropdown_type_dress.setOnItemClickListener((adapterView, view1, i, l) -> {
+            selectDressTypeFromDropdown = (DressType) dressTypeArrayAdapter.getItem(i);
+        });
+        //Lựa chọn size
+        dropdown_type_dress.setOnItemClickListener((adapterView, view1, i, l) -> {
+            selectSizeFromDropdown = sizeArrayAdapter.getItem(i);
+        });
     }
     private void handle(View view){
         String name = layout_input_name.getEditText().getText().toString().trim();
-        String type = layout_input_type.getEditText().getText().toString().trim();
+        String type = selectDressTypeFromDropdown.getType_id();
         String price = layout_input_price.getEditText().getText().toString().trim();
         String color = layout_input_color.getEditText().getText().toString().trim();
-        String size = layout_input_size.getEditText().getText().toString().trim();
+        String size = selectSizeFromDropdown;
         String des = layout_input_des.getEditText().getText().toString().trim();
 
 
-        if(validateInput(name,price,type, des)){
+        if(validateInput(name,price,color, des)){
 
          //   mViewModel.addDress(new Dress(name,type,price,color,size,des));///đang tìm lỗi
 
@@ -82,7 +134,8 @@ public class DressAddFragment extends Fragment {
         layout_input_size = view.findViewById(R.id.layout_input_size);
         layout_input_des = view.findViewById(R.id.layout_input_des);
         btn_add_item = view.findViewById(R.id.btn_add_item);
-
+        dropdown_type_dress = view.findViewById(R.id.dropdown_type_dress);
+        dropdown_size = view.findViewById(R.id.dressSize);
     }
     private boolean validateInput(String name,String price,
                                   String color, String des){
@@ -113,7 +166,20 @@ public class DressAddFragment extends Fragment {
             layout_input_des.setError("Vui lòng nhập mô tả cho áo cưới!");
             isValid = false;
         }
-
+        //Kiểm tra loại áo đã chọn chưa
+        if(selectDressTypeFromDropdown==null){
+            layout_input_type.setError("Vui lòng chọn loại áo cưới!");
+            isValid = false;
+        }else{
+            layout_input_type.setError(null);
+        }
+        //Kiểm tra size đã chọn chưa
+        if(selectSizeFromDropdown.isEmpty()){
+            Toast.makeText(requireContext(), "Vui lòng chọn size áo!", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }else{
+            layout_input_type.setError(null);
+        }
         return isValid;
     }
     public void choseImgFromGallery() {

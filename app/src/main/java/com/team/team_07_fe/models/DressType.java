@@ -33,5 +33,10 @@ public class DressType implements Serializable {
     public void setType_name(String type_name) {
         this.type_name = type_name;
     }
+
+    @Override
+    public String toString() {
+        return "Loại: "+ type_name;
+    }
 }
 
