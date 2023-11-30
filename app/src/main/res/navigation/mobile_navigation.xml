@@ -169,6 +169,14 @@
         <action
             android:id="@+id/action_workShiftManagerFragment_to_workShiftCreateFragment"
             app:destination="@id/workShiftCreateFragment" />
+        <action
+            android:id="@+id/action_workShiftManagerFragment_to_workShiftUpdateFragment"
+            app:destination="@id/workShiftUpdateFragment" >
+            <argument
+                android:name="data_workShift"
+                app:argType="com.team.team_07_fe.models.WorkShift"
+                app:nullable="false"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/workShiftCreateFragment"
@@ -184,4 +192,9 @@
         android:id="@+id/dressAddFragment"
         android:name="com.team.team_07_fe.ui.dress.DressAddFragment"
         android:label="Thêm mới áo cưới" />
+    <fragment
+        android:id="@+id/workShiftUpdateFragment"
+        android:name="com.team.team_07_fe.ui.work_shift.WorkShiftUpdateFragment"
+        android:label="Cập nhật thông tin ca làm"
+        tools:layout="@layout/fragment_work_shift_update" />
 </navigation>

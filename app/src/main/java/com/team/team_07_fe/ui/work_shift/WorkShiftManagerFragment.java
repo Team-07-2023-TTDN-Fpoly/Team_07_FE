@@ -1,5 +1,6 @@
 package com.team.team_07_fe.ui.work_shift;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,8 +22,10 @@ import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.CustomerAdapter;
 import com.team.team_07_fe.adapter.WorkShiftAdapter;
 import com.team.team_07_fe.models.Customer;
+import com.team.team_07_fe.models.DressType;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.ui.customer.CustomerManagerFragment;
 import com.team.team_07_fe.viewmodels.AuthViewModel;
 
 import java.util.ArrayList;
@@ -76,12 +79,43 @@ public class WorkShiftManagerFragment extends Fragment {
 //            recyclerViewW.setLayoutManager(new LinearLayoutManager(requireContext()));
 //            recyclerViewW.setAdapter(workShiftAdapter);
 //        }
+
         workShiftAdapter = new WorkShiftAdapter(requireContext(), new ArrayList<>());
         recyclerViewW.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerViewW.setAdapter(workShiftAdapter);
-
+        workShiftAdapter.setOnClickDeleteClickListener(this::handleShowConfirmDelete);
+        workShiftAdapter.onClickUpdateWorkShiftClickListener(this::WorkShifthandleNavigateUpdateForm);
     }
 
+    private void WorkShifthandleNavigateUpdateForm(int position) {
+        WorkShift workShift = workShiftAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data_workShift", workShift);
+        NavHostFragment.findNavController(WorkShiftManagerFragment.this)
+                .navigate(R.id.action_workShiftManagerFragment_to_workShiftUpdateFragment, bundle);
+    }
+    private void handleShowConfirmDelete(int position) {
+        WorkShift workShift = workShiftAdapter.getItem(position);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Xác nhận xóa");
+        builder.setMessage("Bạn có chắc muốn xóa ca làm này?");
+        //Tại sao chỗ này lại là xóa loại áo cưới
+        builder.setPositiveButton("Xóa", (dialog, which) -> {
+            workShiftViewModel.deleteWorkShift(workShift.getShift_id());
+
+            dialog.dismiss();
+        });
+
+        builder.setNegativeButton("Hủy bỏ", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        alertDialog.show();
+    }
     private void handleNavigateCreateForm(View view){
         NavHostFragment.findNavController(WorkShiftManagerFragment.this)
                 .navigate(R.id.action_workShiftManagerFragment_to_workShiftCreateFragment);

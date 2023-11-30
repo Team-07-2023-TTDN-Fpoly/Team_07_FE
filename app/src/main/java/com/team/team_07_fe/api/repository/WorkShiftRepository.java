@@ -8,7 +8,9 @@ import com.google.gson.Gson;
 import com.team.team_07_fe.api.ApiClient;
 import com.team.team_07_fe.api.ApiResponse;
 import com.team.team_07_fe.api.service.WorkShiftService;
+import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.request.WorkShiftRepuest;
 
 import java.util.List;
 
@@ -84,8 +86,8 @@ public class WorkShiftRepository {
     }
 
     //Tạo mới 
-    public void createWorkShift(WorkShift workShiftRequest){
-        workShiftService.createWorkShift(workShiftRequest.getName(),workShiftRequest.getTimeStart(),workShiftRequest.getTimeEnd(),workShiftRequest.getShift_description()).enqueue(new Callback<ApiResponse<String>>() {
+    public void createWorkShift(WorkShiftRepuest workShiftRequest){
+        workShiftService.createWorkShift(workShiftRequest.getName(),workShiftRequest.getTimeStart(),workShiftRequest.getTimeEnd(), String.valueOf(workShiftRequest.getShift_description())).enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                 if(response.isSuccessful()  && response.body() != null){
@@ -106,6 +108,25 @@ public class WorkShiftRepository {
             @Override
             public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
                 Log.i("ERROR CREATE ",t.getMessage());
+                errorMessage.postValue("Lỗi kết nối");
+            }
+        });
+    }
+    public void deleteWorkShift(String id) {
+        workShiftService.deleteWorkShift(id).enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> apiResponse = response.body();
+                    dataInput.postValue(apiResponse.getData());
+                } else {
+                    handeErrorMessage(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Log.i("ERROR DELETE DRESS TYPE", t.getMessage());
                 errorMessage.postValue("Lỗi kết nối");
             }
         });

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -24,7 +25,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.anotition.Role;
 import com.team.team_07_fe.models.Employee;
+import com.team.team_07_fe.request.CustomerRequest;
+import com.team.team_07_fe.request.WorkShiftRepuest;
 import com.team.team_07_fe.utils.FormatHelper;
+import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,6 +39,7 @@ public class WorkShiftCreateFragment extends Fragment {
 
     TextInputLayout txtTimeEnd,txtTimeStart,layout_input_name_work_shirt;
     AlertDialog.Builder builder;
+    private WorkShiftViewModel wViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class WorkShiftCreateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_work_shift_create, container, false);
         mapping(view);
+        wViewModel = new ViewModelProvider(requireActivity()).get(WorkShiftViewModel.class);
+
         return view;
     }
     @Override
@@ -75,14 +82,23 @@ public class WorkShiftCreateFragment extends Fragment {
             Date formatEndTime = new Date();
             Date formatStartTime = new Date();
             if (!TextUtils.isEmpty(TimeStart)) {
-                formatStartTime = FormatHelper.convertStringtoDate(TimeStart);
+                formatStartTime = FormatHelper.convertStringToTime(TimeStart);
             }
             if(!TextUtils.isEmpty(TimeEnd)){
-                formatEndTime = FormatHelper.convertStringtoDate(TimeEnd);
+                formatEndTime = FormatHelper.convertStringToTime(TimeEnd);
             }
-            Toast.makeText(requireContext(), "Thêm mới ca làm thành công!", Toast.LENGTH_SHORT).show();
+            WorkShiftRepuest workShiftRepuest = new WorkShiftRepuest(name, formatStartTime,formatEndTime );
+            confirmCreateWorkShift(workShiftRepuest);
         }
     }
+
+    private void confirmCreateWorkShift(WorkShiftRepuest workShiftRepuest) {
+
+            wViewModel.createWorkShift(workShiftRepuest);
+        Toast.makeText(requireContext(), "Thêm mới thành công!", Toast.LENGTH_SHORT).show();
+
+    }
+
     private boolean validateInput(String name,String TimeStart,String TimeEnd){
         boolean isValid = true;
 
