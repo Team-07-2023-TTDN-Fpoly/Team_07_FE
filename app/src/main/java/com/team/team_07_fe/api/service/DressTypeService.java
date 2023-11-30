@@ -30,4 +30,5 @@ public interface DressTypeService {
     Call<ApiResponse<String>> updateDressType(@Path("id")String type_id, @Body DressTypeRequest dressTypeRequest);
     @DELETE("/api/dresstype/{id}")
     Call<ApiResponse<String>> deleteDressType(@Path("id") String type_id);
+
 }
