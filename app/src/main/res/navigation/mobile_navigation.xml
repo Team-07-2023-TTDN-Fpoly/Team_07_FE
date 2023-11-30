@@ -53,7 +53,8 @@
         tools:layout="@layout/fragment_dress_list" >
         <action
             android:id="@+id/action_navigation_dress_to_dressAddFragment"
-            app:destination="@id/dressAddFragment" />
+            app:destination="@id/dressAddFragment"
+            />
     </fragment>
 
     <fragment
@@ -112,6 +113,9 @@
         <action
             android:id="@+id/action_navigation_settings_to_dressTypeManagerFragment"
             app:destination="@id/dressTypeManagerFragment"/>
+        <action
+            android:id="@+id/action_navigation_settings_to_StatisticScreen"
+            app:destination="@id/StatisticScreen" />
     </fragment>
     <fragment
         android:id="@+id/navigation_employee_create"
@@ -184,4 +188,43 @@
         android:id="@+id/dressAddFragment"
         android:name="com.team.team_07_fe.ui.dress.DressAddFragment"
         android:label="Thêm mới áo cưới" />
+    <fragment
+        android:id="@+id/StatisticScreen"
+        android:name="com.team.team_07_fe.fragment.StatisticScreenFragment"
+        android:label="Thống kê thu chi"
+        tools:layout="@layout/fragment_statistic_screen">
+        <action
+            android:id="@+id/action_StatisticScreen_to_createDetailFragment"
+            app:destination="@id/CreateDetail" />
+        <argument
+            android:name="data_detail"
+            app:argType="com.team.team_07_fe.models.DetailStatistics"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+        <action
+            android:id="@+id/action_StatisticScreen_to_PaymentDetail"
+            app:destination="@id/PaymentDetail"/>
+        <action
+            android:id="@+id/action_StatisticScreen_to_CreateDetail"
+            app:destination="@id/CreateDetail" />
+        <action
+            android:id="@+id/action_StatisticScreen_to_UpdateDetail"
+            app:destination="@id/UpdateDetail" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/UpdateDetail"
+        android:name="com.team.team_07_fe.fragment.UpdateDetailFragment"
+        android:label="Cập nhật khoản chi"
+        tools:layout="@layout/fragment_update_detail"/>
+    <fragment
+        android:id="@+id/PaymentDetail"
+        android:name="com.team.team_07_fe.fragment.PaymentDetailFragment"
+        android:label="Chi tiết thu chi"
+        tools:layout="@layout/fragment_payment_detail"/>
+    <fragment
+        android:id="@+id/CreateDetail"
+        android:name="com.team.team_07_fe.fragment.CreateDetailFragment"
+        android:label="Thêm mới khoản chi"
+        tools:layout="@layout/fragment_create_detail"/>
 </navigation>
