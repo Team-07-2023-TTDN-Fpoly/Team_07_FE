@@ -29,6 +29,7 @@ import com.team.team_07_fe.api.service.CustomerService;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.request.CustomerRequest;
+import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.CustomerViewModel;
 
 import java.util.ArrayList;
@@ -41,16 +42,11 @@ public class CustomerManagerFragment extends Fragment {
     private SearchView searchView;
     private FloatingActionButton fab;
     private CustomerViewModel customerViewModel;
-    private CustomerService customerService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-//    public static CustomerManagerFragment newInstance() {
-//        return new CustomerManagerFragment();
-//    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -99,23 +95,16 @@ public class CustomerManagerFragment extends Fragment {
     }
 
 
-private void initialAdapter() {
-//    customerViewModel.getCustomerList().observe(getViewLifecycleOwner(), new Observer<List<Customer>>() {
-//        @Override
-//        public void onChanged(List<Customer> customer) {
-//            customerAdapter.setList(customer);
-//            Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
-//        }
-//    });
+    private void initialAdapter() {
 
-    customerAdapter = new CustomerAdapter(requireContext(), new ArrayList<>());
-    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-    recyclerView.setAdapter(customerAdapter);
+        customerAdapter = new CustomerAdapter(requireContext(), new ArrayList<>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(customerAdapter);
 
-    customerAdapter.setOnClickUpdateCustomerClickListener(this::handleNavigateUpdateCustomerForm);
-    customerAdapter.setOnClickDeleteCustomerClickListener(this::handleNavigateDeleteForm);
+        customerAdapter.setOnClickUpdateCustomerClickListener(this::handleNavigateUpdateCustomerForm);
+        customerAdapter.setOnClickDeleteCustomerClickListener(this::handleNavigateDeleteForm);
 
-}
+    }
 
     private void handleNavigateCreateForm(View view) {
         NavHostFragment.findNavController(CustomerManagerFragment.this)
@@ -140,6 +129,7 @@ private void initialAdapter() {
                     String customerId = customer.getCus_id(); // Lấy ID của khách hàng
                     customerViewModel.DeleteCustomer(customerId);// Gọi phương thức xóa khách hàng với ID
                     dialog.dismiss();
+                    Toast.makeText(requireContext(), "Xóa khách hàng thành công!", Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton(R.string.no, ((dialog, which) -> {
                     dialog.dismiss();
@@ -152,7 +142,6 @@ private void initialAdapter() {
             @Override
             public void onChanged(List<Customer> customer) {
                 customerAdapter.setList(customer);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
             }
         });
     }

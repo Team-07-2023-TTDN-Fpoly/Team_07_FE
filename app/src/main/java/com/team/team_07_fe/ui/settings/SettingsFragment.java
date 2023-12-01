@@ -28,7 +28,8 @@ import java.time.LocalTime;
 import java.util.Date;
 
 public class SettingsFragment extends Fragment {
-    private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password, layout_dresstype_manager,layout_workshift_information,layout_logout;
+    private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password,
+            layout_dresstype_manager,layout_workshift_information,layout_logout, layout_statistic_screen;
     private SettingsViewModel mViewModel;
 
     @Override
@@ -48,6 +49,7 @@ public class SettingsFragment extends Fragment {
         layout_dresstype_manager = view.findViewById(R.id.layout_dresstype_manager);
         layout_change_password = view.findViewById(R.id.layout_change_password);
         layout_logout = view.findViewById(R.id.layout_logout);
+        layout_statistic_screen = view.findViewById(R.id.revenue_expenditure_statistics);
     }
 
     @Override
@@ -58,10 +60,14 @@ public class SettingsFragment extends Fragment {
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_employee_manager);
         });
+        //chuyển sang màn hình thống kê
+        layout_statistic_screen.setOnClickListener(v -> {
+            NavHostFragment.findNavController(SettingsFragment.this)
+                    .navigate(R.id.action_navigation_settings_to_StatisticScreen);
+        });
         //Chuyển sang màn hình xem thông tin chi tiết
         layout_employee_information.setOnClickListener(v->{
             Bundle bundle = new Bundle();
-
 //            bundle.putSerializable("data_employee",employee);
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_employee_information,bundle);
@@ -71,6 +77,7 @@ public class SettingsFragment extends Fragment {
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_change_password);
         });
+
         //Đăng xuất
         layout_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +117,9 @@ public class SettingsFragment extends Fragment {
         dialog.show();
     }
     private void performLogout() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
+        Intent intent = new Intent(requireContext(), LoginActivity.class);
         startActivity(intent);
+        requireActivity().finish();
     }
 
 }
