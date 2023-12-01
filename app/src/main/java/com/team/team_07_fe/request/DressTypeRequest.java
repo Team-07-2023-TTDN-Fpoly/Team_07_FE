@@ -9,7 +9,13 @@ public class DressTypeRequest {
     @SerializedName("type_name")
     private String type_name;
 
+    //Thêm loại áo
     public DressTypeRequest(String type_name) {
+        this.type_name = type_name;
+    }
+
+    //Cập nhật loại áo
+    public DressTypeRequest(String type_id, String type_name) {
         this.type_name = type_name;
     }
 

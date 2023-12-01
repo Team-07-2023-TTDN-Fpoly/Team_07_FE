@@ -64,7 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <TextView
-                android:id="@+id/btn_disable"
+                android:id="@+id/btn_dele_work"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_corner_full_white"
@@ -73,14 +73,14 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:maxLines="2"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_change_pass"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_update_work_shift"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_change_pass"
-                app:layout_constraintTop_toTopOf="@+id/btn_change_pass" />
+                app:layout_constraintStart_toEndOf="@+id/btn_update_work_shift"
+                app:layout_constraintTop_toTopOf="@+id/btn_update_work_shift" />
 
             <TextView
-                android:id="@+id/btn_change_pass"
+                android:id="@+id/btn_update_work_shift"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_corner_full_white"
@@ -90,7 +90,7 @@
                 android:gravity="center"
                 android:maxLines="2"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_disable"
+                app:layout_constraintEnd_toStartOf="@+id/btn_dele_work"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
