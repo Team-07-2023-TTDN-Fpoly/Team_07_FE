@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,10 @@ import java.util.List;
 
 public class WorkShiftManagerFragment extends Fragment {
     private WorkShiftViewModel workShiftViewModel;
-    private AuthViewModel authViewModel;
     private WorkShiftAdapter workShiftAdapter;
     private RecyclerView recyclerViewW;
     private FloatingActionButton fab;
-
-    private List<WorkShift> listW;
+    private List<WorkShift> workShiftList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,16 +52,21 @@ public class WorkShiftManagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_work_shift_manager, container, false);
         mapping(view);
         workShiftViewModel = new ViewModelProvider(requireActivity()).get(WorkShiftViewModel.class);
+        workShiftList = new ArrayList<>();
 
-
+        workShiftAdapter = new WorkShiftAdapter(requireContext(),workShiftList);
+        recyclerViewW.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerViewW.setAdapter(workShiftAdapter);
         return view;
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initialAdapter();
         workShiftViewModel.getAllWorkShift(null);
+
         observeViewModel();
+        initialAdapter();
+
         fab.setOnClickListener(this::handleNavigateCreateForm);
     }
     private void mapping(View view){
@@ -71,19 +75,8 @@ public class WorkShiftManagerFragment extends Fragment {
         fab = view.findViewById(R.id.fab);
     }
     private void initialAdapter() {
-//        if (workShiftViewModel != null) {
-//            // Initialize the adapter with an empty list or initial data
-//            workShiftAdapter = new WorkShiftAdapter(requireContext(), new ArrayList<>());
-//
-//            // Set the adapter to the RecyclerView
-//            recyclerViewW.setLayoutManager(new LinearLayoutManager(requireContext()));
-//            recyclerViewW.setAdapter(workShiftAdapter);
-//        }
 
-        workShiftAdapter = new WorkShiftAdapter(requireContext(), new ArrayList<>());
-        recyclerViewW.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerViewW.setAdapter(workShiftAdapter);
-        workShiftAdapter.setOnClickDeleteClickListener(this::handleShowConfirmDelete);
+        workShiftAdapter.setOnClickDeleteClickListener(this::handleNavigateDeleteForm);
         workShiftAdapter.onClickUpdateWorkShiftClickListener(this::WorkShifthandleNavigateUpdateForm);
     }
 
@@ -94,27 +87,23 @@ public class WorkShiftManagerFragment extends Fragment {
         NavHostFragment.findNavController(WorkShiftManagerFragment.this)
                 .navigate(R.id.action_workShiftManagerFragment_to_workShiftUpdateFragment, bundle);
     }
-    private void handleShowConfirmDelete(int position) {
+    private void handleNavigateDeleteForm(int position) {
         WorkShift workShift = workShiftAdapter.getItem(position);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Xác nhận xóa");
-        builder.setMessage("Bạn có chắc muốn xóa ca làm này?");
-        //Tại sao chỗ này lại là xóa loại áo cưới
-        builder.setPositiveButton("Xóa", (dialog, which) -> {
-            workShiftViewModel.deleteWorkShift(workShift.getShift_id());
-
-            dialog.dismiss();
-        });
-
-        builder.setNegativeButton("Hủy bỏ", (dialog, which) -> {
-            dialog.dismiss();
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
-
-        alertDialog.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setTitle("Cảnh báo!")
+                .setMessage("Bạn có chắc muốn xóa ca làm này không?")
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    // Gọi phương thức xóa khách hàng với ID tương ứng
+                    Toast.makeText(requireContext(), "Xóa thành công!", Toast.LENGTH_SHORT).show();
+                    String  workShiftId= workShift.getShift_id(); // Lấy ID
+                    workShiftViewModel.deleteWorkShift(workShiftId);// Gọi phương thức xóa  ID
+                    workShiftViewModel.getAllWorkShift(null);
+                    dialog.dismiss();
+                })
+                .setNegativeButton(R.string.no, ((dialog, which) -> {
+                    dialog.dismiss();
+                }));
+        builder.create().show();
     }
     private void handleNavigateCreateForm(View view){
         NavHostFragment.findNavController(WorkShiftManagerFragment.this)
@@ -124,8 +113,14 @@ public class WorkShiftManagerFragment extends Fragment {
         workShiftViewModel.getWorkShiftList().observe(getViewLifecycleOwner(), new Observer<List<WorkShift>>() {
             @Override
             public void onChanged(List<WorkShift> workShifts) {
-                workShiftAdapter.setList(workShifts);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
+                if(workShifts!=null){
+                    workShiftList.clear();
+                    workShiftList.addAll(workShifts);
+                    workShiftAdapter.setList(workShiftList);
+                    workShiftAdapter.notifyDataSetChanged();
+                    Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

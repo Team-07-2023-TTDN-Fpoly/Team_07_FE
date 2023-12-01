@@ -1,13 +1,16 @@
 package com.team.team_07_fe.fragment;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,8 +20,12 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.DetailStatistics;
+import com.team.team_07_fe.request.CustomerRequest;
+import com.team.team_07_fe.request.DetailStatisticsRequest;
+import com.team.team_07_fe.request.EmployeeRequest;
 import com.team.team_07_fe.utils.FormatHelper;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.DetailStatisticsViewModel;
@@ -33,6 +40,8 @@ public class CreateDetailFragment extends Fragment {
     private AppCompatButton btn_add_detail;
     private LoadingDialog loadingDialog;
     private DetailStatisticsViewModel mViewDetailStatistic;
+    private DetailStatisticsRequest detailStatisticsRequest;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,26 +59,61 @@ public class CreateDetailFragment extends Fragment {
 
         btn_add_detail.setOnClickListener(this::AddDetail);
         create_detail_input_date.getEditText().setOnClickListener(this::dateforcreatedetail);
-
+        observeData();
     }
-
+    public void observeData(){
+        mViewDetailStatistic.getDataInput().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                NavHostFragment.findNavController(this).popBackStack();
+                Toast.makeText(requireContext(), "Thêm mới thành công!", Toast.LENGTH_SHORT).show();
+                mViewDetailStatistic.setDataInput(null);
+            }
+        });
+        mViewDetailStatistic.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void AddDetail(View view) {
         String date = create_detail_input_date.getEditText().getText().toString().trim();
         String name = create_detail_input_name.getEditText().getText().toString().trim();
         String money = create_detail_input_money.getEditText().getText().toString().trim();
         String text = create_detail_input_text.getEditText().getText().toString().trim();
 
-        if(valueInput(date,name,money,text)){
+
+//        if(valueInput(date,name,money,text)){
+//            loadingDialog.show();
+//            Date dateforcreatedetail = null;
+//            if (!TextUtils.isEmpty(dateforcreatedetail)) {
+//                dateforcreatedetail = FormatHelper.convertStringtoDate(dateforcreatedetail);
+//            }
+//            mViewDetailStatistic.addDetailStatistics(new DetailStatisticsRequest(new Date(),name, Long.parseLong(money),text));
+//            Toast.makeText(requireContext(), "Thêm mới khoản chi thành công!", Toast.LENGTH_SHORT).show();
+//            requireActivity().onBackPressed();
+//        }
+//    }
+        if (valueInput(date, name, money, text)) {
+            loadingDialog.show();
             Date dateforcreatedetail = null;
             if (!TextUtils.isEmpty(date)) {
                 dateforcreatedetail = FormatHelper.convertStringtoDate(date);
+                if (dateforcreatedetail != null && dateforcreatedetail.before(dateforcreatedetail)) {
+                    // Không quan tâm ngày được chọn chỉ quan tâm tháng
+                    create_detail_input_date.setError("Vui lòng chọn tháng.");
+                    return; // Dừng việc tạo yêu cầu
+                }
             }
-            mViewDetailStatistic.addDetailStatistics(new DetailStatistics(new Date(),name, 1000000L,text));
-            Toast.makeText(requireContext(), "Thêm mới khoản chi thành công!", Toast.LENGTH_SHORT).show();
-            requireActivity().onBackPressed();
+
+            DetailStatisticsRequest detailStatisticsRequest = new DetailStatisticsRequest(new Date(), name, Long.parseLong(money), text);
+            confirmCreateDetail(detailStatisticsRequest);
         }
+    }
 
-
+         private void confirmCreateDetail(DetailStatisticsRequest detailStatisticsRequest){
+        mViewDetailStatistic.addDetailStatistics(detailStatisticsRequest);
     }
     private void dateforcreatedetail(View view){
         Calendar calendar = Calendar.getInstance();
@@ -128,6 +172,16 @@ public class CreateDetailFragment extends Fragment {
         create_detail_input_text = view.findViewById(R.id.create_detail_input_text);
         btn_add_detail = view.findViewById(R.id.btn_add_detail);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)requireActivity()).hiddenBottomBar();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
+    }
 
 }

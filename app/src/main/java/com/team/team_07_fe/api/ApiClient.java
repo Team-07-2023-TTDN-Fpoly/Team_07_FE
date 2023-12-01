@@ -1,13 +1,8 @@
 package com.team.team_07_fe.api;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,22 +21,7 @@ public class ApiClient {
     }
     public static synchronized Retrofit getClient() {
         if(retrofit==null){
-            CookieJar cookieJar = new CookieJar() {
-                private final List<Cookie> cookieList = new ArrayList<>();
-
-                @Override
-                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                    cookieList.addAll(cookies);
-                }
-
-                @Override
-                public List<Cookie> loadForRequest(HttpUrl url) {
-                    return cookieList;
-                }
-            };
-
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                    .cookieJar(cookieJar)
                     .connectTimeout(30, TimeUnit.SECONDS) // Thời gian kết nối tối đa (30 giây)
                     .readTimeout(30, TimeUnit.SECONDS) // Thời gian đọc dữ liệu tối đa (30 giây)
                     .writeTimeout(30, TimeUnit.SECONDS); // Thời gian ghi dữ liệu tối đa (30 giây);
@@ -68,6 +48,5 @@ public class ApiClient {
 
         return retrofit;
     }
-
 
 }
