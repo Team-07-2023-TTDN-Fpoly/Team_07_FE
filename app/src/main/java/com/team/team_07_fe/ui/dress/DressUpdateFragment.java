@@ -34,6 +34,7 @@ import com.team.team_07_fe.R;
 
 import com.team.team_07_fe.models.Dress;
 
+import com.team.team_07_fe.request.DressRequest;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.DressViewModel;
 
@@ -107,7 +108,7 @@ public class DressUpdateFragment extends Fragment {
 
         if (validateInput(name, id, price)) {
 
-            Dress dressRequest = new Dress( id, name, type, Long.parseLong(price), size, des, color);
+            DressRequest dressRequest = new DressRequest( id, name, type,  size, color, Long.parseLong(price),des);
             showDialogConfirmUpdate(id, dressRequest);
         }
 
@@ -118,13 +119,14 @@ public class DressUpdateFragment extends Fragment {
 //        }
 
     }
-        private void showDialogConfirmUpdate(String id, Dress dressRequest){
+        private void showDialogConfirmUpdate(String id, DressRequest dressRequest){
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                     .setTitle("Thông báo!")
                     .setMessage("Bạn có chắc muốn cập nhật áo cưới này không? " +
                             "Mọi thông tin trước đó sẽ không được lưu.")
                     .setPositiveButton(R.string.yes,(dialog, which) -> {
-                        mViewModel.updateDress(Integer.parseInt(id),dressRequest);
+                        //Cần xử lý lại khi gửi qua server
+//                        mViewModel.updateDress(Integer.parseInt(id),dressRequest);
                         refreshFragment();
                         dialog.dismiss();
                     })
