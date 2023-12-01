@@ -80,7 +80,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:background="@drawable/background_text_input"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -99,7 +101,8 @@
                 android:textColor="@color/black"
                 android:background="@drawable/background_text_input"
                 android:textSize="16sp"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/btnLogin"

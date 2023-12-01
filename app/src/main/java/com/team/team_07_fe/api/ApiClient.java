@@ -21,7 +21,7 @@ public class ApiClient {
     }
     public static synchronized Retrofit getClient() {
         if(retrofit==null){
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder().cookieJar(new ApiCookieJar())
                     .connectTimeout(30, TimeUnit.SECONDS) // Thời gian kết nối tối đa (30 giây)
                     .readTimeout(30, TimeUnit.SECONDS) // Thời gian đọc dữ liệu tối đa (30 giây)
                     .writeTimeout(30, TimeUnit.SECONDS); // Thời gian ghi dữ liệu tối đa (30 giây);

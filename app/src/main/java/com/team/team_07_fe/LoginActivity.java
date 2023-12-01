@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -41,6 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         edEmail = findViewById(R.id.ed_email);
         edPass = findViewById(R.id.ed_pass);
         btnLogin = findViewById(R.id.btnLogin);
+
+        edPass.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if(i == EditorInfo.IME_ACTION_DONE){
+                btnLogin.performClick();
+                return true;
+            }
+            return false;
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

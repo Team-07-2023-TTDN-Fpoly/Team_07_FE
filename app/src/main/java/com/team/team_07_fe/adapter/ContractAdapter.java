@@ -11,23 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Contract;
+import com.team.team_07_fe.utils.FormatHelper;
 
 import java.util.List;
 
 public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ContractViewHolder>{
-
     private Context context;
     private List<Contract> mListContract;
 
-    private int itemLayout = R.layout.layout_item_contract;
-
-    public void setItemLayout(int layoutResId) {
-        this.itemLayout = layoutResId;
-        notifyDataSetChanged();
-    }
-
-    public ContractAdapter(Context context) {
+    public ContractAdapter(Context context, List<Contract> mListContract) {
         this.context = context;
+        this.mListContract = mListContract;
     }
 
     public void setData(List<Contract> list){
@@ -38,7 +32,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
     @NonNull
     @Override
     public ContractViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contract, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_contract, parent, false);
         return new ContractViewHolder(view);
     }
 
@@ -49,11 +43,11 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
             return;
         }
 
-        holder.tvName.setText(contract.getName());
-        holder.tvDate.setText("Ngày ký: " + contract.getDate());
-        holder.tvPhone.setText("SĐT: " + contract.getPhone());
-        holder.tvDeposit.setText("Tiền cọc: " + contract.getDeposit());
-        holder.tvSumMoney.setText("Tổng chi phí: " + contract.getSumMoney());
+        holder.tvName.setText(contract.getCustomer().getCus_name());
+        holder.tvDate.setText("Ngày ký: " + FormatHelper.convertDatetoString(contract.getCreateAt()));
+        holder.tvPhone.setText("SĐT: " + FormatHelper.formatPhoneNumber(contract.getCustomer().getCus_phone()));
+        holder.tvDeposit.setText("Tiền cọc: " + FormatHelper.convertPriceToString(contract.getPrepay()));
+        holder.tvSumMoney.setText("Tổng chi phí: " + FormatHelper.convertPriceToString(contract.getTotal_amount() - contract.getDiscount()));
         holder.tvStatus.setText("Trạng thái: " + contract.getStatus());
     }
 
@@ -64,10 +58,6 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         }
         return 0;
     }
-
-    public void setContracts(Object contracts) {
-    }
-
 
 
     public class ContractViewHolder extends RecyclerView.ViewHolder {

@@ -4,19 +4,34 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import org.jetbrains.annotations.Contract;
+import com.team.team_07_fe.api.repository.ContractRepository;
+import com.team.team_07_fe.models.Contract;
+import com.team.team_07_fe.models.Customer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContractViewModel extends ViewModel {
+    private ContractRepository contractRepository;
 
-    private MutableLiveData<List<Contract>> contracts = new MutableLiveData<>();
+    private MutableLiveData<List<Contract>> listContract;
+    private MutableLiveData<String> errorMessage;
 
-    public void setContracts(List<Contract> contractList) {
-        contracts.setValue(contractList);
+    public ContractViewModel(){
+        contractRepository = new ContractRepository();
+        listContract = contractRepository.getListContract();
+        errorMessage = contractRepository.getErrorMessage();
     }
 
-    public LiveData<List<Contract>> getContracts() {
-        return contracts;
+
+    public LiveData<List<Contract>> getListContract() {
+        return listContract;
+    }
+    public LiveData<String> getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void getAllContracts(String name){
+        contractRepository.getAllContract(name);
     }
 }
