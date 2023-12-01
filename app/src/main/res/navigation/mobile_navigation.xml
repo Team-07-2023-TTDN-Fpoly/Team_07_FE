@@ -209,20 +209,17 @@
         <action
             android:id="@+id/action_StatisticScreen_to_createDetailFragment"
             app:destination="@id/CreateDetail" />
-        <argument
-            android:name="data_detail"
-            app:argType="com.team.team_07_fe.models.DetailStatistics"
-            app:nullable="true"
-            android:defaultValue="@null"/>
-        <action
-            android:id="@+id/action_StatisticScreen_to_PaymentDetail"
-            app:destination="@id/PaymentDetail"/>
-        <action
-            android:id="@+id/action_StatisticScreen_to_CreateDetail"
-            app:destination="@id/CreateDetail" />
+
         <action
             android:id="@+id/action_StatisticScreen_to_UpdateDetail"
-            app:destination="@id/UpdateDetail" />
+            app:destination="@id/UpdateDetail" >
+            <argument
+                android:name="data_detail"
+                app:argType="com.team.team_07_fe.models.Statistic"
+                app:nullable="true"
+                android:defaultValue="@null"/>
+        </action>
+
 
     </fragment>
     <fragment
