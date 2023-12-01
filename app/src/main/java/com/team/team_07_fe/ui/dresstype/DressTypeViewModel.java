@@ -15,6 +15,8 @@ public class DressTypeViewModel extends ViewModel {
     private MutableLiveData<List<DressType>> listType;
     private MutableLiveData<String> dataInput;
     private MutableLiveData<String> errorMessage;
+
+
     public DressTypeViewModel(){
         dressTypeRepository = new DressTypeRepository();
         listType = dressTypeRepository.getListDressType();
@@ -52,7 +54,7 @@ public class DressTypeViewModel extends ViewModel {
         dressTypeRepository.createDressType(dressTypeRequest);
     }
     public void updateDressType(String id, DressTypeRequest dressTypeRequest) {
-        dressTypeRepository.updateDressType(id, dressTypeRequest);
+        dressTypeRepository.updateDressType(id,dressTypeRequest);
     }
     public void deleteDressType(String id) {
         dressTypeRepository.deleteDressType(id);
@@ -60,5 +62,6 @@ public class DressTypeViewModel extends ViewModel {
     public void getAllDressType(String search){
         dressTypeRepository.getAllDressType(search);
     }
+
 
 }
