@@ -91,20 +91,14 @@ public class CustomerCreateFragment extends Fragment {
         String address = layout_input_address.getEditText().getText().toString().trim();
 
 
-        if (validateInput(name, email, phone, phoneSecond)) {
+        if (validateInput(name, email, phone, phoneSecond,address)) {
             Date formatBirthday = null;
             if (!TextUtils.isEmpty(birthday)) {
                 formatBirthday = FormatHelper.convertStringtoDate(birthday);
-
-                // So sánh ngày được chọn với ngày hiện tại
-                Date currentDate = new Date();
-                if (formatBirthday != null && formatBirthday.before(currentDate)) {
-                    // Ngày được chọn là ngày trước ngày hiện tại, hiển thị thông báo lỗi
-                    layout_input_birthday.setError("Vui lòng chọn một ngày sau ngày hiện tại.");
-                    return; // Dừng việc tạo yêu cầu khách hàng vì có lỗi
-                }
+            }else{
+                layout_input_birthday.setError("Vui lòng chọn ngày cưới!");
+                return;
             }
-
             CustomerRequest customerRequest = new CustomerRequest(name, phone, phoneSecond, email, formatBirthday, address);
             confirmCreateCustomer(customerRequest);
         }
@@ -135,7 +129,7 @@ public class CustomerCreateFragment extends Fragment {
     }
 
     private boolean validateInput(String name,String email,
-                                  String phone,  String phoneSecond){
+                                  String phone,  String phoneSecond,String address){
         boolean isValid = true;
 
         if(TextUtils.isEmpty(name)){
@@ -144,14 +138,19 @@ public class CustomerCreateFragment extends Fragment {
         }else{
             layout_input_name.setError(null);
         }
-
-        if(TextUtils.isEmpty(phone) || phone.length() != 10 ||!Patterns.PHONE.matcher(phone).matches()){
+        if(TextUtils.isEmpty(phone)){
+            layout_input_phone.setError("Vui lòng nhập số điện thoại của bạn!");
+            isValid = false;
+        }else if(phone.length() != 10 ||!Patterns.PHONE.matcher(phone).matches()) {
             layout_input_phone.setError("Vui lòng nhập đúng định dạng!");
             isValid = false;
         }else{
             layout_input_phone.setError(null);
         }
-        if (TextUtils.isEmpty(phoneSecond) || phoneSecond.length() != 10 || !Patterns.PHONE.matcher(phoneSecond).matches()) {
+        if(TextUtils.isEmpty(phoneSecond)){
+            layout_input_phoneSecond.setError("Vui lòng nhập số điện thoại phụ của bạn!");
+            isValid = false;
+        }else if(phoneSecond.length() != 10 ||!Patterns.PHONE.matcher(phone).matches()) {
             layout_input_phoneSecond.setError("Vui lòng nhập đúng định dạng!");
             isValid = false;
         }else{
@@ -165,6 +164,11 @@ public class CustomerCreateFragment extends Fragment {
             isValid = false;
         }else{
             layout_input_email.setError(null);
+        }if(TextUtils.isEmpty(address)){
+            layout_input_address.setError("Vui lòng nhập địa chỉ!");
+            isValid = false;
+        }else{
+            layout_input_address.setError(null);
         }
 
         return isValid;

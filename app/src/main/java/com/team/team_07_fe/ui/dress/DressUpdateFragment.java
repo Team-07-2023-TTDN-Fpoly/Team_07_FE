@@ -1,16 +1,25 @@
 package com.team.team_07_fe.ui.dress;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -34,7 +43,8 @@ public class DressUpdateFragment extends Fragment {
             layout_input_size, layout_input_price, layout_input_des;
     private DressViewModel mViewModel;
     private AppCompatButton btn_reloadDress, btn_updateDress;
-    private ImageViewCompat layout_image;
+    private ImageView imageView;
+    private Uri mUri;
     private Dress originalData = null;
     private LoadingDialog loadingDialog;
 
@@ -64,6 +74,7 @@ public class DressUpdateFragment extends Fragment {
             setData(originalData);
         }
         //Click button
+        imageView.setOnClickListener(view1 -> choseImgFromGallery());
         btn_reloadDress.setOnClickListener(this::handleReloadData);
         btn_updateDress.setOnClickListener(this::handleUpdateData);
     }
@@ -84,13 +95,21 @@ public class DressUpdateFragment extends Fragment {
         }
     }
     private void handleUpdateData(View view) {
-        String name = layout_input_name.getEditText().getText().toString().trim();
         String id = layout_input_id.getEditText().getText().toString().trim();
+        String name = layout_input_name.getEditText().getText().toString().trim();
         String type = layout_input_type.getEditText().getText().toString().trim();
-        String color = layout_input_color.getEditText().getText().toString().trim();
-        String size = layout_input_size.getEditText().getText().toString().trim();
         String price = layout_input_price.getEditText().getText().toString().trim();
+        String size = layout_input_size.getEditText().getText().toString().trim();
+        String color = layout_input_color.getEditText().getText().toString().trim();
         String des = layout_input_des.getEditText().getText().toString().trim();
+
+
+
+        if (validateInput(name, id, price)) {
+
+            Dress dressRequest = new Dress( id, name, type, Long.parseLong(price), size, des, color);
+            showDialogConfirmUpdate(id, dressRequest);
+        }
 
 //        if (validateInput(name, id, price)) {
 //
@@ -166,6 +185,7 @@ public class DressUpdateFragment extends Fragment {
         return isValid;
     }
     private void mapping(View view){
+        imageView = view.findViewById(R.id.imageView);
         layout_input_id = view.findViewById(R.id.layout_input_id);
         layout_input_name = view.findViewById(R.id.layout_input_name);
         layout_input_price = view.findViewById(R.id.layout_input_price);
@@ -176,6 +196,7 @@ public class DressUpdateFragment extends Fragment {
         btn_reloadDress = view.findViewById(R.id.btn_reloadDress);
         btn_updateDress = view.findViewById(R.id.btn_updateDress);
     }
+
     private void setData(Dress dress) {
         // Set lại thông tin id, nếu có trường hiển thị id
         if (layout_input_id.getEditText() != null) {
@@ -206,4 +227,29 @@ public class DressUpdateFragment extends Fragment {
         super.onStop();
         ((MainActivity) requireActivity()).showBottomBar();
     }
+    public void choseImgFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        mActivityResultLauncher.launch(Intent.createChooser(intent, "Đã chọn ảnh"));
+    }
+
+    // nhận uri khi chọn ảnh từ thư viện
+    private final ActivityResultLauncher<Intent> mActivityResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK){
+                            Intent data = result.getData();
+                            if (data == null){
+                                return;
+                            }
+                            mUri = data.getData();
+                            try {
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mUri);
+                                imageView.setImageBitmap(bitmap);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 }
