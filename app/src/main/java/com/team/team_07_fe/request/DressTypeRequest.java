@@ -1,22 +1,23 @@
-package com.team.team_07_fe.models;
+package com.team.team_07_fe.request;
 
-import java.io.Serializable;
 import com.google.gson.annotations.SerializedName;
 
-public class DressType implements Serializable {
-
+public class DressTypeRequest {
     @SerializedName("type_id")
     private String type_id;
 
     @SerializedName("type_name")
     private String type_name;
 
-    public DressType(String type_id, String type_name) {
-        this.type_id = type_id;
+    //Thêm loại áo
+    public DressTypeRequest(String type_name) {
         this.type_name = type_name;
     }
 
-
+    //Cập nhật loại áo
+    public DressTypeRequest(String type_id, String type_name) {
+        this.type_name = type_name;
+    }
 
     public String getType_id() {
         return type_id;
@@ -33,10 +34,4 @@ public class DressType implements Serializable {
     public void setType_name(String type_name) {
         this.type_name = type_name;
     }
-
-    @Override
-    public String toString() {
-        return "Loại: "+ type_name;
-    }
 }
-

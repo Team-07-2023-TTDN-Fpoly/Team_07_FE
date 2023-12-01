@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="12dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
 
 
     <ImageView
@@ -35,23 +38,21 @@
             android:hint="Điền tại đây"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_input_type"
+        style="@style/TextInputLayout.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dressDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_text_input"
-            android:drawableRight="@drawable/subway_up_2"
-            android:drawablePadding="10dp"
-            android:hint="Loại áo cưới"
-            android:padding="10dp" />
+    <AutoCompleteTextView
+        android:id="@+id/dropdown_type_dress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_dropdown"
+        android:gravity="top"
+        android:inputType="none"
+        android:dropDownHeight="200dp"
+        android:hint="Loại áo cưới" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -161,5 +162,5 @@
         android:text="@string/add_item"
         android:layout_marginVertical="8dp"
         />
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

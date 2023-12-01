@@ -21,7 +21,6 @@ public class DressTypeAdapter extends RecyclerView.Adapter<DressTypeAdapter.View
     private Context ct1;
     private OnClickListener onClickUpdateTypeClickListener;
     private OnClickListener onClickDeleteClickListener;
-    private OnClickListener onClickEditClickListener;
 
     public DressTypeAdapter(Context context, List<DressType> list) {
         this.listtype = list;
@@ -36,8 +35,8 @@ public class DressTypeAdapter extends RecyclerView.Adapter<DressTypeAdapter.View
     public void setOnClickDeleteClickListener(OnClickListener onClickDeleteClickListener) {
         this.onClickDeleteClickListener = onClickDeleteClickListener;
     }
-    public void setOnClickEditClickListener(OnClickListener onClickEditClickListener) {
-        this.onClickEditClickListener = onClickEditClickListener;
+    public void setOnClickUpdateClickListener(OnClickListener onClickUpdateClickListener) {
+        this.onClickUpdateTypeClickListener = onClickUpdateClickListener;
     }
 
     @NonNull
@@ -65,18 +64,13 @@ public class DressTypeAdapter extends RecyclerView.Adapter<DressTypeAdapter.View
                     onClickUpdateTypeClickListener.onClick(position);
                 }
             });
-            holder.btn_edit.setOnClickListener(v -> {
-                if (onClickEditClickListener != null) {
-                    onClickEditClickListener.onClick(position);
-                }
-            });
         }
     }
 
 
     @Override
     public int getItemCount() {
-        return listtype.size();
+        return listtype != null ? listtype.size() : 0;
     }
 
     public DressType getItem(int position) {
