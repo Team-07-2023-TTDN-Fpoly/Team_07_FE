@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.utils.FormatHelper;
@@ -86,5 +87,16 @@ public class EmployeeInformationFragment extends Fragment {
         layout_input_address = view.findViewById(R.id.layout_input_address);
         layout_input_role = view.findViewById(R.id.layout_input_role);
         layout_input_work_shift = view.findViewById(R.id.layout_input_work_shift);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)requireActivity()).hiddenBottomBar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
     }
 }
