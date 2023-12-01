@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -60,11 +61,30 @@ public class DressUpdateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        observeData();
         View view = inflater.inflate(R.layout.fragment_update_dress, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(DressViewModel.class);
         loadingDialog = new LoadingDialog(requireContext());
         mapping (view);
         return (view);
+    }
+
+    private void observeData() {
+        mViewModel.getDataInput().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
+                refreshFragment();
+                mViewModel.setDataInput(null);
+            }
+        });
+        mViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s->{
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                mViewModel.setDataInput(null);
+            }
+        });
     }
 
     @Override
@@ -112,12 +132,6 @@ public class DressUpdateFragment extends Fragment {
             showDialogConfirmUpdate(id, dressRequest);
         }
 
-//        if (validateInput(name, id, price)) {
-//
-//            Dress dressRequest = new Dress(name, id, type, color, size, price);
-//            showDialogConfirmUpdate(id, dressRequest);
-//        }
-
     }
         private void showDialogConfirmUpdate(String id, DressRequest dressRequest){
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
@@ -126,8 +140,8 @@ public class DressUpdateFragment extends Fragment {
                             "Mọi thông tin trước đó sẽ không được lưu.")
                     .setPositiveButton(R.string.yes,(dialog, which) -> {
                         //Cần xử lý lại khi gửi qua server
-//                        mViewModel.updateDress(Integer.parseInt(id),dressRequest);
-                        refreshFragment();
+                        loadingDialog.show();
+                        mViewModel.updateDress(id,dressRequest);
                         dialog.dismiss();
                     })
                     .setNegativeButton(R.string.no,((dialog, which) -> {
