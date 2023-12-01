@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_contract_add"
-        android:name="com.team.team_07_fe.ui.contract.ContractAddFragment"
+        android:name="com.team.team_07_fe.ui.contract.contractAdd.ContractAddFragment"
         android:label="Quản lý hợp đồng"
         tools:layout="@layout/fragment_contract_add" />
 

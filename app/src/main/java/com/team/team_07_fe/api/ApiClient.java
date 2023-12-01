@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static String LOCAL_HOST = "192.168.1.16";
+    public static String LOCAL_HOST = "192.168.38.136";
 
     private static final String ROOT_URL = "http://"+LOCAL_HOST+":3000";
     private static Retrofit retrofit;
@@ -21,7 +21,7 @@ public class ApiClient {
     }
     public static synchronized Retrofit getClient() {
         if(retrofit==null){
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder().cookieJar(new ApiCookieJar())
                     .connectTimeout(30, TimeUnit.SECONDS) // Thời gian kết nối tối đa (30 giây)
                     .readTimeout(30, TimeUnit.SECONDS) // Thời gian đọc dữ liệu tối đa (30 giây)
                     .writeTimeout(30, TimeUnit.SECONDS); // Thời gian ghi dữ liệu tối đa (30 giây);
