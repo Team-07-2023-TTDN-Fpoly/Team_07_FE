@@ -22,6 +22,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.request.CustomerRequest;
+import com.team.team_07_fe.request.EmployeeRequest;
 import com.team.team_07_fe.request.WorkShiftRepuest;
 import com.team.team_07_fe.ui.customer.CustomerUpdateFragment;
 import com.team.team_07_fe.utils.FormatHelper;
@@ -39,7 +41,7 @@ public class WorkShiftUpdateFragment extends Fragment {
     private WorkShift originalData = null;
     private LoadingDialog loadingDialog;
     AlertDialog.Builder builder;
-    TextInputLayout txtTimeEnd,txtTimeStart,layout_input_name_work_shirt;
+    TextInputLayout txtTimeEnd,txtTimeStart,layout_input_name_work_shirt,layout_input_id;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,7 @@ public class WorkShiftUpdateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        observeData();
+            observeData();
         if(getArguments()!=null){
             originalData = (WorkShift) getArguments().getSerializable("data_workShift");
             setData(originalData);
@@ -69,12 +71,54 @@ public class WorkShiftUpdateFragment extends Fragment {
 //        layout_input_name_work_shirt.setOnClickListener(this::handleAddCalam);
         txtTimeStart.getEditText().setOnClickListener(this::chooseTimeForJoin);
         txtTimeEnd.getEditText().setOnClickListener(this::chooseTimeForEnd);
-        btn_update_item_work.setOnClickListener(this::handleAddEmployee);
+        btn_update_item_work.setOnClickListener(this::handleUpdateData);
         btn_reload_item.setOnClickListener(this::handleReloadData);
     }
 
-    private void setData(WorkShift workShift) {
+    private void observeData() {
+        wViewModel.getDataMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
+                refreshFragment();
+                wViewModel.setDataMessage(null);
+            }
+        });
+        wViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s->{
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                wViewModel.setDataMessage(null);
+            }
+        });
+    }
 
+    private void showDialogConfirmUpdate(String id, WorkShiftRepuest workShiftRepuest){
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setTitle("Thông báo!")
+                .setMessage("Bạn có chắc muốn cập nhật ca làm này không? " +
+                        "Mọi thông tin trước đó sẽ không được lưu.")
+                .setPositiveButton(R.string.yes,(dialog, which) -> {
+                    loadingDialog.show();
+                    wViewModel.updateWorkShift(id,workShiftRepuest);
+                    dialog.dismiss();
+                    refreshFragment();
+                })
+                .setNegativeButton(R.string.no,((dialog, which) -> {
+                    dialog.dismiss();
+                }));
+        builder.create().show();
+    }
+    private void setData(WorkShift workShift) {
+        if (layout_input_id.getEditText() != null) {
+            layout_input_id.getEditText().setText(String.valueOf(workShift.getShift_id()));
+        }
+
+        layout_input_name_work_shirt.getEditText().setText(workShift.getName());
+        String formattedStartTime = FormatHelper.convertTimeToString(workShift.getTimeStart());
+        txtTimeStart.getEditText().setText(formattedStartTime);
+        String formattedStartEnd = FormatHelper.convertTimeToString(workShift.getTimeStart());
+        txtTimeEnd.getEditText().setText(formattedStartEnd);
     }
 
 //    private void observeData() {
@@ -101,36 +145,56 @@ public class WorkShiftUpdateFragment extends Fragment {
                 .popBackStack();
     }
 
-    private void confirmCreateWorkShift(WorkShiftRepuest workShiftRepuest) {
-
-        wViewModel.createWorkShift(workShiftRepuest);
-
-    }
+//    private void confirmCreateWorkShift(WorkShiftRepuest workShiftRepuest) {
+//
+//        wViewModel.createWorkShift(workShiftRepuest);
+//
+//    }
     private void handleReloadData(View view) {
-        layout_input_name_work_shirt.getEditText().setText("");
-        txtTimeStart.getEditText().setText("");
-        txtTimeEnd.getEditText().setText("");
+        if(originalData!=null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                    .setTitle("Cảnh báo!")
+                    .setMessage("Bạn có chắc với quyết định hoàn tác này không? " +
+                            "Mọi thay đổi của bạn sẽ không được lưu.")
+                    .setPositiveButton(R.string.yes,(dialog, which) -> {
+                        setData(originalData);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(R.string.no,((dialog, which) -> {
+                        dialog.dismiss();
+                    }));
+            builder.create().show();
+        }
+//        layout_input_name_work_shirt.getEditText().setText("");
+//        txtTimeStart.getEditText().setText("");
+//        txtTimeEnd.getEditText().setText("");
     }
     //xử lý sự kiến thêm mới
-    private void handleAddEmployee(View view){
+    private void handleUpdateData(View view){
+        String id = layout_input_id.getEditText().getText().toString().trim();
         String name = layout_input_name_work_shirt.getEditText().getText().toString().trim();
-        String TimeStart = txtTimeStart.getEditText().getText().toString().trim();
-        String TimeEnd = txtTimeEnd.getEditText().getText().toString().trim();
+        String timeStart = txtTimeStart.getEditText().getText().toString().trim();
+        String timeEnd = txtTimeEnd.getEditText().getText().toString().trim();
 
 
-        if(validateInput(name,TimeStart,TimeEnd)){
-            Date formatEndTime = new Date();
-            Date formatStartTime = new Date();
-            if (!TextUtils.isEmpty(TimeStart)) {
-                formatStartTime = FormatHelper.convertStringToTime(TimeStart);
+
+
+        if(validateInput(name,timeStart,timeEnd)){
+            Date formatTimeStart = null;
+            Date formatTimeEnd = null;
+            if (!TextUtils.isEmpty(timeStart)) {
+                formatTimeStart = (FormatHelper.convertStringtoDate(timeStart));
             }
-            if(!TextUtils.isEmpty(TimeEnd)){
-                formatEndTime = FormatHelper.convertStringToTime(TimeEnd);
+            if(!TextUtils.isEmpty(timeEnd)){
+                formatTimeEnd = (FormatHelper.convertStringToTime(timeEnd));
             }
-//            WorkShiftRepuest workShiftRepuest = new WorkShiftRepuest(name, formatStartTime,formatEndTime );
-//            confirmCreateWorkShift(workShiftRepuest);
+            WorkShiftRepuest workShiftRepuest = new WorkShiftRepuest(name,formatTimeStart,formatTimeEnd);
+            showDialogConfirmUpdate(id,workShiftRepuest);
         }
-    }
+
+        }
+
+
     private boolean validateInput(String name,String TimeStart,String TimeEnd){
         boolean isValid = true;
 
@@ -157,7 +221,7 @@ public class WorkShiftUpdateFragment extends Fragment {
         return isValid;
     }
     private void mapping(View view){
-
+        layout_input_id = view.findViewById(R.id.layout_input_id);
         btn_update_item_work = view.findViewById(R.id.btn_update_item_work);
         btn_reload_item = view.findViewById(R.id.btn_reload_item);
         txtTimeEnd = view.findViewById(R.id.layout_input_gio_ket_thuc);
