@@ -21,7 +21,6 @@ public class DressTypeAdapter extends RecyclerView.Adapter<DressTypeAdapter.View
     private Context ct1;
     private OnClickListener onClickUpdateTypeClickListener;
     private OnClickListener onClickDeleteClickListener;
-    private OnClickListener onClickEditClickListener;
 
     public DressTypeAdapter(Context context, List<DressType> list) {
         this.listtype = list;

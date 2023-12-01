@@ -19,7 +19,7 @@
             android:padding="12dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_id_work_shirt"
+                android:id="@+id/layout_input_name_work_shirt"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,19 +37,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_time_start"
-                style="@style/TextInputLayout"
+                android:id="@+id/layout_input_gio_bat_dau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_time_start"
+                android:hint="Giờ bắt đầu"
+                android:layout_gravity="center"
+                style="@style/TextInputLayout"
                 app:startIconDrawable="@drawable/icon_time">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_text_input"
-                    android:inputType="text"
-                    android:lines="1"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:focusable="false"
@@ -57,16 +56,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_time_end"
-                style="@style/TextInputLayout"
+                android:id="@+id/layout_input_gio_ket_thuc"
                 android:layout_width="match_parent"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_time_end"
+                android:hint="Giờ kết thúc"
+                style="@style/TextInputLayout"
                 app:startIconDrawable="@drawable/icon_time">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:background="@drawable/background_text_input"
                     android:inputType="text"
                     android:lines="1"
@@ -93,7 +94,7 @@
                     android:layout_marginVertical="8dp"
                     />
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_update_item_work"
+                    android:id="@+id/btn_create_item_work"
                     style="@style/AppCompatButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

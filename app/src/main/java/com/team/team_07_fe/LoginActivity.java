@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 loadingDialog.show();
 
                 if (email.isEmpty() || password.isEmpty()) {
-                    
+                    loadingDialog.dismiss();
                     Toast.makeText(LoginActivity.this, "Vui lòng không để trống thông tin", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Đăng nhập thất bại, xử lý lỗi
                             if (response.code() == 401) {
                                 Toast.makeText(LoginActivity.this, "Sai mật khẩu hoặc email", Toast.LENGTH_SHORT).show();
-                            } else if (response.code() == 400) {
+                            } else if (response.code() == 403) {
                                 Toast.makeText(LoginActivity.this, "Tài khoản đã bị vô hiệu hóa", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(LoginActivity.this, "Đã xảy ra lỗi: " + response.message(), Toast.LENGTH_SHORT).show();
@@ -108,7 +108,6 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("email", employee.getEmail());
         editor.putString("auth_id", employee.getAuth_id());
         editor.putBoolean("is_disable", employee.isIs_disable());
-
         editor.apply();
     }
     private Dialog loadingDialog() {

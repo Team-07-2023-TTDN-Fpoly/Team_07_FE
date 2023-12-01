@@ -68,7 +68,6 @@ public class SettingsFragment extends Fragment {
         //Chuyển sang màn hình xem thông tin chi tiết
         layout_employee_information.setOnClickListener(v->{
             Bundle bundle = new Bundle();
-
 //            bundle.putSerializable("data_employee",employee);
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_employee_information,bundle);
@@ -118,9 +117,9 @@ public class SettingsFragment extends Fragment {
         dialog.show();
     }
     private void performLogout() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
+        Intent intent = new Intent(requireContext(), LoginActivity.class);
         startActivity(intent);
+        requireActivity().finish();
     }
 
 }
