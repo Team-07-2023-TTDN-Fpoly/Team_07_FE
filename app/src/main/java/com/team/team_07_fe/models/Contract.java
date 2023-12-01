@@ -1,67 +1,76 @@
 package com.team.team_07_fe.models;
 
-public class Contract {
-    private String Name;
-    private String Date;
-    private String Phone;
-    private String Deposit;
-    private String SumMoney;
-    private String Status;
+import com.google.gson.annotations.SerializedName;
 
-    public Contract(String name, String date, String phone, String deposit, String sumMoney, String status) {
-        Name = name;
-        Date = date;
-        Phone = phone;
-        Deposit = deposit;
-        SumMoney = sumMoney;
-        Status = status;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+public class Contract implements Serializable {
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("cus_id")
+    private Customer customer;
+    @SerializedName("emp_id")
+    private Employee employee;
+    @SerializedName("total_amount")
+    private long total_amount;
+    @SerializedName("prepay")
+    private long prepay;
+    @SerializedName("discount")
+    private long discount;
+    @SerializedName("contract_details")
+    private List<ContractDetail> listContractDetail;
+    @SerializedName("createAt")
+    private Date createAt;
+    @SerializedName("endAt")
+    private Date endAt;
+    @SerializedName("contract_description")
+    private String description;
+    @SerializedName("contract_status")
+    private String status;
+
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public String getName() {
-        return Name;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public long getTotal_amount() {
+        return total_amount;
     }
 
-    public String getDate() {
-        return Date;
+    public long getPrepay() {
+        return prepay;
     }
 
-    public void setDate(String date) {
-        Date = date;
+    public long getDiscount() {
+        return discount;
     }
 
-    public String getPhone() {
-        return Phone;
+    public List<ContractDetail> getListContractDetail() {
+        return listContractDetail;
     }
 
-    public void setPhone(String phone) {
-        Phone = phone;
+    public Date getCreateAt() {
+        return createAt;
     }
 
-    public String getDeposit() {
-        return Deposit;
+    public Date getEndAt() {
+        return endAt;
     }
 
-    public void setDeposit(String deposit) {
-        Deposit = deposit;
-    }
-
-    public String getSumMoney() {
-        return SumMoney;
-    }
-
-    public void setSumMoney(String sumMoney) {
-        SumMoney = sumMoney;
+    public String getDescription() {
+        return description;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
-    public void setStatus(String status) {
-        Status = status;
+    public String getId() {
+        return id;
     }
 }

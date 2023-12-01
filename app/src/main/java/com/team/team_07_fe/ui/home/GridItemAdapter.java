@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.utils.OnClickListener;
 
 public class GridItemAdapter extends BaseAdapter {
     private Context context;
@@ -19,6 +20,12 @@ public class GridItemAdapter extends BaseAdapter {
         this.context = context;
         this.tvItem = tvItem;
         this.imgItem = imgItem;
+    }
+
+    private static OnClickListener clickListener;
+
+    public void setClickListener(OnClickListener clickListener) {
+        GridItemAdapter.clickListener = clickListener;
     }
 
     @Override

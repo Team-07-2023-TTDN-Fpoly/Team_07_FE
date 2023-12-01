@@ -3,6 +3,8 @@ package com.team.team_07_fe.ui.dresstype;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.models.DressType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -243,5 +245,15 @@ public class DressTypeManagerFragment extends Fragment {
             }
         });
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)requireActivity()).hiddenBottomBar();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
+    }
 }

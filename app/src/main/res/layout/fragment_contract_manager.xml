@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:text="Danh sách nhân viên"
+        android:text="Danh sách hợp đồng"
         android:paddingVertical="12dp"
         android:layout_below="@id/search_view"
         android:layout_centerHorizontal="true"

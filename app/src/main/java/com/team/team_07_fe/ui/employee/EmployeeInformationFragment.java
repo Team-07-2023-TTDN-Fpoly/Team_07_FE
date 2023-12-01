@@ -5,28 +5,32 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.utils.FormatHelper;
+import com.team.team_07_fe.viewmodels.EmployeeViewModel;
 
 //Người tạo: NghiaTC
 public class EmployeeInformationFragment extends Fragment {
     private TextInputLayout layout_input_id,layout_input_name,layout_input_email,
             layout_input_phone,layout_input_salary,layout_input_birthday,
             layout_input_join_date,layout_input_address,layout_input_role,layout_input_work_shift;
-
+    private EmployeeViewModel employeeViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_employee_information, container, false);
         //
+        employeeViewModel = new ViewModelProvider(requireActivity()).get(EmployeeViewModel.class);
         mapping(view);
         return view;
     }
@@ -37,7 +41,12 @@ public class EmployeeInformationFragment extends Fragment {
 
         if(getArguments()!=null){
          Employee data = (Employee) getArguments().getSerializable("data_employee");
-         setData(data);
+         employeeViewModel.getDataEmp(data.getEmp_id());
+         employeeViewModel.getEmployee().observe(getViewLifecycleOwner(),employee -> {
+             if(employee!=null){
+                 setData(employee);
+             }
+         });
         }
     }
     //Gán data người dùng cho input
@@ -86,5 +95,16 @@ public class EmployeeInformationFragment extends Fragment {
         layout_input_address = view.findViewById(R.id.layout_input_address);
         layout_input_role = view.findViewById(R.id.layout_input_role);
         layout_input_work_shift = view.findViewById(R.id.layout_input_work_shift);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)requireActivity()).hiddenBottomBar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
     }
 }
