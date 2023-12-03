@@ -32,11 +32,14 @@ import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Dress;
 import com.team.team_07_fe.models.DressType;
+import com.team.team_07_fe.request.DressRequest;
 import com.team.team_07_fe.ui.dresstype.DressTypeViewModel;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.DressViewModel;
@@ -160,8 +163,30 @@ public class DressAddFragment extends Fragment {
         dropdown_type_dress.setOnItemClickListener((adapterView, view1, i, l) -> {
             selectSizeFromDropdown = sizeArrayAdapter.getItem(i);
         });
+        btn_add_item.setOnClickListener(this::handleAddDress);
+        imageView.setOnClickListener(view1 -> choseImgFromGallery());
+        observeData();
     }
-    private void handle(View view){
+
+    private void observeData() {
+        mViewModel.getDataInput().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                NavHostFragment.findNavController(this).popBackStack();
+                Toast.makeText(requireContext(), "Thêm mới thành công!", Toast.LENGTH_SHORT).show();
+                mViewModel.setDataInput(null);
+            }
+        });
+        mViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                loadingDialog.dismiss();
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                mViewModel.setErrorMessage(null);
+            }
+        });
+    }
+
+    private void handleAddDress(View view){
         String name = layout_input_name.getEditText().getText().toString().trim();
         String type = selectDressTypeFromDropdown.getType_id();
         String price = layout_input_price.getEditText().getText().toString().trim();
@@ -172,13 +197,14 @@ public class DressAddFragment extends Fragment {
 
         if(validateInput(name,price,color, des)){
 
-         //   mViewModel.addDress(new Dress(name,type,price,color,size,des));///đang tìm lỗi
+        //    DressRequest dressRequest = new DressRequest(image, name, type, color, size, price, des);
+            //    confirmAddDress(dressRequest);
 
-//            mViewModel.addDress(new Dress(name,type,price,color,size,des));
-
-            Toast.makeText(requireContext(), "Thêm mới áo cưới thành công!", Toast.LENGTH_SHORT).show();
-            requireActivity().onBackPressed();
         }
+
+    }
+    private void confirmAddDress(DressRequest dressRequest){
+        mViewModel.addDress(dressRequest);
     }
     private void mapping(View view){
         imageView = view.findViewById(R.id.imageView);
@@ -267,5 +293,15 @@ public class DressAddFragment extends Fragment {
     private void callApiResgister() {
 
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)requireActivity()).hiddenBottomBar();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
+    }
 }

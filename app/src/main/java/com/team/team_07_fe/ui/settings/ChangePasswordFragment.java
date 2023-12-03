@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
 
 
@@ -79,5 +80,15 @@ public class ChangePasswordFragment extends Fragment {
         // Kiểm tra mật khẩu mới và mật khẩu xác nhận có khớp nhau không
         return newPassword.equals(confirmPassword);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)requireActivity()).hiddenBottomBar();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
+    }
 }

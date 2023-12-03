@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.contract.contractchoosedress.ChooseDressFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:gravity="center">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_input_choose_dress"
+                style="@style/TextInputLayout.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_dress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_dropdown"
+                    android:gravity="top"
+                    android:text="Chọn áo"
+                    android:inputType="none"
+                    android:dropDownHeight="300dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/image_choose_dress"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:src="@drawable/ic_image"
+            android:scaleType="centerInside"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_input_price"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Giá"
+                android:enabled="false"
+                app:startIconDrawable="@drawable/icon_money">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_text_input"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_date_rental"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ngày thuê"
+                app:startIconDrawable="@drawable/icon_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_text_input"
+                    android:focusable="false"
+                    android:textColor="@color/black"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_date_return"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ngày trả"
+                app:startIconDrawable="@drawable/icon_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_text_input"
+                    android:focusable="false"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_add_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AppCompatButtonStyle"
+                android:text="Lưu"
+                android:layout_marginVertical="12dp"
+                />
+        </LinearLayout>
+</androidx.core.widget.NestedScrollView>
