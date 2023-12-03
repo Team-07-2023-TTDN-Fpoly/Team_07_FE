@@ -32,7 +32,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
     @NonNull
     @Override
     public ContractViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_contract, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_item_contract, parent, false);
         return new ContractViewHolder(view);
     }
 

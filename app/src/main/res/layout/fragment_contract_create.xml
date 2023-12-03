@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.contract.contractAdd.ContractAddFragment"
+    tools:context=".ui.contract.contractcreate.ContractCreateFragment"
     >
         <LinearLayout
             android:layout_width="match_parent"
@@ -15,7 +15,8 @@
                 android:id="@+id/layout_input_customer"
                 style="@style/TextInputLayout.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
 
             <AutoCompleteTextView
                 android:id="@+id/dropdown_customer"
@@ -34,9 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone"
-                app:counterEnabled="true"
-                app:counterMaxLength="10"
-                app:startIconDrawable="@drawable/icon_phone">
+                app:startIconDrawable="@drawable/icon_phone"
+                android:enabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -56,7 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_name"
-                app:startIconDrawable="@drawable/icon_person">
+                app:startIconDrawable="@drawable/icon_person"
+                android:enabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -68,20 +69,33 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
             <!--    TextInput-->
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_input_birthday"
-                    style="@style/TextInputLayout"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginVertical="8dp">
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
+                    android:text="Nhân viên ký"
+                    android:layout_weight="0.5"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/tv_employee_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Trương Công Nghĩa"
                     android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_input_createAt"
+                    style="@style/TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Ngày bắt đầu"
                     app:startIconDrawable="@drawable/icon_calendar">
 
@@ -95,12 +109,10 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_nkt"
+                    android:id="@+id/layout_input_endAt"
                     style="@style/TextInputLayout"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
                     android:hint="Ngày kết thúc"
                     app:startIconDrawable="@drawable/icon_calendar">
 
@@ -112,138 +124,108 @@
                         android:textColor="@color/black"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Danh sách áo chọn"/>
+                <TextView
+                    android:id="@+id/tv_choose_dress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thêm"
+                    android:textSize="18sp"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_ten_ao"
-                    style="@style/TextInputLayout"
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:hint="Tên áo"
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_text_input"
-                        android:focusable="false"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_ngay_thue"
-                    style="@style/TextInputLayout"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Tên áo"/>
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
                     android:layout_weight="1"
-                    android:hint="Ngày thuê"
-                    app:startIconDrawable="@drawable/icon_calendar">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_text_input"
-                        android:focusable="false"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:text="Ngày mượn"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ngày trả"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Loại bỏ"/>
             </LinearLayout>
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_ngay_tra"
-                    style="@style/TextInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:hint="Ngày trả"
-                    app:startIconDrawable="@drawable/icon_calendar">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_text_input"
-                        android:focusable="false"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-            </LinearLayout>
+                tools:itemCount="4"
+                tools:listitem="@layout/layout_item_contract_choose_dress"/>
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_tong_hop_dong"
+                android:id="@+id/layout_input_total"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tổng hợp đồng"
-                app:startIconDrawable="@drawable/icon_customer">
+                android:enabled="false"
+                app:startIconDrawable="@drawable/ic_money">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_text_input"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_address"
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nhân viên ký hợp đồng"
-                app:startIconDrawable="@drawable/icon_customer">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_text_input"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_tong_tra_truoc"
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Tổng trả trước"
-                app:startIconDrawable="@drawable/icon_customer">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_text_input"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_tien_sale"
+                android:id="@+id/layout_input_discount"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tiền giảm giá"
-                app:startIconDrawable="@drawable/icon_customer">
+                app:startIconDrawable="@drawable/ic_money">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_text_input"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_input_prepay"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tiền trả trước"
+                app:startIconDrawable="@drawable/icon_money">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_text_input"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -256,7 +238,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_them_moi"
+                    android:id="@+id/btn_create_item"
                     style="@style/AppCompatButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

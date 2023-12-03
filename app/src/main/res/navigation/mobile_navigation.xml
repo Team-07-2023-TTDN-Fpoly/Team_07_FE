@@ -23,7 +23,7 @@
         >
         <action
             android:id="@+id/action_navigation_contract_to_navigation_customer_add"
-            app:destination="@id/navigation_contract_add" />
+            app:destination="@id/navigation_contract_create" />
         <action
             android:id="@+id/action_navigation_contract_to_navigation_customer_update"
             app:destination="@id/navigation_contract_update" >
@@ -35,14 +35,18 @@
 
     </fragment>
     <fragment
-        android:id="@+id/navigation_contract_add"
-        android:name="com.team.team_07_fe.ui.contract.contractAdd.ContractAddFragment"
+        android:id="@+id/navigation_contract_create"
+        android:name="com.team.team_07_fe.ui.contract.contractcreate.ContractCreateFragment"
         android:label="Quản lý hợp đồng"
-        tools:layout="@layout/fragment_contract_add" />
+        tools:layout="@layout/fragment_contract_create" >
+        <action
+            android:id="@+id/action_navigation_contract_create_to_navigation_contract_choose_dress"
+            app:destination="@id/navigation_contract_choose_dress" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_contract_update"
-        android:name="com.team.team_07_fe.ui.contract.ContractUpdateFragment"
+        android:name="com.team.team_07_fe.ui.contract.contractupdate.ContractUpdateFragment"
         android:label="Quản lý hợp đồng"
         tools:layout="@layout/fragment_contract_update" />
 
@@ -237,4 +241,9 @@
         android:name="com.team.team_07_fe.fragment.CreateDetailFragment"
         android:label="Thêm mới khoản chi"
         tools:layout="@layout/fragment_create_detail"/>
+    <fragment
+        android:id="@+id/navigation_contract_choose_dress"
+        android:name="com.team.team_07_fe.ui.contract.contractchoosedress.ChooseDressFragment"
+        android:label="Lựa chọn áo cưới"
+        tools:layout="@layout/fragment_contract_choose_dress" />
 </navigation>
