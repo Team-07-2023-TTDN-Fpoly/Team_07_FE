@@ -13,12 +13,15 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface DressService {
-    @POST ("/api/dress")
+    @GET("/api/dresses/")
+    Call<ApiResponse<List<Dress>>> getAllDress(@Query("search")String search);
+    @POST ("/api/dresses/")
     Call<ApiResponse<String>> addDress(@Body DressRequest dressRequest);
-    @PUT("/api/dress/{id}")
+    @PUT("/api/dresses/{id}")
     Call<ApiResponse<String>> updateDress(@Path("id") String id, @Body DressRequest dressRequest );
-    @DELETE("/api/dress/{id}")
+    @DELETE("/api/dresses/{id}")
     Call<ApiResponse<Dress>> deleteDress(@Path("id") String id);
 }

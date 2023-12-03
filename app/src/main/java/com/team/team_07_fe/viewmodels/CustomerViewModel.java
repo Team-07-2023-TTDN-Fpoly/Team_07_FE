@@ -37,6 +37,9 @@ private CustomerRepository customerRepository;
 
     //getters
     public LiveData<List<Customer>> getCustomerList() {
+        if(listCus==null){
+            listCus = customerRepository.getListCustomer();
+        }
         return listCus;
     }
     public LiveData<String> getDataInput() {
