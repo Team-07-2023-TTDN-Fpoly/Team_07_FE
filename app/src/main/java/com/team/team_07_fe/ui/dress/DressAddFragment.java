@@ -1,12 +1,18 @@
 package com.team.team_07_fe.ui.dress;
 
+import static androidx.core.content.PermissionChecker.checkSelfPermission;
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +21,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -36,17 +44,20 @@ import com.team.team_07_fe.ui.dresstype.DressTypeViewModel;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.DressViewModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
 public class DressAddFragment extends Fragment {
+    public static final String TAG = DressAddFragment.class.getName();
     private TextInputLayout layout_input_name, layout_input_type, layout_input_color, layout_input_size,
     layout_input_price, layout_input_des;
     private AutoCompleteTextView dropdown_type_dress,dropdown_size;
     private DressTypeViewModel dressTypeViewModel;
     private DressViewModel mViewModel;
+
     private AppCompatButton btn_add_item;
     private ImageView imageView;
     private LoadingDialog loadingDialog;
@@ -63,6 +74,36 @@ public class DressAddFragment extends Fragment {
     private final List<String> listSizeForDropdown = Arrays.asList(stringsSize);
     //Lựa chọn size áo
     private String selectSizeFromDropdown ="";
+    private final ActivityResultLauncher<Intent> mActivityResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
+                            if (result.getResultCode() == Activity.RESULT_OK) {
+                                Intent data = result.getData();
+                                if (data == null) {
+                                    return;
+                                }
+                                Uri uri = data.getData();
+//                                try {// căn chỉnh ảnh thủ công
+//                                    InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+//                                    Bitmap selectedImage = BitmapFactory.decodeStream(inputStream);
+//                                    Bitmap resizedImage = Bitmap.createScaledBitmap(selectedImage, 541, 241, true);
+//
+//                                    // Set the resized image to the ImageView
+//                                    imageView.setImageBitmap(resizedImage);
+//                                } catch (FileNotFoundException e) {
+//                                    e.printStackTrace();
+//                                }
+                                try {
+                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), uri);
+                                    imageView.setImageBitmap(bitmap);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,10 +117,24 @@ public class DressAddFragment extends Fragment {
         loadingDialog = new LoadingDialog(requireContext());
         listDressTypeForDropdown = new ArrayList<>();
 
+        imageView = view.findViewById(R.id.imageView);
+        if (imageView != null) {
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Xử lý sự kiện khi ImageView được click
+                    choseImgFromGallery();
+
+                }
+            });
+        }
+
         mapping(view);
         //mapping
         return view;
     }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -153,6 +208,7 @@ public class DressAddFragment extends Fragment {
     }
     private void mapping(View view){
         imageView = view.findViewById(R.id.imageView);
+
         layout_input_name = view.findViewById(R.id.layout_input_name);
         layout_input_price = view.findViewById(R.id.layout_input_price);
         layout_input_type = view.findViewById(R.id.layout_input_type);
@@ -211,28 +267,29 @@ public class DressAddFragment extends Fragment {
     public void choseImgFromGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         mActivityResultLauncher.launch(Intent.createChooser(intent, "Đã chọn ảnh"));
+
     }
 
     // nhận uri khi chọn ảnh từ thư viện
-    private final ActivityResultLauncher<Intent> mActivityResultLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if (result.getResultCode() == Activity.RESULT_OK){
-                            Intent data = result.getData();
-                            if (data == null){
-                                return;
-                            }
-                            mUri = data.getData();
-                            try {
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mUri);
-                                imageView.setImageBitmap(bitmap);
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+
+//                    result -> {
+//                        if (result.getResultCode() == Activity.RESULT_OK) {
+//                            Intent data = result.getData();
+//                            if (data == null) {
+//                                return;
+//                            }
+//                            mUri = data.getData();
+//                            try {
+//                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mUri);
+//                                imageView.setImageBitmap(bitmap);
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+
     private void callApiResgister() {
 
     }
