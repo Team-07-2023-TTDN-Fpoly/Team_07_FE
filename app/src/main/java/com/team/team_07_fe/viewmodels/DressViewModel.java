@@ -36,6 +36,9 @@ public class DressViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<Dress>> getListDress() {
+        if(listDress ==null){
+            listDress = dressRepository.getListDress();
+        }
         return listDress;
     }
 
@@ -45,6 +48,10 @@ public class DressViewModel extends ViewModel {
 
     public MutableLiveData<String> getErrorMessage() {
         return errorMessage;
+    }
+
+    public void getAllDress(String search){
+        dressRepository.getAllDress(search);
     }
     public void addDress(DressRequest dressRequest){
         dressRepository.addDress(dressRequest);

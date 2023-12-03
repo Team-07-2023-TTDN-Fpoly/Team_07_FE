@@ -1,5 +1,7 @@
 package com.team.team_07_fe.models;
 import com.google.gson.annotations.SerializedName;
+import com.team.team_07_fe.utils.FormatHelper;
+
 import java.io.Serializable;
 public class Dress implements Serializable {
     @SerializedName("id")
@@ -7,7 +9,7 @@ public class Dress implements Serializable {
 
     @SerializedName("dress_name")
     private String dress_name;
-    @SerializedName("image")
+    @SerializedName("dress_image")
     private String image;
     @SerializedName("dressTypeId")
     private DressType dressTypeId;
@@ -116,6 +118,13 @@ public class Dress implements Serializable {
 
     public void setDress_status(String dress_status) {
         this.dress_status = dress_status;
+    }
+
+    @Override
+    public String toString() {
+        return dress_name +
+                " - " + FormatHelper.convertPriceToString(dress_price) +
+                " - " + dress_status;
     }
 }
 

@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.team.team_07_fe.api.ApiClient;
 import com.team.team_07_fe.api.ApiResponse;
 import com.team.team_07_fe.api.service.DressService;
+import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Dress;
 import com.team.team_07_fe.request.DressRequest;
 
@@ -59,6 +60,26 @@ public class DressRepository {
         }
     }
 
+    //Lệnh để lấy tất cả áo cưới
+    public void getAllDress(String search){
+        dressService.getAllDress(search).enqueue(new Callback<ApiResponse<List<Dress>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<List<Dress>>> call, Response<ApiResponse<List<Dress>>> response) {
+                if(response.isSuccessful()){
+                    ApiResponse<List<Dress>> apiResponse = response.body();
+                    listDress.postValue(apiResponse.getData());
+                }else{
+                    handeErrorMessage(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<List<Dress>>> call, Throwable t) {
+                Log.i("ERROR LIST DRESS", t.getMessage());
+                errorMessage.postValue("Lỗi kết nối");
+            }
+        });
+    }
 
     //Tạo mới áo cưới
     public void addDress(DressRequest dressRequest){
