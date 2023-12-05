@@ -1,6 +1,7 @@
 package com.team.team_07_fe.viewmodels;
 
-import androidx.lifecycle.LiveData;
+import android.net.Uri;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -9,7 +10,10 @@ import com.team.team_07_fe.models.Dress;
 import com.team.team_07_fe.request.DressRequest;
 
 
+import java.io.File;
 import java.util.List;
+
+import okhttp3.RequestBody;
 
 public class DressViewModel extends ViewModel {
     private DressRepository dressRepository;
@@ -23,16 +27,16 @@ public class DressViewModel extends ViewModel {
         errorMessage = dressRepository.getErrorMessage();
     }
 
-    public void setListDress(MutableLiveData<List<Dress>> listDress) {
-        this.listDress = listDress;
+    public void setListDress(List<Dress> listDress) {
+        this.listDress.postValue(listDress);
     }
 
-    public void setDataInput(MutableLiveData<String> dataInput) {
-        this.dataInput = dataInput;
+    public void setDataInput(String dataInput) {
+        this.dataInput.postValue(dataInput);
     }
 
-    public void setErrorMessage(MutableLiveData<String> errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage.postValue(errorMessage);
     }
 
     public MutableLiveData<List<Dress>> getListDress() {
@@ -53,8 +57,8 @@ public class DressViewModel extends ViewModel {
     public void getAllDress(String search){
         dressRepository.getAllDress(search);
     }
-    public void addDress(DressRequest dressRequest){
-        dressRepository.addDress(dressRequest);
+    public void addDress(RequestBody mUri, File tempFile, String name, String type, String color, String size, Long price, String des){
+        dressRepository.addDress(mUri,tempFile,name,type,color,size,price,des);
     }
     public void updateDress(String id, DressRequest dressRequest){
         dressRepository.updateDress(id, dressRequest);

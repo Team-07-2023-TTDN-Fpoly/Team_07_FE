@@ -6,10 +6,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,15 +30,19 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.RealPathUtil;
 import com.team.team_07_fe.models.Dress;
 import com.team.team_07_fe.models.DressType;
 import com.team.team_07_fe.request.DressRequest;
@@ -44,14 +50,27 @@ import com.team.team_07_fe.ui.dresstype.DressTypeViewModel;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.DressViewModel;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 
 public class DressAddFragment extends Fragment {
     public static final String TAG = DressAddFragment.class.getName();
+    private static final int MY_REQUEST_CODE = 10;
+    private static final int SELECT_PICTURE = 1;
     private TextInputLayout layout_input_name, layout_input_type, layout_input_color, layout_input_size,
     layout_input_price, layout_input_des;
     private AutoCompleteTextView dropdown_type_dress,dropdown_size;
@@ -61,7 +80,7 @@ public class DressAddFragment extends Fragment {
     private AppCompatButton btn_add_item;
     private ImageView imageView;
     private LoadingDialog loadingDialog;
-    private Uri mUri;
+    private Uri mUri = null;
 
     //Adapter danh sách loại áo cưới
     private ArrayAdapter<DressType> dressTypeArrayAdapter;
@@ -74,36 +93,8 @@ public class DressAddFragment extends Fragment {
     private final List<String> listSizeForDropdown = Arrays.asList(stringsSize);
     //Lựa chọn size áo
     private String selectSizeFromDropdown ="";
-    private final ActivityResultLauncher<Intent> mActivityResultLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                    new ActivityResultCallback<ActivityResult>() {
-                        @Override
-                        public void onActivityResult(ActivityResult result) {
-                            if (result.getResultCode() == Activity.RESULT_OK) {
-                                Intent data = result.getData();
-                                if (data == null) {
-                                    return;
-                                }
-                                Uri uri = data.getData();
-//                                try {// căn chỉnh ảnh thủ công
-//                                    InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
-//                                    Bitmap selectedImage = BitmapFactory.decodeStream(inputStream);
-//                                    Bitmap resizedImage = Bitmap.createScaledBitmap(selectedImage, 541, 241, true);
-//
-//                                    // Set the resized image to the ImageView
-//                                    imageView.setImageBitmap(resizedImage);
-//                                } catch (FileNotFoundException e) {
-//                                    e.printStackTrace();
-//                                }
-                                try {
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), uri);
-                                    imageView.setImageBitmap(bitmap);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    });
+    String image = ""; // Chuỗi rỗng ban đầu
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,14 +108,14 @@ public class DressAddFragment extends Fragment {
         loadingDialog = new LoadingDialog(requireContext());
         listDressTypeForDropdown = new ArrayList<>();
 
-        imageView = view.findViewById(R.id.imageView);
+
         if (imageView != null) {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Xử lý sự kiện khi ImageView được click
-                    choseImgFromGallery();
 
+                    choseImgFromGallery();
                 }
             });
         }
@@ -160,7 +151,7 @@ public class DressAddFragment extends Fragment {
             selectDressTypeFromDropdown = (DressType) dressTypeArrayAdapter.getItem(i);
         });
         //Lựa chọn size
-        dropdown_type_dress.setOnItemClickListener((adapterView, view1, i, l) -> {
+        dropdown_size.setOnItemClickListener((adapterView, view1, i, l) -> {
             selectSizeFromDropdown = sizeArrayAdapter.getItem(i);
         });
         btn_add_item.setOnClickListener(this::handleAddDress);
@@ -188,48 +179,69 @@ public class DressAddFragment extends Fragment {
 
     private void handleAddDress(View view){
         String name = layout_input_name.getEditText().getText().toString().trim();
-        String type = selectDressTypeFromDropdown.getType_id();
-        String price = layout_input_price.getEditText().getText().toString().trim();
+        String price  = layout_input_price.getEditText().getText().toString().trim();
         String color = layout_input_color.getEditText().getText().toString().trim();
         String size = selectSizeFromDropdown;
         String des = layout_input_des.getEditText().getText().toString().trim();
 
+        if(validateInput(name,price,color)){
+            loadingDialog.show();
+            try {
+                // Truy xuất dữ liệu từ URI
+                InputStream inputStream = requireActivity().getContentResolver().openInputStream(mUri);
 
-        if(validateInput(name,price,color, des)){
+                // Lưu dữ liệu vào một tệp mới trong thư mục tạm thời của ứng dụng
+                File tempFile = createTempFile();
+                FileOutputStream outputStream = new FileOutputStream(tempFile);
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                outputStream.close();
+                inputStream.close();
+                //Tạo 1 request body để truyền ảnh
+                RequestBody requestFile = RequestBody.create(MediaType.parse(requireActivity().getContentResolver().getType(mUri)), image);
 
-        //    DressRequest dressRequest = new DressRequest(image, name, type, color, size, price, des);
-            //    confirmAddDress(dressRequest);
+                confirmAddDress(requestFile,tempFile,name,selectDressTypeFromDropdown.getType_id(),color,size,Long.parseLong(price),des);
+
+            }catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(requireContext(), "Lỗi từ file hình ảnh", Toast.LENGTH_SHORT).show();
+            }
 
         }
 
     }
-    private void confirmAddDress(DressRequest dressRequest){
-        mViewModel.addDress(dressRequest);
+    private void confirmAddDress(RequestBody uri,File temp, String name, String type_id,String color,String size,long price, String des){
+        mViewModel.addDress(uri,temp,name,type_id,color,size,price,des);
     }
     private void mapping(View view){
         imageView = view.findViewById(R.id.imageView);
 
         layout_input_name = view.findViewById(R.id.layout_input_name);
-        layout_input_price = view.findViewById(R.id.layout_input_price);
         layout_input_type = view.findViewById(R.id.layout_input_type);
         layout_input_color = view.findViewById(R.id.layout_input_color);
         layout_input_size = view.findViewById(R.id.layout_input_size);
+        layout_input_price = view.findViewById(R.id.layout_input_price);
         layout_input_des = view.findViewById(R.id.layout_input_des);
         btn_add_item = view.findViewById(R.id.btn_add_item);
         dropdown_type_dress = view.findViewById(R.id.dropdown_type_dress);
         dropdown_size = view.findViewById(R.id.dressSize);
     }
-    private boolean validateInput(String name,String price,
-                                  String color, String des){
+    private boolean validateInput(String name,String color,
+                                  String price){
         boolean isValid = true;
-
+        if(mUri ==null){
+            Toast.makeText(requireContext(), "Vui lòng chọn ảnh!", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
         if(TextUtils.isEmpty(name)){
             layout_input_name.setError("Vui lòng nhập tên áo cưới!");
             isValid = false;
         }else{
             layout_input_name.setError(null);
         }
-
         if(TextUtils.isEmpty(price) ){
             layout_input_price.setError("Vui lòng nhập giá tiền!");
             isValid = false;
@@ -242,15 +254,9 @@ public class DressAddFragment extends Fragment {
         }else{
             layout_input_color.setError(null);
         }
-        if(TextUtils.isEmpty(des)){
-            layout_input_des.setError(null);
-        }else  {
-            layout_input_des.setError("Vui lòng nhập mô tả cho áo cưới!");
-            isValid = false;
-        }
         //Kiểm tra loại áo đã chọn chưa
         if(selectDressTypeFromDropdown==null){
-            layout_input_type.setError("Vui lòng chọn loại áo cưới!");
+            Toast.makeText(requireContext(), "Vui lòng chọn loại áo cưới!", Toast.LENGTH_SHORT).show();
             isValid = false;
         }else{
             layout_input_type.setError(null);
@@ -260,39 +266,23 @@ public class DressAddFragment extends Fragment {
             Toast.makeText(requireContext(), "Vui lòng chọn size áo!", Toast.LENGTH_SHORT).show();
             isValid = false;
         }else{
-            layout_input_type.setError(null);
+            layout_input_size.setError(null);
         }
         return isValid;
     }
+
+
+
     public void choseImgFromGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        mActivityResultLauncher.launch(Intent.createChooser(intent, "Đã chọn ảnh"));
+//        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Đã chọn ảnh"),SELECT_PICTURE);
+
 
     }
 
-    // nhận uri khi chọn ảnh từ thư viện
-
-//                    result -> {
-//                        if (result.getResultCode() == Activity.RESULT_OK) {
-//                            Intent data = result.getData();
-//                            if (data == null) {
-//                                return;
-//                            }
-//                            mUri = data.getData();
-//                            try {
-//                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mUri);
-//                                imageView.setImageBitmap(bitmap);
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-
-    private void callApiResgister() {
-
-    }
     @Override
     public void onResume() {
         super.onResume();
@@ -303,5 +293,37 @@ public class DressAddFragment extends Fragment {
     public void onStop() {
         super.onStop();
         ((MainActivity) requireActivity()).showBottomBar();
+    }
+
+    //
+    private File createTempFile() throws IOException {
+        // Tạo tên tệp mới dựa trên thời gian hiện tại
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp;
+
+        // Lấy đường dẫn tới thư mục tạm thời của ứng dụng
+        File storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        // Tạo tệp mới
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    imageView.setImageURI(selectedImageUri);
+                    //
+                    mUri = selectedImageUri;
+                }
+            }
+        }
     }
 }

@@ -1,9 +1,12 @@
 package com.team.team_07_fe.api.repository;
 
+import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.team.team_07_fe.api.ApiClient;
 import com.team.team_07_fe.api.ApiResponse;
@@ -11,9 +14,15 @@ import com.team.team_07_fe.api.service.DressService;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Dress;
 import com.team.team_07_fe.request.DressRequest;
+import com.team.team_07_fe.ui.dress.DressAddFragment;
+import com.team.team_07_fe.ui.dress.DressManagerFragment;
 
+import java.io.File;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,16 +90,40 @@ public class DressRepository {
         });
     }
 
-    //Tạo mới áo cưới
-    public void addDress(DressRequest dressRequest){
-        dressService.addDress(dressRequest).enqueue(new Callback<ApiResponse<String>>() {
+    //Tạo mới áo cưới //String dress_image, String dress_name, String dressTypeId, String color, String size, long dress_price, String dress_description
+    public void addDress(RequestBody imageUrl, File image,String dress_name, String dressTypeId, String color, String size, long dress_price, String dress_description ){
+        MultipartBody.Part imagePart = MultipartBody.Part.createFormData("dress_image", image.getName(), imageUrl);
+
+        // Chuyển các thông tin sản phẩm thành RequestBody
+        RequestBody nameBody = RequestBody.create(MediaType.parse("text/plain"), dress_name);
+        RequestBody colorBody = RequestBody.create(MediaType.parse("text/plain"), color);
+        RequestBody priceBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(dress_price));
+        RequestBody sizeBody = RequestBody.create(MediaType.parse("text/plain"), size);
+        RequestBody descriptionBody = RequestBody.create(MediaType.parse("text/plain"), dress_description);
+        RequestBody typeIdBody = RequestBody.create(MediaType.parse("text/plain"), dressTypeId);
+        //Khi tạo mới status luôn mặc định là sẵn sàng
+        RequestBody statusBody = RequestBody.create(MediaType.parse("text/plain"), "Sẵn sàng");
+        Log.i("DATA REQUEST",  String.valueOf(imagePart));
+        dressService.addDress(imagePart,nameBody,typeIdBody,colorBody,sizeBody,priceBody,descriptionBody,statusBody).enqueue(new Callback<ApiResponse<String>>() {
             @Override
-                public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
-                      if(response.isSuccessful()){
+                public void onResponse(Call<ApiResponse<String>> call, @NonNull Response<ApiResponse<String>> response) {
+                      if(response.isSuccessful() && response.body()!=null){
                           ApiResponse<String> apiResponse = response.body();
+//                          Glide.with().load // tải ảnh ảnh
+//                          String deletedData = apiResponse.getData();
                           dataInput.postValue(apiResponse.getData());
                       }else{
-                          handeErrorMessage(response.errorBody());
+                          if (response.errorBody() != null) {
+                              try {
+                                  Log.i("ERROR",response.errorBody().string());
+                                  Gson gson = new Gson();
+                                  ApiResponse error = gson.fromJson(response.errorBody().string(), ApiResponse.class);
+                                  errorMessage.postValue(error.getMessage());
+                              } catch (Exception e) {
+                                  Log.i("ERROR",e.getMessage());
+                                  errorMessage.postValue("Lỗi không xác định!");
+                              }
+                          }
                       }
                      }
 

@@ -50,6 +50,7 @@
     <string name="hint_work_shift">Ca làm việc</string>
     <string name="hint_address">Địa chỉ</string>
     <string name="hint_description">Mô tả</string>
+    <string name="hint_text">Điền tại đây</string>
     <string name="hint_id">ID</string>
     <!---->
     <string name="yes">Đồng ý</string>
