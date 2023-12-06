@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -129,11 +130,13 @@ public class CustomerManagerFragment extends Fragment {
                     String customerId = customer.getCus_id(); // Lấy ID của khách hàng
                     customerViewModel.DeleteCustomer(customerId);// Gọi phương thức xóa khách hàng với ID
                     dialog.dismiss();
-//                    refreshFragment();
-                    navigateBackToListView();
                     Toast.makeText(requireContext(), "Xóa khách hàng thành công!", Toast.LENGTH_SHORT).show();
+                    recyclerView.setAdapter(customerAdapter);
+                    customerViewModel.getAllCustomer(null);
+                    observeViewModel();
 
-//                    requireActivity().onBackPressed();
+//                    customerAdapter.getItem(position);
+
                 })
                 .setNegativeButton(R.string.no, ((dialog, which) -> {
                     dialog.dismiss();
@@ -150,9 +153,9 @@ public class CustomerManagerFragment extends Fragment {
         });
     }
     private void refreshFragment(){
-        loadingDialog = new LoadingDialog(requireContext());
+
         NavHostFragment.findNavController(CustomerManagerFragment.this)
-                .popBackStack();
+                .navigate(R.id.navigation_customer);
     }
     private void navigateBackToListView() {
         requireActivity().getSupportFragmentManager().popBackStack();

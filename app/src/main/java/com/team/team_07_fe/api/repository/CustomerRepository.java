@@ -11,6 +11,7 @@ import com.team.team_07_fe.api.service.CustomerService;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.request.CustomerRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -148,6 +149,8 @@ public class CustomerRepository {
                     ApiResponse<Customer> apiResponse = response.body();
                     Customer deletedCustomer = apiResponse.getData();
                     dataCustomer.postValue(deletedCustomer);
+                    getAllCustomer(null);
+
                 } else {
                     handeErrorMessage(response.errorBody());
                 }

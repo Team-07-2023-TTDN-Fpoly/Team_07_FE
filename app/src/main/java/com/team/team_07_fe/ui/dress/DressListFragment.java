@@ -1,5 +1,6 @@
 package com.team.team_07_fe.ui.dress;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,10 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.DressAdapter;
+import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.Dress;
 import com.team.team_07_fe.viewmodels.DressViewModel;
 
@@ -26,6 +30,7 @@ import java.util.List;
 public class DressListFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
+    TextView txtDel;
     private DressViewModel dressViewModel;
     private DressAdapter dressAdapter;
     private List<Dress> dressList;
@@ -64,9 +69,26 @@ public class DressListFragment extends Fragment {
             bundle.putSerializable("data_dress",dressAdapter.getItem(position));
             NavHostFragment.findNavController(DressListFragment.this).navigate(R.id.action_navigation_dress_to_dressUpdateFragment,bundle);
         });
-        dressAdapter.setOnClickDeleteClickListener(position -> {
+        dressAdapter.setOnClickDeleteClickListener(this::handleNavigateDeleteForm);
+    }
 
-        });
+    private void handleNavigateDeleteForm(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setTitle("Cảnh báo!")
+                .setMessage("Bạn có chắc muốn xóa áo cưới này không?")
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    Dress dress = dressAdapter.getItem(position);
+                    String dressId = dress.getId();
+                    dressViewModel.deleteDress(dressId);
+                    dialog.dismiss();
+                    Toast.makeText(requireContext(), "Xóa áo cưới thành công!", Toast.LENGTH_SHORT).show();
+                    dressViewModel.getAllDress(null);
+                    observeViewModel();
+                })
+                .setNegativeButton(R.string.no, ((dialog, which) -> {
+                    dialog.dismiss();
+                }));
+        builder.create().show();
     }
     /**
      * kiểm soát dữ liệu
@@ -87,7 +109,7 @@ public class DressListFragment extends Fragment {
     private void mapping(View view){
         recyclerView = view.findViewById(R.id.danh_sach_ao_cuoi);
         fab = view.findViewById(R.id.button_more);
-
+        txtDel = view.findViewById(R.id.btn_delete_item);
         dressList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         dressAdapter = new DressAdapter(requireContext(),dressList);
