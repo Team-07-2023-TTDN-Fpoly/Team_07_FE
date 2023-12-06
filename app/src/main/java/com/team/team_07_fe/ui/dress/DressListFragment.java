@@ -60,7 +60,9 @@ public class DressListFragment extends Fragment {
         });
         //Sự kiện nhấn của các item trong adapter
         dressAdapter.setOnClickUpdateClickListener(position -> {
-
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data_dress",dressAdapter.getItem(position));
+            NavHostFragment.findNavController(DressListFragment.this).navigate(R.id.action_navigation_dress_to_dressUpdateFragment,bundle);
         });
         dressAdapter.setOnClickDeleteClickListener(position -> {
 

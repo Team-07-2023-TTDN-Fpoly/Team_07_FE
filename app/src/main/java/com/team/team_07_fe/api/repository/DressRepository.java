@@ -33,6 +33,7 @@ public class DressRepository {
     private MutableLiveData<List<Dress>> listDress = new MutableLiveData<>();
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private MutableLiveData<String> dataInput = new MutableLiveData<>();
+    private MutableLiveData<String> dataMessage = new MutableLiveData<>();
     private MutableLiveData<Dress> dataDress = new MutableLiveData<>();
 
     public DressRepository(){
@@ -49,6 +50,9 @@ public class DressRepository {
 
     public MutableLiveData<String> getDataInput() {
         return dataInput;
+    }
+    public MutableLiveData<String> getDataMessage() {
+        return dataMessage;
     }
 
     public MutableLiveData<Dress> getDataDress() {
@@ -109,21 +113,9 @@ public class DressRepository {
                 public void onResponse(Call<ApiResponse<String>> call, @NonNull Response<ApiResponse<String>> response) {
                       if(response.isSuccessful() && response.body()!=null){
                           ApiResponse<String> apiResponse = response.body();
-//                          Glide.with().load // tải ảnh ảnh
-//                          String deletedData = apiResponse.getData();
                           dataInput.postValue(apiResponse.getData());
                       }else{
-                          if (response.errorBody() != null) {
-                              try {
-                                  Log.i("ERROR",response.errorBody().string());
-                                  Gson gson = new Gson();
-                                  ApiResponse error = gson.fromJson(response.errorBody().string(), ApiResponse.class);
-                                  errorMessage.postValue(error.getMessage());
-                              } catch (Exception e) {
-                                  Log.i("ERROR",e.getMessage());
-                                  errorMessage.postValue("Lỗi không xác định!");
-                              }
-                          }
+                          handeErrorMessage(response.errorBody());
                       }
                      }
 
@@ -135,13 +127,27 @@ public class DressRepository {
         });
     }
     //Update thông tin áo cưới
-    public void updateDress(String id,DressRequest dressRequest){
-        dressService.updateDress(id,dressRequest).enqueue(new Callback<ApiResponse<String>>() {
+    public void updateDress(String id,RequestBody imageUrl, File image,String dress_name, String dressTypeId, String color, String size, long dress_price, String dress_description ,String status){
+        MultipartBody.Part imagePart =null;
+        if(imageUrl!=null){
+            imagePart = MultipartBody.Part.createFormData("dress_image", image.getName(), imageUrl);
+        }
+        // Chuyển các thông tin sản phẩm thành RequestBody
+        RequestBody nameBody = RequestBody.create(MediaType.parse("text/plain"), dress_name);
+        RequestBody colorBody = RequestBody.create(MediaType.parse("text/plain"), color);
+        RequestBody priceBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(dress_price));
+        RequestBody sizeBody = RequestBody.create(MediaType.parse("text/plain"), size);
+        RequestBody descriptionBody = RequestBody.create(MediaType.parse("text/plain"), dress_description);
+        RequestBody typeIdBody = RequestBody.create(MediaType.parse("text/plain"), dressTypeId);
+        //Khi tạo mới status luôn mặc định là sẵn sàng
+        RequestBody statusBody = RequestBody.create(MediaType.parse("text/plain"), status);
+
+        dressService.updateDress(id,imagePart,nameBody,typeIdBody,colorBody,sizeBody,priceBody,descriptionBody,statusBody).enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                 if(response.isSuccessful()){
                    ApiResponse<String> apiResponse = response.body();
-                    dataInput.postValue(apiResponse.getData());
+                    dataMessage.postValue(apiResponse.getMessage());
                }else{
                     handeErrorMessage(response.errorBody());
                 }
@@ -154,14 +160,15 @@ public class DressRepository {
         });
     }
 
-    public void deleteDress(String id, DressRequest dressRequest) {
+    public void deleteDress(String id) {
         dressService.deleteDress(id).enqueue(new Callback<ApiResponse<Dress>>() {
             @Override
             public void onResponse(Call<ApiResponse<Dress>> call, Response<ApiResponse<Dress>> response) {
                 if(response.isSuccessful()){
                     ApiResponse<Dress> apiResponse = response.body();
-                    Dress deleteDress = apiResponse.getData();
-                    dataDress.postValue(apiResponse.getData());
+                    dataMessage.postValue(apiResponse.getMessage());
+                }else{
+                    handeErrorMessage(response.errorBody());
                 }
             }
 

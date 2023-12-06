@@ -36,9 +36,17 @@ public interface DressService {
                                        @Part("dress_description") RequestBody dress_description,
                                        @Part("dress_status") RequestBody dress_status
     );
-
+    @Multipart
     @PUT("/api/dresses/{id}")
-    Call<ApiResponse<String>> updateDress(@Path("id") String id, @Body DressRequest dressRequest );
+    Call<ApiResponse<String>> updateDress(@Path("id") String id,
+                                          @Part MultipartBody.Part image,
+                                          @Part("dress_name") RequestBody dress_name,
+                                          @Part("dressTypeId") RequestBody dressTypeId,
+                                          @Part("color") RequestBody color,
+                                          @Part("size") RequestBody size,
+                                          @Part("dress_price") RequestBody dress_price,
+                                          @Part("dress_description") RequestBody dress_description,
+                                          @Part("dress_status") RequestBody dress_status);
     @DELETE("/api/dresses/{id}")
     Call<ApiResponse<Dress>> deleteDress(@Path("id") String id);
 }

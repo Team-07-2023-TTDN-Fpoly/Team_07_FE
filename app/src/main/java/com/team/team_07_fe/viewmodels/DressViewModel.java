@@ -20,11 +20,13 @@ public class DressViewModel extends ViewModel {
     private MutableLiveData<List<Dress>> listDress;
     private MutableLiveData<String> dataInput;
     private MutableLiveData<String> errorMessage;
+    private MutableLiveData<String> dataMessage;
     public DressViewModel(){
         dressRepository = new DressRepository();
         listDress = dressRepository.getListDress();
         dataInput = dressRepository.getDataInput();
         errorMessage = dressRepository.getErrorMessage();
+        dataMessage = dressRepository.getDataMessage();
     }
 
     public void setListDress(List<Dress> listDress) {
@@ -33,6 +35,9 @@ public class DressViewModel extends ViewModel {
 
     public void setDataInput(String dataInput) {
         this.dataInput.postValue(dataInput);
+    }
+    public void setDataMessage(String dataInput) {
+        this.dataMessage.postValue(dataInput);
     }
 
     public void setErrorMessage(String errorMessage) {
@@ -49,6 +54,9 @@ public class DressViewModel extends ViewModel {
     public MutableLiveData<String> getDataInput() {
         return dataInput;
     }
+    public MutableLiveData<String> getDataMessage() {
+        return dataMessage;
+    }
 
     public MutableLiveData<String> getErrorMessage() {
         return errorMessage;
@@ -60,10 +68,10 @@ public class DressViewModel extends ViewModel {
     public void addDress(RequestBody mUri, File tempFile, String name, String type, String color, String size, Long price, String des){
         dressRepository.addDress(mUri,tempFile,name,type,color,size,price,des);
     }
-    public void updateDress(String id, DressRequest dressRequest){
-        dressRepository.updateDress(id, dressRequest);
+    public void updateDress(String id,RequestBody mUri, File tempFile, String name, String type, String color, String size, Long price, String des,String status){
+        dressRepository.updateDress(id, mUri,tempFile,name,type,color,size,price,des,status);
     }
-    public void deleteDress(String id,DressRequest dressRequest){
-        dressRepository.deleteDress(id, dressRequest);
+    public void deleteDress(String id){
+        dressRepository.deleteDress(id);
     }
 }

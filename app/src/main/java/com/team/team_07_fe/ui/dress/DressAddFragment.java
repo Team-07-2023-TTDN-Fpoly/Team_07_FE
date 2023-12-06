@@ -22,30 +22,17 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
-import com.team.team_07_fe.RealPathUtil;
-import com.team.team_07_fe.models.Dress;
 import com.team.team_07_fe.models.DressType;
-import com.team.team_07_fe.request.DressRequest;
 import com.team.team_07_fe.ui.dresstype.DressTypeViewModel;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.DressViewModel;
@@ -62,14 +49,10 @@ import java.util.List;
 import java.util.Locale;
 
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
 
 public class DressAddFragment extends Fragment {
-    public static final String TAG = DressAddFragment.class.getName();
-    private static final int MY_REQUEST_CODE = 10;
     private static final int SELECT_PICTURE = 1;
     private TextInputLayout layout_input_name, layout_input_type, layout_input_color, layout_input_size,
     layout_input_price, layout_input_des;
@@ -93,7 +76,6 @@ public class DressAddFragment extends Fragment {
     private final List<String> listSizeForDropdown = Arrays.asList(stringsSize);
     //Lựa chọn size áo
     private String selectSizeFromDropdown ="";
-    String image = ""; // Chuỗi rỗng ban đầu
 
 
     @Override
@@ -201,7 +183,7 @@ public class DressAddFragment extends Fragment {
                 outputStream.close();
                 inputStream.close();
                 //Tạo 1 request body để truyền ảnh
-                RequestBody requestFile = RequestBody.create(MediaType.parse(requireActivity().getContentResolver().getType(mUri)), image);
+                RequestBody requestFile = RequestBody.create(MediaType.parse(requireActivity().getContentResolver().getType(mUri)), tempFile);
 
                 confirmAddDress(requestFile,tempFile,name,selectDressTypeFromDropdown.getType_id(),color,size,Long.parseLong(price),des);
 
@@ -279,8 +261,6 @@ public class DressAddFragment extends Fragment {
 //        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Đã chọn ảnh"),SELECT_PICTURE);
-
-
     }
 
     @Override
