@@ -3,8 +3,10 @@ package com.team.team_07_fe.ui.settings;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import android.widget.LinearLayout;
 import com.team.team_07_fe.LoginActivity;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.adapter.WorkShiftAdapter;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
 import com.team.team_07_fe.utils.FormatHelper;
@@ -68,7 +71,6 @@ public class SettingsFragment extends Fragment {
         //Chuyển sang màn hình xem thông tin chi tiết
         layout_employee_information.setOnClickListener(v->{
             Bundle bundle = new Bundle();
-
 //            bundle.putSerializable("data_employee",employee);
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_employee_information,bundle);

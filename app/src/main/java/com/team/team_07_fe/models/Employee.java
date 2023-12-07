@@ -71,6 +71,11 @@ public class Employee implements Serializable {
         this.is_disable = is_disable;
     }
 
+    public Employee() {
+
+    }
+
+
     public String getEmp_id() {
         return emp_id;
     }

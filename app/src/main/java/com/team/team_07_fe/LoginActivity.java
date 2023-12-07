@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 loadingDialog.show();
 
                 if (email.isEmpty() || password.isEmpty()) {
-                    
+                    loadingDialog.dismiss();
                     Toast.makeText(LoginActivity.this, "Vui lòng không để trống thông tin", Toast.LENGTH_SHORT).show();
                     return;
                 }
