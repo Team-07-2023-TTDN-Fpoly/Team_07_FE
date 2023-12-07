@@ -81,6 +81,13 @@ public class DressAdapter extends RecyclerView.Adapter<DressAdapter.ViewHolder> 
         return listDress!=null ? listDress.size(): 0;
     }
 
+    public Dress getItem(int position){
+        if(position> listDress.size() || position< 0){
+            return null;
+        }
+        return listDress.get(position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
     private TextView  tv_nameDress, tv_typeDressId, tv_priceDress, tv_sizeDress, tv_colorDress;
     private ImageView btn_update;

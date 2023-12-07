@@ -59,6 +59,9 @@
             android:id="@+id/action_navigation_dress_to_dressAddFragment"
             app:destination="@id/dressAddFragment"
             />
+        <action
+            android:id="@+id/action_navigation_dress_to_dressUpdateFragment"
+            app:destination="@id/dressUpdateFragment" />
     </fragment>
 
     <fragment
@@ -246,4 +249,8 @@
         android:name="com.team.team_07_fe.ui.contract.contractchoosedress.ChooseDressFragment"
         android:label="Lựa chọn áo cưới"
         tools:layout="@layout/fragment_contract_choose_dress" />
+    <fragment
+        android:id="@+id/dressUpdateFragment"
+        android:name="com.team.team_07_fe.ui.dress.DressUpdateFragment"
+        android:label="Cập nhật áo cưới" />
 </navigation>
