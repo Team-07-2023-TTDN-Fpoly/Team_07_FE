@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.team.team_07_fe.api.ApiClient;
 import com.team.team_07_fe.api.ApiResponse;
 import com.team.team_07_fe.api.service.AuthService;
 import com.team.team_07_fe.models.Employee;
+import com.team.team_07_fe.ui.home.HomeFragment;
 import com.team.team_07_fe.utils.LoadingDialog;
 import com.team.team_07_fe.viewmodels.AuthViewModel;
 
@@ -83,7 +85,6 @@ public class ChangePasswordFragment extends Fragment {
         loadingDialog.show();
 
         if (isValidate(oldPass, newPass, checkPass)) {
-            loadingDialog.show();
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                     .setTitle("Thông báo")
                     .setMessage("Bạn có chắc muốn thay đổi mật khẩu không?")
@@ -93,7 +94,7 @@ public class ChangePasswordFragment extends Fragment {
                         observeViewModel();
                     })
                     .setNegativeButton("Không", (dialog, which) -> {
-                        dialog.dismiss();
+                        loadingDialog.dismiss();
                     });
             builder.create().show();
         }
@@ -102,7 +103,6 @@ public class ChangePasswordFragment extends Fragment {
 
     private boolean isValidate(String oldPass, String newPass, String checkPass){
         boolean isValid = true;
-        loadingDialog.show();
         if (oldPass.isEmpty() || newPass.isEmpty() || checkPass.isEmpty()) {
             Toast.makeText(getActivity(), "Vui lòng không để trống thông tin", Toast.LENGTH_SHORT).show();
             isValid = false;
@@ -126,6 +126,7 @@ public class ChangePasswordFragment extends Fragment {
         authViewModel.getDataMessage().observe(getViewLifecycleOwner(), message -> {
             if (message != null) {
                 loadingDialog.dismiss();
+                NavHostFragment.findNavController(this).popBackStack();
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                 authViewModel.setDataMessage(null);
 
@@ -134,6 +135,7 @@ public class ChangePasswordFragment extends Fragment {
                     edNewPassword.setText("");
                     edCheckPassword.setText("");
                 }
+
             }
         });
 
