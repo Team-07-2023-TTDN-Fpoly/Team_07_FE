@@ -153,5 +153,15 @@ public class ChangePasswordFragment extends Fragment {
         dialog.setCancelable(false);
         return dialog;
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)requireActivity()).hiddenBottomBar();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
+    }
 }

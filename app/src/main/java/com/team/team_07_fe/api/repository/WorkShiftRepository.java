@@ -8,7 +8,10 @@ import com.google.gson.Gson;
 import com.team.team_07_fe.api.ApiClient;
 import com.team.team_07_fe.api.ApiResponse;
 import com.team.team_07_fe.api.service.WorkShiftService;
+import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.request.CustomerRequest;
+import com.team.team_07_fe.request.WorkShiftRepuest;
 
 import java.util.List;
 
@@ -23,7 +26,6 @@ public class WorkShiftRepository {
     private MutableLiveData<List<WorkShift>> listWorkShift = new MutableLiveData<>();
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private MutableLiveData<String> dataInput = new MutableLiveData<>();
-    private MutableLiveData<WorkShift> dataWorkShift = new MutableLiveData<>();
 
     public WorkShiftRepository(){
         workShiftService = ApiClient.getClient().create(WorkShiftService.class);
@@ -41,9 +43,6 @@ public class WorkShiftRepository {
         return dataInput;
     }
 
-    public MutableLiveData<WorkShift> getDataWorkShift() {
-        return dataWorkShift;
-    }
 
     //xử lý phần thông báo lỗi
     private void handeErrorMessage(ResponseBody errorBody){
@@ -58,9 +57,27 @@ public class WorkShiftRepository {
             }
         }
     }
+    public void updateWorkShift(String id, WorkShiftRepuest workShiftRepuest){
+        workShiftService.updateWorkShift(id,workShiftRepuest).enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if(response.isSuccessful()){
+                    ApiResponse<String> apiResponse = response.body();
+                    dataInput.postValue(apiResponse.getData());
+                }else{
+                    handeErrorMessage(response.errorBody());
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Log.i("ERROR LIST WORKSHIFT",t.getMessage());
+                errorMessage.postValue("Lỗi kết nối");
+            }
+        });
+    }
     //Lệnh để lấy tất cả 
-    public void getAllWorkShift(){
-        workShiftService.getAllWorkShift().enqueue(new Callback<ApiResponse<List<WorkShift>>>() {
+    public void getAllWorkShift(String search){
+        workShiftService.getAllWorkShift(search).enqueue(new Callback<ApiResponse<List<WorkShift>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<WorkShift>>> call, Response<ApiResponse<List<WorkShift>>> response) {
                 if(response.isSuccessful()){
@@ -84,8 +101,8 @@ public class WorkShiftRepository {
     }
 
     //Tạo mới 
-    public void createWorkShift(WorkShift workShiftRequest){
-        workShiftService.createWorkShift(workShiftRequest.getName(),workShiftRequest.getTimeStart(),workShiftRequest.getTimeEnd(),workShiftRequest.getShift_description()).enqueue(new Callback<ApiResponse<String>>() {
+    public void createWorkShift(WorkShiftRepuest workShiftRequest){
+        workShiftService.createWorkShift(workShiftRequest.getName(),workShiftRequest.getTimeStart(),workShiftRequest.getTimeEnd(), String.valueOf(workShiftRequest.getShift_description())).enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                 if(response.isSuccessful()  && response.body() != null){
@@ -110,4 +127,45 @@ public class WorkShiftRepository {
             }
         });
     }
+//    public void deleteWorkShift(String id) {
+//        workShiftService.deleteWorkShift(id).enqueue(new Callback<ApiResponse<String>>() {
+//            @Override
+//            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+//                if (response.isSuccessful()) {
+//                    ApiResponse<String> apiResponse = response.body();
+//                    dataInput.postValue(apiResponse.getData());
+//                } else {
+//                    handeErrorMessage(response.errorBody());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+//                Log.i("ERROR DELETE WORK TYPE", t.getMessage());
+//                errorMessage.postValue("Lỗi kết nối");
+//            }
+//        });
+//    }
+    public void deleteWorkShift(String id) {
+        workShiftService.deleteWorkShift(id).enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> apiResponse = response.body();
+                    String deleteWorkshift = apiResponse.getData();
+                    dataInput.postValue(deleteWorkshift);
+                    // ...
+                } else {
+                    handeErrorMessage(response.errorBody());
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Log.i("ERROR DELETE CUSTOMER", t.getMessage());
+                errorMessage.postValue("Lỗi kết nối");
+            }
+        });
+    }
+
+
 }

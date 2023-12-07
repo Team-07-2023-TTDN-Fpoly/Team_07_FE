@@ -17,14 +17,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="12dp">
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_id_work_shirt"
+                android:id="@+id/layout_input_id"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="@string/hint_id_work_shirt"
+                android:hint="Mã ca làm"
                 app:startIconDrawable="@drawable/icon_id">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -38,13 +36,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_time_start"
+                android:id="@+id/layout_input_name_work_shirt"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="@string/hint_time_start"
-                app:startIconDrawable="@drawable/icon_time">
+                android:hint="Tên ca làm"
+                app:startIconDrawable="@drawable/icon_id">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -57,21 +54,44 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_time_end"
-                style="@style/TextInputLayout"
+                android:id="@+id/layout_input_gio_bat_dau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_time_end"
+                android:hint="Giờ bắt đầu"
+                android:layout_gravity="center"
+                style="@style/TextInputLayout"
                 app:startIconDrawable="@drawable/icon_time">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_text_input"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:focusable="false"
+                    android:clickable="true"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_input_gio_ket_thuc"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:hint="Giờ kết thúc"
+                style="@style/TextInputLayout"
+                app:startIconDrawable="@drawable/icon_time">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="@drawable/background_text_input"
                     android:inputType="text"
                     android:lines="1"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:focusable="false"
+                    android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:id="@+id/layout_btn_create_work"
@@ -81,13 +101,23 @@
                 android:layout_marginVertical="12dp">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_update_item"
+                    android:id="@+id/btn_reload_item"
                     style="@style/AppCompatButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="@string/add_item"
+                    android:text="@string/reload_item"
+                    android:layout_marginVertical="8dp"
+                    />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_update_item_work"
+                    style="@style/AppCompatButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/update_item"
                     android:layout_marginVertical="8dp"
                     />
             </LinearLayout>

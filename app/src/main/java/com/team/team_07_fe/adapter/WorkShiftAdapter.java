@@ -6,19 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.WorkShift;
+import com.team.team_07_fe.utils.FormatHelper;
+import com.team.team_07_fe.utils.OnClickListener;
 
 import java.util.List;
 
 public class WorkShiftAdapter extends RecyclerView.Adapter<WorkShiftAdapter.WorkShiftViewHolder>{
     private List<WorkShift> mWorkShiftrs;
     private Context context;
-
+    private static OnClickListener onClickUpdateWorkShiftClickListener;
+    private static OnClickListener onClickDeleteClickListener;
     public WorkShiftAdapter(Context context,List<WorkShift> mWorkShiftrs) {
         this.mWorkShiftrs = mWorkShiftrs;
         this.context = context;
@@ -27,6 +31,13 @@ public class WorkShiftAdapter extends RecyclerView.Adapter<WorkShiftAdapter.Work
         this.mWorkShiftrs = mWorkShiftrs;
         notifyDataSetChanged();
 
+    }
+    public void setOnClickDeleteClickListener(OnClickListener onClickDeleteClickListener) {
+        WorkShiftAdapter.onClickDeleteClickListener = onClickDeleteClickListener;
+    }
+
+    public void onClickUpdateWorkShiftClickListener(OnClickListener onClickUpdateWorkShiftClickListener) {
+        WorkShiftAdapter.onClickUpdateWorkShiftClickListener = onClickUpdateWorkShiftClickListener;
     }
     @NonNull
     @Override
@@ -38,14 +49,30 @@ public class WorkShiftAdapter extends RecyclerView.Adapter<WorkShiftAdapter.Work
 
     @Override
     public void onBindViewHolder(@NonNull WorkShiftViewHolder holder, int position) {
-        WorkShift workShift= mWorkShiftrs.get(position);
-        if(workShift!=null){
+        WorkShift workShift = mWorkShiftrs.get(position);
+        if (workShift != null) {
             holder.tv_name_work.setText(workShift.getName());
-            holder.tv_start_time.setText("Giờ bắt đầu: " + workShift.getTimeStart());
-            holder.tv_end_time.setText("Giờ kết thúc: "+workShift.getTimeEnd());
-            Log.e("===///","sd"+workShift.getName());
-        }
+//            holder.tv_start_time.setText("Giờ bắt đầu: " +FormatHelper.convertTimeToString(workShift.getTimeStart()));
+//            holder.tv_end_time.setText("Giờ kết thúc: " +FormatHelper.convertTimeToString(workShift.getTimeEnd()));
+            String formattedStartTime = FormatHelper.convertTimeToString(workShift.getTimeStart());
+            holder.tv_start_time.setText("Giờ bắt đầu: " + formattedStartTime);
+            Log.i("==///","Gio bat dau"+formattedStartTime);
+            String formattedEndTime = FormatHelper.convertTimeToString(workShift.getTimeEnd());
+            holder.tv_end_time.setText("Giờ kết thúc: " + formattedEndTime);
 
+            holder.btn_dele_work.setOnClickListener(view -> {
+                Log.d("Button Click", "Delete button clicked");
+                if (onClickDeleteClickListener != null) {
+                    onClickDeleteClickListener.onClick(position);
+
+                }
+            });
+            holder.btn_update.setOnClickListener(view -> {
+                if (onClickUpdateWorkShiftClickListener != null) {
+                    onClickUpdateWorkShiftClickListener.onClick(position);
+                }
+            });
+        }
 
     }
 
@@ -61,13 +88,14 @@ public class WorkShiftAdapter extends RecyclerView.Adapter<WorkShiftAdapter.Work
     }
 
     public class WorkShiftViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_name_work,tv_start_time,tv_end_time;
+        private TextView tv_name_work,tv_start_time,tv_end_time,btn_dele_work,btn_update;
         public WorkShiftViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_name_work = itemView.findViewById(R.id.tv_name_work_shift);
             tv_start_time = itemView.findViewById(R.id.tv_start_time);
             tv_end_time = itemView.findViewById(R.id.tv_end_time);
-
+            btn_dele_work =itemView.findViewById(R.id.btn_dele_work);
+            btn_update = itemView.findViewById(R.id.btn_update_work_shift);
         }
     }
 }

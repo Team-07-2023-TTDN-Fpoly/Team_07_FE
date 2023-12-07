@@ -171,4 +171,22 @@ public class Employee implements Serializable {
     public void setIs_disable(boolean is_disable) {
         this.is_disable = is_disable;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "emp_id='" + emp_id + '\'' +
+                ", emp_name='" + emp_name + '\'' +
+                ", emp_phone='" + emp_phone + '\'' +
+                ", emp_birthday=" + emp_birthday +
+                ", basic_salary=" + basic_salary +
+                ", emp_address='" + emp_address + '\'' +
+                ", role='" + role + '\'' +
+                ", workShift=" + workShift +
+                ", join_date=" + join_date +
+                ", email='" + email + '\'' +
+                ", auth_id='" + auth_id + '\'' +
+                ", is_disable=" + is_disable +
+                '}';
+    }
 }

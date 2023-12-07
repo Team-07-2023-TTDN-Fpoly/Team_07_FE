@@ -1,5 +1,7 @@
 package com.team.team_07_fe.models;
 import com.google.gson.annotations.SerializedName;
+import com.team.team_07_fe.utils.FormatHelper;
+
 import java.io.Serializable;
 public class Dress implements Serializable {
     @SerializedName("id")
@@ -7,10 +9,11 @@ public class Dress implements Serializable {
 
     @SerializedName("dress_name")
     private String dress_name;
-    @SerializedName("image")
+    @SerializedName("dress_image")
     private String image;
+//    public static final String KEY_AVT = "dress_image";
     @SerializedName("dressTypeId")
-    private String dressTypeId;
+    private DressType dressTypeId;
 
     @SerializedName("dress_price")
     private Long dress_price;
@@ -27,7 +30,7 @@ public class Dress implements Serializable {
     @SerializedName("dress_status")
     private String dress_status;
 
-    public Dress( String id, String dress_name, String dressTypeId, Long dress_price, String size, String dress_description, String color)  {
+    public Dress( String id, String dress_name, DressType dressTypeId, Long dress_price, String size, String dress_description, String color)  {
         this.id=id;
         this.dress_name=dress_name;
         this.dressTypeId=dressTypeId;
@@ -38,8 +41,18 @@ public class Dress implements Serializable {
 
     }
 
+    public Dress(String id, String dress_name, String image, DressType dressTypeId, Long dress_price, String size, String dress_description, String color) {
+        this.id = id;
+        this.dress_name = dress_name;
+        this.image = image;
+        this.dressTypeId = dressTypeId;
+        this.dress_price = dress_price;
+        this.size = size;
+        this.dress_description = dress_description;
+        this.color = color;
+    }
 
-    public Dress(String dress_name, String dressTypeId, Long dress_price, String color, String size, String dress_description) {
+    public Dress(String dress_name, DressType dressTypeId, Long dress_price, String color, String size, String dress_description) {
         this.dress_name=dress_name;
         this.dressTypeId=dressTypeId;
         this.dress_price=dress_price;
@@ -70,11 +83,11 @@ public class Dress implements Serializable {
         this.dress_name = dress_name;
     }
 
-    public String getDressTypeId() {
+    public DressType getDressTypeId() {
         return dressTypeId;
     }
 
-    public void setDressTypeId(String dressTypeId) {
+    public void setDressTypeId(DressType dressTypeId) {
         this.dressTypeId = dressTypeId;
     }
 
@@ -116,6 +129,13 @@ public class Dress implements Serializable {
 
     public void setDress_status(String dress_status) {
         this.dress_status = dress_status;
+    }
+
+    @Override
+    public String toString() {
+        return dress_name +
+                " - " + FormatHelper.convertPriceToString(dress_price) +
+                " - " + dress_status;
     }
 }
 

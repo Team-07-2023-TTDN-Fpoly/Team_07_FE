@@ -12,7 +12,8 @@
     <ImageView
         android:id="@+id/layout_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_image" />
 
 
@@ -20,17 +21,20 @@
         android:id="@+id/layout_input_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mã">
+        android:hint="Mã áo cưới"
+        app:startIconDrawable="@drawable/icon_id"
+        style="@style/TextInputLayout"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dressId1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:background="@drawable/background_text_input"
-            android:drawableLeft="@drawable/ic_tabler"
             android:drawablePadding="10dp"
-            android:padding="10dp" />
+            android:textSize="16sp"
+            android:inputType="text"
+            android:focusable="false"
+            android:lines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -38,42 +42,43 @@
         android:id="@+id/layout_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên áo cưới">
+        android:hint="Tên áo cưới"
+        app:startIconDrawable="@drawable/ic_clother"
+        style="@style/TextInputLayout"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dressName3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:background="@drawable/background_text_input"
-            android:drawableLeft="@drawable/ic_clother"
             android:drawablePadding="10dp"
-            android:padding="10dp" />
+            android:textSize="16sp"
+            android:inputType="text"
+            android:lines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_input_type"
+        style="@style/TextInputLayout.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <AutoCompleteTextView
-            android:id="@+id/dressDescription3"
+            android:id="@+id/dropdown_type_dress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_text_input"
-            android:drawableRight="@drawable/subway_up_2"
-            android:drawablePadding="10dp"
-            android:hint="Loại áo cưới"
-            android:padding="10dp" />
+            android:background="@drawable/background_dropdown"
+            android:gravity="top"
+            android:inputType="none"
+            android:textSize="16sp"
+            android:dropDownHeight="200dp"
+            android:hint="Loại áo cưới" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="12dp"
         >
 
         <com.google.android.material.textfield.TextInputLayout
@@ -82,11 +87,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="ĐIền tại đây"
+            android:hint="Màu"
             app:startIconDrawable="@drawable/ic_color">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dressColor3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_text_input"
@@ -101,34 +105,54 @@
             android:layout_weight="2">
 
             <AutoCompleteTextView
-                android:id="@+id/dressSize3"
+                android:id="@+id/dropdown_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_dropdown"
                 android:gravity="top"
                 android:inputType="none"
+                android:textSize="16sp"
                 android:hint="size"
                 />
-
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_input_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Giá áo">
+        android:hint="Giá áo"
+        style="@style/TextInputLayout"
+        app:startIconDrawable="@drawable/ic_money">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dressPrice3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
             android:background="@drawable/background_text_input"
-            android:drawableLeft="@drawable/ic_money"
-            android:drawablePadding="10dp"
-            android:padding="10dp" />
+            android:textSize="16sp"
+            android:inputType="text"
+            android:lines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_input_status"
+        style="@style/TextInputLayout.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_dropdown"
+            android:gravity="top"
+            android:inputType="none"
+            android:textSize="16sp"
+            android:hint="Tình trạng"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -141,7 +165,6 @@
         app:startIconDrawable="@drawable/icon_description">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dressStatus3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_text_input"
@@ -178,7 +201,6 @@
 
             />
     </LinearLayout>
-
 </LinearLayout>
 </ScrollView>
 
