@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -29,6 +30,7 @@ import java.util.List;
 
 public class DressListFragment extends Fragment {
     private RecyclerView recyclerView;
+    private SearchView searchView;
     private FloatingActionButton fab;
     TextView txtDel;
     private DressViewModel dressViewModel;
@@ -48,11 +50,30 @@ public class DressListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dressViewModel.getAllDress(null);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchDress(newText);
+                return false;
+            }
+        });
 
 
         observeViewModel();
         handleClick();
+    }
+    private void searchDress(String query) {
+        if (query!=null && !query.isEmpty()) {
+            dressViewModel.getAllDress(query);
+        } else {
+            dressViewModel.getAllDress(null);
+        }
     }
 
     /**
@@ -111,6 +132,7 @@ public class DressListFragment extends Fragment {
      * @param view
      */
     private void mapping(View view){
+        searchView = view.findViewById(R.id.search_view);
         recyclerView = view.findViewById(R.id.danh_sach_ao_cuoi);
         fab = view.findViewById(R.id.button_more);
         txtDel = view.findViewById(R.id.btn_delete_item);

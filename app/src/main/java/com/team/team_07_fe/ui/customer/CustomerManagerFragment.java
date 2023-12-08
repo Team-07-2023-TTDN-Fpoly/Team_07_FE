@@ -67,14 +67,15 @@ public class CustomerManagerFragment extends Fragment {
         initialAdapter();
         customerViewModel.getAllCustomer(null);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchCustomer(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                searchCustomer(newText);
                 return false;
             }
         });
@@ -82,13 +83,21 @@ public class CustomerManagerFragment extends Fragment {
         fab.setOnClickListener(this::handleNavigateCreateForm);
 
     }
+
     private void searchCustomer(String query) {
-        if(query!=null){
+        if (query!=null && !query.isEmpty()) {
             customerViewModel.getAllCustomer(query);
-        }else{
+        } else {
             customerViewModel.getAllCustomer(null);
         }
     }
+//    private void searchCustomer(String query) {
+//        if(query!=null){
+//            customerViewModel.getAllCustomer(query);
+//        }else{
+//            customerViewModel.getAllCustomer(null);
+//        }
+//    }
     private void mapping(View view) {
         searchView = view.findViewById(R.id.search_view);
         recyclerView = view.findViewById(R.id.recyclerView);

@@ -59,8 +59,8 @@ public class ContractViewModel extends ViewModel {
     }
 
 
-    public void getAllContracts(String name){
-        contractRepository.getAllContract(name);
+    public void getAllContracts(String search){
+        contractRepository.getAllContract(search);
     }
     public void createContract(ContractRequest contractRequest){
         contractRepository.createContract(contractRequest);

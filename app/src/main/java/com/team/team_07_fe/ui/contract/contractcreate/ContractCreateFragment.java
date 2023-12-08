@@ -197,7 +197,7 @@ public class ContractCreateFragment extends Fragment {
                 long total = contractHandleViewModel.getTotal().getValue();
                 long prepay = contractHandleViewModel.getPrepay().getValue();
                 long discount = contractHandleViewModel.getDiscount().getValue();
-                ContractRequest newContractRequest = new ContractRequest(customer.getCus_id(),employee.getEmp_id(),date_create,date_endAt,total,prepay,discount,contractRequests);
+                ContractRequest newContractRequest = new ContractRequest(customer.getCus_id(),employee.getAuth_id(),date_create,date_endAt,total,prepay,discount,contractRequests);
                 contractViewModel.createContract(newContractRequest);
             }
         });
