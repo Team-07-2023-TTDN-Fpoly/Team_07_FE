@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Contract;
 import com.team.team_07_fe.utils.FormatHelper;
+import com.team.team_07_fe.utils.OnClickListener;
 
 import java.util.List;
 
@@ -28,7 +30,12 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         this.mListContract = list;
         notifyDataSetChanged();
     }
-    
+    private static OnClickListener onClickUpdateListener;
+
+    public void setOnClickUpdateListener(OnClickListener onClickUpdateListener) {
+        ContractAdapter.onClickUpdateListener = onClickUpdateListener;
+    }
+
     @NonNull
     @Override
     public ContractViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,13 +49,18 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         if (contract == null){
             return;
         }
-
         holder.tvName.setText(contract.getCustomer().getCus_name());
         holder.tvDate.setText("Ngày ký: " + FormatHelper.convertDatetoString(contract.getCreateAt()));
         holder.tvPhone.setText("SĐT: " + FormatHelper.formatPhoneNumber(contract.getCustomer().getCus_phone()));
         holder.tvDeposit.setText("Tiền cọc: " + FormatHelper.convertPriceToString(contract.getPrepay()));
         holder.tvSumMoney.setText("Tổng chi phí: " + FormatHelper.convertPriceToString(contract.getTotal_amount() - contract.getDiscount()));
         holder.tvStatus.setText("Trạng thái: " + contract.getStatus());
+
+        holder.btnUpdate.setOnClickListener(v->{
+            if(onClickUpdateListener!=null){
+                onClickUpdateListener.onClick(position);
+            }
+        });
     }
 
     @Override
@@ -59,10 +71,18 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         return 0;
     }
 
+    public Contract getItem(int position){
+        if(position<0 || position>mListContract.size()){
+            return null;
+        }
+        return mListContract.get(position);
+    }
+
 
     public class ContractViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvName, tvDate, tvPhone, tvDeposit, tvSumMoney, tvStatus;
+        private ImageView btnUpdate;
         public ContractViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -72,6 +92,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
             tvDeposit = itemView.findViewById(R.id.tvDeposit);
             tvSumMoney = itemView.findViewById(R.id.tvSumMoney);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            btnUpdate = itemView.findViewById(R.id.btnUpdate);
         }
     }
 }
