@@ -109,6 +109,18 @@ public class LoginActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String employeeData = gson.toJson(employee);
         editor.putString("employee",employeeData);
+        editor.putString("emp_id", employee.getEmp_id());
+        editor.putString("emp_name", employee.getEmp_name());
+        editor.putString("emp_phone", employee.getEmp_phone());
+        editor.putString("emp_birthday", String.valueOf(employee.getEmp_birthday().getTime()));
+        editor.putLong("basic_salary", employee.getBasic_salary());
+        editor.putString("emp_address", employee.getEmp_address());
+        editor.putString("role", employee.getRole());
+        editor.putString("workShift", String.valueOf(employee.getWorkShift()));
+        editor.putString("join_date", String.valueOf(employee.getJoin_date().getTime()));
+        editor.putString("email", employee.getEmail());
+        editor.putString("auth_id", employee.getAuth_id());
+        editor.putBoolean("is_disable", employee.isIs_disable());
         editor.apply();
     }
     private Dialog loadingDialog() {

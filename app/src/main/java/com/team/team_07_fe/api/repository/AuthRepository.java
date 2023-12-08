@@ -98,4 +98,29 @@ public class AuthRepository {
             }
         });
     }
+    public void changePassword(String id, String oldPassword, String newPassword, String checkPassword){
+        authService.changePassword(id, oldPassword, newPassword, checkPassword).enqueue(new Callback<ApiResponse<Void>>(){
+            @Override
+            public void onResponse(Call<ApiResponse<Void>> call, Response<ApiResponse<Void>> response) {
+                if(response.isSuccessful()&& response.body()!=null){
+                    ApiResponse<Void> apiResponse = response.body();
+                    messageData.postValue(apiResponse.getMessage());
+                }else{
+                    try {
+                        Gson gson = new Gson();
+                        ApiResponse error = gson.fromJson(response.errorBody().string(), ApiResponse.class);
+                        errorMessage.postValue(error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        errorMessage.postValue("Lỗi không xác định!");
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<Void>> call, Throwable t) {
+                Log.i("ERROR",t.getMessage());
+                errorMessage.postValue("Lỗi kết nối!");
+            }
+        });
+    }
 }

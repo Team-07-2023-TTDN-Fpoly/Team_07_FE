@@ -24,4 +24,8 @@ public interface AuthService {
     @POST("/api/auth/login")
     @FormUrlEncoded
     Call<ApiResponse<Employee>> loginAccount(@Field("email") String email, @Field("password") String password);
+
+    @PUT("/api/auth/password/{id}")
+    @FormUrlEncoded
+    Call<ApiResponse<Void>> changePassword(@Path("id") String auth_id, @Field("oldPassword") String oldPassword,@Field("newPassword") String newPassword,@Field("checkPassword") String checkPassword);
 }
