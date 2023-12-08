@@ -82,9 +82,9 @@ public class ChangePasswordFragment extends Fragment {
         loadingDialog = loadingDialog();
 
         // Hiển thị dialog loading
-        loadingDialog.show();
 
         if (isValidate(oldPass, newPass, checkPass)) {
+            loadingDialog.show();
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                     .setTitle("Thông báo")
                     .setMessage("Bạn có chắc muốn thay đổi mật khẩu không?")

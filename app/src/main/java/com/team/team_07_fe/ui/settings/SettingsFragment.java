@@ -66,6 +66,14 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(!employee.getRole().equals("Quản lý")){
+            layout_dresstype_manager.setVisibility(View.GONE);
+            layout_workshift_information.setVisibility(View.GONE);
+            layout_employee_manager.setVisibility(View.GONE);
+            layout_statistic_screen.setVisibility(View.GONE);
+            layout_change_password.setBackgroundResource(R.drawable.background_corner_top);
+        }
         //Chuyển sang màn hình quản lý nhân viên
         layout_employee_manager.setOnClickListener(v->{
             NavHostFragment.findNavController(SettingsFragment.this)

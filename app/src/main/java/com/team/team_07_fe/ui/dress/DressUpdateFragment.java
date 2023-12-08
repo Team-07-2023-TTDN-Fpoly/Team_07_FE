@@ -229,7 +229,6 @@ public class DressUpdateFragment extends Fragment {
 
             }catch (Exception e){
                 e.printStackTrace();
-                Toast.makeText(requireContext(), "Lỗi từ file hình ảnh", Toast.LENGTH_SHORT).show();
             }
 
         }
