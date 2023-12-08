@@ -89,6 +89,8 @@ public class WorkShiftManagerFragment extends Fragment {
     }
     private void handleNavigateDeleteForm(int position) {
         WorkShift workShift = workShiftAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data_workShift", workShift);
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                 .setTitle("Cảnh báo!")
                 .setMessage("Bạn có chắc muốn xóa ca làm này không?")
