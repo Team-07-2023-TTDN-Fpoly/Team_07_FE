@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ContractRepository {
-    private ContractService customerService;
+    private ContractService contractService;
 
     private MutableLiveData<List<Contract>> listContract = new MutableLiveData<>();
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
@@ -27,7 +27,7 @@ public class ContractRepository {
     private MutableLiveData<Contract> dataContract = new MutableLiveData<>();
 
     public ContractRepository(){
-        customerService = ApiClient.getClient().create(ContractService.class);
+        contractService = ApiClient.getClient().create(ContractService.class);
     }
     //Getter
     public MutableLiveData<List<Contract>> getListContract() {
@@ -59,9 +59,9 @@ public class ContractRepository {
             }
         }
     }
-    //Lệnh để lấy tất cả nkhách hangf
+    //Lệnh để lấy tất cả hợp đồng
     public void getAllContract(String search){
-        customerService.getAllContracts(search).enqueue(new Callback<ApiResponse<List<Contract>>>() {
+        contractService.getAllContracts(search).enqueue(new Callback<ApiResponse<List<Contract>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Contract>>> call, Response<ApiResponse<List<Contract>>> response) {
                 if(response.isSuccessful()&& response.body()!=null){
@@ -73,6 +73,26 @@ public class ContractRepository {
             }
             @Override
             public void onFailure(Call<ApiResponse<List<Contract>>> call, Throwable t) {
+                Log.i("ERROR LIST Contract",t.getMessage());
+                errorMessage.postValue("Lỗi kết nối");
+            }
+        });
+    }
+    
+    public void createContract(ContractRequest contractRequest){
+        contractService.createContract(contractRequest).enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if(response.isSuccessful()&& response.body()!=null){
+                    ApiResponse<String> apiResponse = response.body();
+                    dataInput.postValue(apiResponse.getData());
+                }else{
+                    handeErrorMessage(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
                 Log.i("ERROR LIST Contract",t.getMessage());
                 errorMessage.postValue("Lỗi kết nối");
             }

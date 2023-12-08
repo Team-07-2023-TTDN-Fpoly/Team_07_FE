@@ -62,6 +62,7 @@ public class ContractManagerFragment extends Fragment {
         observeViewModel();
 
         fab.setOnClickListener(this::handleNavigateCreateForm);
+        handleNavigateUpdateForm();
     }
 
 
@@ -78,14 +79,25 @@ public class ContractManagerFragment extends Fragment {
             if(s!=null){
                 Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
             }
+            contractViewModel.setErrorMessage(null);
         });
     }
 
+    /**
+     *
+     */
+    private void handleNavigateUpdateForm(){
+        contractAdapter.setOnClickUpdateListener(position -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data_contract",contractAdapter.getItem(position));
 
+            NavHostFragment.findNavController(ContractManagerFragment.this).navigate(R.id.action_navigation_contract_to_navigation_contract_update,bundle);
+        });
+    }
 
     private void handleNavigateCreateForm(View view) {
         NavHostFragment.findNavController(ContractManagerFragment.this)
-                .navigate(R.id.action_navigation_contract_to_navigation_customer_add);
+                .navigate(R.id.action_navigation_contract_to_navigation_contract_add);
     }
     @Override
     public void onDestroyView() {
