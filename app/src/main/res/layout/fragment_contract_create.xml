@@ -187,7 +187,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Tổng hợp đồng"
                 android:enabled="false"
-                app:startIconDrawable="@drawable/ic_money">
+                app:startIconDrawable="@drawable/ic_money"
+                android:layout_marginTop="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

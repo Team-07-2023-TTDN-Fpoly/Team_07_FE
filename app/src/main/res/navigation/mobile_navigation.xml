@@ -22,10 +22,10 @@
         tools:layout="@layout/fragment_contract_manager"
         >
         <action
-            android:id="@+id/action_navigation_contract_to_navigation_customer_add"
+            android:id="@+id/action_navigation_contract_to_navigation_contract_add"
             app:destination="@id/navigation_contract_create" />
         <action
-            android:id="@+id/action_navigation_contract_to_navigation_customer_update"
+            android:id="@+id/action_navigation_contract_to_navigation_contract_update"
             app:destination="@id/navigation_contract_update" >
             <argument
                 android:name="data_contract"

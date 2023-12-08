@@ -1,15 +1,21 @@
 package com.team.team_07_fe.request;
 
 import com.google.gson.annotations.SerializedName;
+import com.team.team_07_fe.models.ContractDetail;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class ContractRequest implements Serializable {
     @SerializedName("cus_id")
     private String cus_id;
-    @SerializedName("emp_id")
+    @SerializedName("auth_id")
     private String emp_id;
+    @SerializedName("createAt")
+    private Date createAt;
+    @SerializedName("endAt")
+    private Date endAt;
     @SerializedName("total_amount")
     private long total_amount;
     @SerializedName("prepay")
@@ -19,9 +25,11 @@ public class ContractRequest implements Serializable {
     @SerializedName("contract_details")
     private List<ContractDetailRequest> contractDetailRequestList;
 
-    public ContractRequest(String cus_id, String emp_id, long total_amount, long prepay, long discount, List<ContractDetailRequest> contractDetailRequestList) {
+    public ContractRequest(String cus_id, String emp_id, Date createAt, Date endAt, long total_amount, long prepay, long discount, List<ContractDetailRequest> contractDetailRequestList) {
         this.cus_id = cus_id;
         this.emp_id = emp_id;
+        this.createAt = createAt;
+        this.endAt = endAt;
         this.total_amount = total_amount;
         this.prepay = prepay;
         this.discount = discount;
