@@ -23,7 +23,7 @@ public class DressRequest {
     private String dress_status;
 
     ///khi thêm áo cưới
-    public DressRequest(String dress_image, String dress_name, String dressTypeId, String color, String size, long dress_price, String dress_description){
+        public DressRequest(String dress_image, String dress_name, String dressTypeId, String color, String size, long dress_price, String dress_description){
         this.dress_image = dress_image;
         this.dress_name = dress_name;
         this.dressTypeId = dressTypeId;
