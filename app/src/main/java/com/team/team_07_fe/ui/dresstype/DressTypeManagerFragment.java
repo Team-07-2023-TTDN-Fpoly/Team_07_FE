@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -45,7 +46,8 @@ public class DressTypeManagerFragment extends Fragment {
     private RecyclerView rvloaiao;
     private FloatingActionButton fab1;
     private DressTypeRequest dressTypeRequest;
-    private List<DressType> listDressType= new ArrayList<>();
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,8 +68,9 @@ public class DressTypeManagerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dressTypeViewModel.getAllDressType(null);
+
         initialAdapter();
+        dressTypeViewModel.getAllDressType(null);
         fab1.setOnClickListener(this::showAddTypeDialog);
         observeViewModel();
     }
@@ -93,7 +96,7 @@ public class DressTypeManagerFragment extends Fragment {
 
                 dressTypeViewModel.createDressType(dressTypeRequest);
                 dressTypeViewModel.getAllDressType(null);
-                dressTypeAdapter.notifyItemChanged(selectedPosition);
+                dressTypeAdapter.notifyDataSetChanged();
                 Toast.makeText(requireContext(), "Thêm loại áo cưới thành công!", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             } else {
@@ -119,7 +122,7 @@ public class DressTypeManagerFragment extends Fragment {
     }
 
     private void initialAdapter(){
-        dressTypeAdapter = new DressTypeAdapter(requireContext(),dressTypeViewModel.getDressTypeList().getValue());
+        dressTypeAdapter = new DressTypeAdapter(requireContext(),dressTypeViewModel.getListDressType().getValue());
         rvloaiao.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvloaiao.setAdapter(dressTypeAdapter);
 
@@ -167,6 +170,7 @@ public class DressTypeManagerFragment extends Fragment {
                     DressTypeRequest updressTypeRequest = new DressTypeRequest(type_id, type_name);
                     dressTypeViewModel.updateDressType(id, updressTypeRequest);
                     dressTypeViewModel.getAllDressType(null);
+                    dressTypeAdapter.notifyDataSetChanged();
                     Toast.makeText(requireContext(), "Cập nhật loại áo thành công!", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
                 })
@@ -216,7 +220,7 @@ public class DressTypeManagerFragment extends Fragment {
         builder.setPositiveButton("Xóa", (dialog, which) -> {
             dressTypeViewModel.deleteDressType(dressType.getType_id());
             dressTypeViewModel.getAllDressType(null);
-            dressTypeAdapter.notifyItemChanged(position);
+            dressTypeAdapter.notifyDataSetChanged();
             Toast.makeText(requireContext(), "Xóa loại áo thành công!", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
@@ -234,14 +238,8 @@ public class DressTypeManagerFragment extends Fragment {
 
 
     private void observeViewModel(){
-        dressTypeViewModel.getDressTypeList().observe(getViewLifecycleOwner(), new Observer<List<DressType>>() {
-            @Override
-            public void onChanged(List<DressType> dressTypes) {
-                listDressType.clear();
-                listDressType.addAll(dressTypes);
-                dressTypeAdapter.setList(listDressType);
-            }
+        dressTypeViewModel.getListDressType().observe(getViewLifecycleOwner(), dressTypes -> {
+            dressTypeAdapter.setList(dressTypes);
         });
     }
-
 }
