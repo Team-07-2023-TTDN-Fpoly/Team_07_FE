@@ -81,9 +81,6 @@ public class DressListFragment extends Fragment {
                     String dressId = dress.getId();
                     dressViewModel.deleteDress(dressId);
                     dialog.dismiss();
-                    Toast.makeText(requireContext(), "Xóa áo cưới thành công!", Toast.LENGTH_SHORT).show();
-                    dressViewModel.getAllDress(null);
-                    observeViewModel();
                 })
                 .setNegativeButton(R.string.no, ((dialog, which) -> {
                     dialog.dismiss();
@@ -99,6 +96,13 @@ public class DressListFragment extends Fragment {
                 dressList.clear();
                 dressList.addAll(dresses);
                 dressAdapter.setListDress(dressList);
+            }
+        });
+        dressViewModel.getDataMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                dressViewModel.getAllDress(null);
+                dressViewModel.setDataMessage(null);
             }
         });
     }

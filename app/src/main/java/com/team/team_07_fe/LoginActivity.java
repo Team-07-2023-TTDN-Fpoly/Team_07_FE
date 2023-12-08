@@ -112,7 +112,9 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("emp_id", employee.getEmp_id());
         editor.putString("emp_name", employee.getEmp_name());
         editor.putString("emp_phone", employee.getEmp_phone());
-        editor.putString("emp_birthday", String.valueOf(employee.getEmp_birthday().getTime()));
+        if(employee.getEmp_birthday()!=null){
+            editor.putString("emp_birthday", String.valueOf(employee.getEmp_birthday().getTime()));
+        }
         editor.putLong("basic_salary", employee.getBasic_salary());
         editor.putString("emp_address", employee.getEmp_address());
         editor.putString("role", employee.getRole());
