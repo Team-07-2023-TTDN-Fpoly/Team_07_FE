@@ -79,9 +79,9 @@ public class EmployeeCreateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //
-        workShiftViewModel.getAllWorkShift();
+        workShiftViewModel.getAllWorkShift(null);
 
-
+        layout_input_join_date.getEditText().setText(FormatHelper.convertDatetoString(new Date()));
         //
         btn_add_item.setOnClickListener(this::handleAddEmployee);
         layout_input_birthday.getEditText().setOnClickListener(this::chooseDateForBirthday);
@@ -132,7 +132,7 @@ public class EmployeeCreateFragment extends Fragment {
         String address = layout_input_address.getEditText().getText().toString().trim();
         String salary = layout_input_salary.getEditText().getText().toString().trim();
 
-        if(validateInput(name,email,password,phone,salary)){
+        if(validateInput(name,email,password,phone,salary,birthday,address)){
             loadingDialog.show();
             Date formatBirthday = null;
             Date formatJoinDate = new Date();
@@ -194,11 +194,28 @@ public class EmployeeCreateFragment extends Fragment {
         datePickerDialog.show();
     }
     private boolean validateInput(String name,String email,String password,
-                                  String phone, String salary){
+                                  String phone, String salary,String birthday,String address){
         boolean isValid = true;
 
         if(TextUtils.isEmpty(name)){
             layout_input_name.setError("Vui lòng nhập tên nhân viên!");
+            isValid = false;
+        }else{
+            layout_input_name.setError(null);
+        }
+
+        if(TextUtils.isEmpty(birthday)){
+            layout_input_birthday.setError("Vui lòng nhập ngày sinh!");
+            isValid = false;
+        }else if(FormatHelper.convertStringtoDate(birthday).compareTo(new Date())<=0){
+            layout_input_birthday.setError("Vui lòng chọn lại ngày sinh!");
+            isValid = false;
+        }else{
+            layout_input_birthday.setError(null);
+        }
+
+        if(TextUtils.isEmpty(address)){
+            layout_input_address.setError("Vui lòng nhập địa chỉ!");
             isValid = false;
         }else{
             layout_input_name.setError(null);
@@ -233,7 +250,7 @@ public class EmployeeCreateFragment extends Fragment {
             layout_input_password.setError(null);
         }
 
-        if(selectRole.isEmpty()){
+        if(selectRole ==null){
             isValid = false;
             Toast.makeText(requireContext(), "Vui lòng chọn chức vụ!", Toast.LENGTH_SHORT).show();
         }

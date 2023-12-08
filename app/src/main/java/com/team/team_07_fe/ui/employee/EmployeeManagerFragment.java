@@ -64,12 +64,13 @@ public class EmployeeManagerFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchEmployees(query);
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                searchEmployees(newText);
                 return false;
             }
         });
@@ -78,7 +79,7 @@ public class EmployeeManagerFragment extends Fragment {
     }
 
     private void searchEmployees(String query) {
-        if(query!=null){
+        if(query!=null && !query.isEmpty()){
             employeeViewModel.getAllEmployee(query);
         }else{
             employeeViewModel.getAllEmployee(null);
@@ -152,6 +153,12 @@ public class EmployeeManagerFragment extends Fragment {
                 Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
                 employeeViewModel.getAllEmployee(null);
                 authViewModel.setDataMessage(null);
+            }
+        });
+        authViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s->{
+            if(s!=null){
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                authViewModel.setErrorMessage(null);
             }
         });
     }

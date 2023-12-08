@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 import com.team.team_07_fe.api.ApiClient;
 import com.team.team_07_fe.api.ApiResponse;
 import com.team.team_07_fe.api.service.AuthService;
@@ -40,6 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         edEmail = findViewById(R.id.ed_email);
         edPass = findViewById(R.id.ed_pass);
         btnLogin = findViewById(R.id.btnLogin);
+
+        edPass.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if(i == EditorInfo.IME_ACTION_DONE){
+                btnLogin.performClick();
+                return true;
+            }
+            return false;
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,10 +106,15 @@ public class LoginActivity extends AppCompatActivity {
     private void saveEmployeeInfoToSharedPreferences(Employee employee) {
         SharedPreferences sharedPreferences = getSharedPreferences("MyNS", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String employeeData = gson.toJson(employee);
+        editor.putString("employee",employeeData);
         editor.putString("emp_id", employee.getEmp_id());
         editor.putString("emp_name", employee.getEmp_name());
         editor.putString("emp_phone", employee.getEmp_phone());
-        editor.putString("emp_birthday", String.valueOf(employee.getEmp_birthday().getTime()));
+        if(employee.getEmp_birthday()!=null){
+            editor.putString("emp_birthday", String.valueOf(employee.getEmp_birthday().getTime()));
+        }
         editor.putLong("basic_salary", employee.getBasic_salary());
         editor.putString("emp_address", employee.getEmp_address());
         editor.putString("role", employee.getRole());

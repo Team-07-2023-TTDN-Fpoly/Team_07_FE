@@ -1,6 +1,7 @@
 package com.team.team_07_fe.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.team.team_07_fe.utils.FormatHelper;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -27,6 +28,8 @@ public class Customer implements Serializable {
     @SerializedName("cus_email")
     private String cus_email;
 
+    public Customer(){
+    }
     public Customer(String cus_name, String cus_phone, String cus_phoneSecond, String cus_email, Date cus_wedding_date, String cus_address) {
         this.cus_name = cus_name;
         this.cus_phone = cus_phone;
@@ -114,5 +117,10 @@ public class Customer implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(cus_id);
+    }
+
+    @Override
+    public String toString() {
+        return cus_name +" - "+ cus_phone +" - ngày cưới: "+ FormatHelper.convertDatetoString(cus_wedding_date);
     }
 }

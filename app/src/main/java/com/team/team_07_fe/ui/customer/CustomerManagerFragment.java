@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,6 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.team.team_07_fe.R;
 import com.team.team_07_fe.adapter.CustomerAdapter;
-import com.team.team_07_fe.adapter.EmployeeAdapter;
 import com.team.team_07_fe.api.repository.CustomerRepository;
 import com.team.team_07_fe.api.service.CustomerService;
 import com.team.team_07_fe.models.Customer;
@@ -42,6 +42,7 @@ public class CustomerManagerFragment extends Fragment {
     private SearchView searchView;
     private FloatingActionButton fab;
     private CustomerViewModel customerViewModel;
+    private LoadingDialog loadingDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,6 +131,12 @@ public class CustomerManagerFragment extends Fragment {
                     customerViewModel.DeleteCustomer(customerId);// Gọi phương thức xóa khách hàng với ID
                     dialog.dismiss();
                     Toast.makeText(requireContext(), "Xóa khách hàng thành công!", Toast.LENGTH_SHORT).show();
+                    recyclerView.setAdapter(customerAdapter);
+                    customerViewModel.getAllCustomer(null);
+                    observeViewModel();
+
+//                    customerAdapter.getItem(position);
+
                 })
                 .setNegativeButton(R.string.no, ((dialog, which) -> {
                     dialog.dismiss();
@@ -144,6 +151,16 @@ public class CustomerManagerFragment extends Fragment {
                 customerAdapter.setList(customer);
             }
         });
+    }
+    private void refreshFragment(){
+
+        NavHostFragment.findNavController(CustomerManagerFragment.this)
+                .navigate(R.id.navigation_customer);
+    }
+    private void navigateBackToListView() {
+        requireActivity().getSupportFragmentManager().popBackStack();
+        NavHostFragment.findNavController(CustomerManagerFragment.this)
+                .navigate(R.id.action_navigation_customer_to_navigation_customer_update);// Chuyển về lại bảng ListView
     }
 
 }

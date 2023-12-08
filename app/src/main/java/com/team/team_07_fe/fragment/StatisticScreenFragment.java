@@ -17,11 +17,17 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.adapter.CustomerAdapter;
 import com.team.team_07_fe.adapter.DetailStatisticsAdapter;
+import com.team.team_07_fe.api.service.DetailStatisticsService;
 import com.team.team_07_fe.models.DetailStatistics;
+import com.team.team_07_fe.models.Statistic;
 import com.team.team_07_fe.viewmodels.DetailStatisticsViewModel;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StatisticScreenFragment extends Fragment {
@@ -36,10 +42,15 @@ public class StatisticScreenFragment extends Fragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistic_screen, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView);
         mapping(view);
         detailStatisticsViewModel = new ViewModelProvider(requireActivity()).get(DetailStatisticsViewModel.class);
         return view;
@@ -49,56 +60,29 @@ public class StatisticScreenFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        detailStatisticsViewModel.getAllDetail();
+
         initialAdapterDetail();
         observeViewModel();
-        initialAdapter();
-        btn_create_detail.setOnClickListener(this::handlecreateForm);
 
+        btn_create_detail.setOnClickListener(this::handlecreateForm);
     }
 
     private void initialAdapterDetail() {
-        detailStatisticsViewModel.getListDetailStatistics().observe(getViewLifecycleOwner(), new Observer<List<DetailStatistics>>() {
-            @Override
-            public void onChanged(List<DetailStatistics> detailStatistics) {
-                detailStatisticsAdapter.setListDetail(detailStatistics);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        detailStatisticsAdapter = new DetailStatisticsAdapter(requireContext(), detailStatisticsViewModel.getListDetailStatistics().getValue());
+        detailStatisticsAdapter = new DetailStatisticsAdapter(requireContext(), new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(detailStatisticsAdapter);
 
         detailStatisticsAdapter.setOnClickUpdateDetailClickListener(this::handleNavigateUpdateDetailForm);
 
     }
-    private void handleNavigateCreateForm(View view) {
-        NavHostFragment.findNavController(StatisticScreenFragment.this)
-                .navigate(R.id.action_StatisticScreen_to_createDetailFragment);
-    }
-
     public void mapping(View view){
         btn_create_detail = view.findViewById(R.id.btn_create_detail);
         recyclerView = view.findViewById(R.id.recyclerView);
 //
     }
-    private void initialAdapter() {
-        detailStatisticsViewModel.getListDetailStatistics().observe(getViewLifecycleOwner(), new Observer<List<DetailStatistics>>() {
-            @Override
-            public void onChanged(List<DetailStatistics> detailStatistics) {
-                detailStatisticsAdapter.setListDetail(detailStatistics);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        detailStatisticsAdapter = new DetailStatisticsAdapter(requireContext(), detailStatisticsViewModel.getListDetailStatistics().getValue());
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(detailStatisticsAdapter);
-
-        detailStatisticsAdapter.setOnClickUpdateDetailClickListener(this::handleNavigateUpdateDetailForm);
-
-    }
     private void handleNavigateUpdateDetailForm(int position) {
-        DetailStatistics detailStatistics = detailStatisticsAdapter.getItem(position);
+        Statistic detailStatistics = detailStatisticsAdapter.getItem(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable("data_detail", detailStatistics);
         NavHostFragment.findNavController(StatisticScreenFragment.this)
@@ -109,12 +93,30 @@ public class StatisticScreenFragment extends Fragment {
                 .navigate(R.id.action_StatisticScreen_to_createDetailFragment);
     }
     private void observeViewModel() {
-        detailStatisticsViewModel.getListDetailStatistics().observe(getViewLifecycleOwner(), new Observer<List<DetailStatistics>>() {
+        detailStatisticsViewModel.getListDt().observe(getViewLifecycleOwner(), new Observer<List<Statistic>>() {
             @Override
-            public void onChanged(List<DetailStatistics> detailStatistics) {
+            public void onChanged(List<Statistic> detailStatistics) {
                 detailStatisticsAdapter.setListDetail(detailStatistics);
-                Toast.makeText(requireContext(), "Lấy dữ liệu thành công!", Toast.LENGTH_SHORT).show();
             }
         });
+        detailStatisticsViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
+            if(s!=null){
+                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                detailStatisticsViewModel.setErrorMessage(null);
+            }
+        });
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) requireActivity()).hiddenBottomBar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity) requireActivity()).showBottomBar();
+
     }
 }

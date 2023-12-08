@@ -33,6 +33,7 @@
     <string name="hint_time_start">Giờ bắt đầu</string>
     <string name="hint_time_end">Giờ kết thúc</string>
     <string name="hint_id_work_shirt">Mã ca làm</string>
+    <string name="hint_id_name_shirt">Tên ca làm</string>
 
 
     <!--    Text for input-->
@@ -49,6 +50,7 @@
     <string name="hint_work_shift">Ca làm việc</string>
     <string name="hint_address">Địa chỉ</string>
     <string name="hint_description">Mô tả</string>
+    <string name="hint_text">Điền tại đây</string>
     <string name="hint_id">ID</string>
     <!---->
     <string name="yes">Đồng ý</string>

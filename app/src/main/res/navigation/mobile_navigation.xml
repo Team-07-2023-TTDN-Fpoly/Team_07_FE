@@ -22,10 +22,10 @@
         tools:layout="@layout/fragment_contract_manager"
         >
         <action
-            android:id="@+id/action_navigation_contract_to_navigation_customer_add"
-            app:destination="@id/navigation_contract_add" />
+            android:id="@+id/action_navigation_contract_to_navigation_contract_add"
+            app:destination="@id/navigation_contract_create" />
         <action
-            android:id="@+id/action_navigation_contract_to_navigation_customer_update"
+            android:id="@+id/action_navigation_contract_to_navigation_contract_update"
             app:destination="@id/navigation_contract_update" >
             <argument
                 android:name="data_contract"
@@ -35,14 +35,18 @@
 
     </fragment>
     <fragment
-        android:id="@+id/navigation_contract_add"
-        android:name="com.team.team_07_fe.ui.contract.ContractAddFragment"
+        android:id="@+id/navigation_contract_create"
+        android:name="com.team.team_07_fe.ui.contract.contractcreate.ContractCreateFragment"
         android:label="Quản lý hợp đồng"
-        tools:layout="@layout/fragment_contract_add" />
+        tools:layout="@layout/fragment_contract_create" >
+        <action
+            android:id="@+id/action_navigation_contract_create_to_navigation_contract_choose_dress"
+            app:destination="@id/navigation_contract_choose_dress" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_contract_update"
-        android:name="com.team.team_07_fe.ui.contract.ContractUpdateFragment"
+        android:name="com.team.team_07_fe.ui.contract.contractupdate.ContractUpdateFragment"
         android:label="Quản lý hợp đồng"
         tools:layout="@layout/fragment_contract_update" />
 
@@ -55,6 +59,9 @@
             android:id="@+id/action_navigation_dress_to_dressAddFragment"
             app:destination="@id/dressAddFragment"
             />
+        <action
+            android:id="@+id/action_navigation_dress_to_dressUpdateFragment"
+            app:destination="@id/dressUpdateFragment" />
     </fragment>
 
     <fragment
@@ -173,6 +180,14 @@
         <action
             android:id="@+id/action_workShiftManagerFragment_to_workShiftCreateFragment"
             app:destination="@id/workShiftCreateFragment" />
+        <action
+            android:id="@+id/action_workShiftManagerFragment_to_workShiftUpdateFragment"
+            app:destination="@id/workShiftUpdateFragment" >
+            <argument
+                android:name="data_workShift"
+                app:argType="com.team.team_07_fe.models.WorkShift"
+                app:nullable="false"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/workShiftCreateFragment"
@@ -189,6 +204,11 @@
         android:name="com.team.team_07_fe.ui.dress.DressAddFragment"
         android:label="Thêm mới áo cưới" />
     <fragment
+        android:id="@+id/workShiftUpdateFragment"
+        android:name="com.team.team_07_fe.ui.work_shift.WorkShiftUpdateFragment"
+        android:label="Cập nhật thông tin ca làm"
+        tools:layout="@layout/fragment_work_shift_update" />
+  <fragment
         android:id="@+id/StatisticScreen"
         android:name="com.team.team_07_fe.fragment.StatisticScreenFragment"
         android:label="Thống kê thu chi"
@@ -196,20 +216,17 @@
         <action
             android:id="@+id/action_StatisticScreen_to_createDetailFragment"
             app:destination="@id/CreateDetail" />
-        <argument
-            android:name="data_detail"
-            app:argType="com.team.team_07_fe.models.DetailStatistics"
-            app:nullable="true"
-            android:defaultValue="@null"/>
-        <action
-            android:id="@+id/action_StatisticScreen_to_PaymentDetail"
-            app:destination="@id/PaymentDetail"/>
-        <action
-            android:id="@+id/action_StatisticScreen_to_CreateDetail"
-            app:destination="@id/CreateDetail" />
+
         <action
             android:id="@+id/action_StatisticScreen_to_UpdateDetail"
-            app:destination="@id/UpdateDetail" />
+            app:destination="@id/UpdateDetail" >
+            <argument
+                android:name="data_detail"
+                app:argType="com.team.team_07_fe.models.Statistic"
+                app:nullable="true"
+                android:defaultValue="@null"/>
+        </action>
+
 
     </fragment>
     <fragment
@@ -227,4 +244,13 @@
         android:name="com.team.team_07_fe.fragment.CreateDetailFragment"
         android:label="Thêm mới khoản chi"
         tools:layout="@layout/fragment_create_detail"/>
+    <fragment
+        android:id="@+id/navigation_contract_choose_dress"
+        android:name="com.team.team_07_fe.ui.contract.contractchoosedress.ChooseDressFragment"
+        android:label="Lựa chọn áo cưới"
+        tools:layout="@layout/fragment_contract_choose_dress" />
+    <fragment
+        android:id="@+id/dressUpdateFragment"
+        android:name="com.team.team_07_fe.ui.dress.DressUpdateFragment"
+        android:label="Cập nhật áo cưới" />
 </navigation>

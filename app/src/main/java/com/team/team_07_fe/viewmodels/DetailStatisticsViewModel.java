@@ -4,45 +4,63 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.team.team_07_fe.adapter.DetailStatisticsAdapter;
+import com.team.team_07_fe.api.repository.DetailStatisticsRepository;
 import com.team.team_07_fe.models.DetailStatistics;
+import com.team.team_07_fe.models.Statistic;
+import com.team.team_07_fe.request.DetailStatisticsRequest;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class DetailStatisticsViewModel extends ViewModel {
-    private MutableLiveData<List<DetailStatistics>> listDt;
+    private DetailStatisticsRepository detailStatisticsRepository;
+    private MutableLiveData<List<Statistic>> listDt;
+    private MutableLiveData<String> dataInput;
+    private MutableLiveData<String> errorMessage;
     public DetailStatisticsViewModel(){
-        listDt = new MutableLiveData<>();
-        initializeExampleList();
+        detailStatisticsRepository = new DetailStatisticsRepository();
+        listDt = detailStatisticsRepository.getListDetail();
+        dataInput = detailStatisticsRepository.getDataInput();
+        errorMessage = detailStatisticsRepository.getErrorMessage();
     }
-    public LiveData<List<DetailStatistics>> getListDetailStatistics()
+    public LiveData<List<Statistic>> getListDetailStatistics()
     {return listDt;}
 
-
-    public void addDetailStatistics(DetailStatistics detailStatistics) {
-        List<DetailStatistics> currentList = listDt.getValue();
-        if (currentList != null) {
-            currentList.add(detailStatistics);
-            listDt.setValue(currentList);
-        }
-    }
-    public void updateDetailStatistics(int index, DetailStatistics detailStatistics) {
-        List<DetailStatistics> currentList = listDt.getValue();
-        if (currentList != null) {
-            currentList.set(index, detailStatistics);
-            listDt.setValue(currentList);
-        }
+    //setter
+    public void setListDt(MutableLiveData<List<Statistic>> listDt) {
+        this.listDt = listDt;
     }
 
-
-    private void initializeExampleList(){
-        List<DetailStatistics> detailStatistics= new ArrayList<>();
-        detailStatistics.add(new DetailStatistics(new Date(), "Nguyễn Văn A", 100000L, "abc"));
-        detailStatistics.add(new DetailStatistics(new Date(), "Nguyễn Văn B", 1000000L, "abc"));
-        detailStatistics.addAll(detailStatistics);
-
+    public void setDataInput(MutableLiveData<String> dataInput) {
+        this.dataInput = dataInput;
     }
 
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage.postValue(errorMessage);
+    }
+    //getter
+    public LiveData<List<Statistic>> getListDt() {
+        return listDt;
+    }
+
+    public LiveData<String> getDataInput() {
+        return dataInput;
+    }
+
+    public LiveData<String> getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void addDetailStatistics(DetailStatisticsRequest detailStatisticsRequest) {
+        detailStatisticsRepository.CreateDetail(detailStatisticsRequest);
+    }
+    public void updateDetailStatistics(String id , DetailStatisticsRequest detailStatisticsRequest) {
+        detailStatisticsRepository.UpdateDetail(id,detailStatisticsRequest);
+    }
+
+
+
+    public void getAllDetail(){
+        detailStatisticsRepository.getAllDetail();
+    }
 }
