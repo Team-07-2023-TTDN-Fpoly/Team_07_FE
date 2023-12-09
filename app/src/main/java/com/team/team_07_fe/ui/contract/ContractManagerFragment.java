@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class ContractManagerFragment extends Fragment {
     private RecyclerView recyclerView;
-
+    private SearchView searchView;
     private FloatingActionButton fab;
     private ContractViewModel contractViewModel;
     private ContractAdapter contractAdapter;
@@ -46,6 +47,7 @@ public class ContractManagerFragment extends Fragment {
     }
 
     private void mapping(View view) {
+        searchView = view.findViewById(R.id.search_view);
         recyclerView = view.findViewById(R.id.recyclerView1);
          fab = view.findViewById(R.id.fab);
 
@@ -59,11 +61,33 @@ public class ContractManagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         contractViewModel.getAllContracts(null);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchContract(newText);
+                return false;
+            }
+        });
         observeViewModel();
+
 
         fab.setOnClickListener(this::handleNavigateCreateForm);
         handleNavigateUpdateForm();
     }
+    private void searchContract(String query) {
+        if (query!=null && !query.isEmpty()) {
+            contractViewModel.getAllContracts(query);
+        } else {
+            contractViewModel.getAllContracts(null);
+        }
+    }
+
 
 
     private void observeViewModel() {
