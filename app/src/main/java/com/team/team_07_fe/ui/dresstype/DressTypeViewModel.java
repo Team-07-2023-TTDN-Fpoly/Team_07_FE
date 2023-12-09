@@ -47,38 +47,26 @@ public class DressTypeViewModel extends ViewModel {
     }
 
     public MutableLiveData<String> getDataInput() {
-        if (dataInput == null) {
-            dataInput = new MutableLiveData<>();
-        }
         return dataInput;
     }
 
-    public MutableLiveData<String> getErrorMessage()
-
-    {
-        if (errorMessage == null) {
-            errorMessage = new MutableLiveData<>();
-        }
+    public MutableLiveData<String> getErrorMessage(){
         return errorMessage;
     }
 
     //
     public void createDressType(DressTypeRequest dressTypeRequest){
         dressTypeRepository.createDressType(dressTypeRequest);
-        listType.postValue(dressTypeRepository.getAllDressType(null));
     }
     public void updateDressType(String id, DressTypeRequest dressTypeRequest) {
         dressTypeRepository.updateDressType(id,dressTypeRequest);
-        listType.postValue(dressTypeRepository.getAllDressType(null));
 
     }
     public void deleteDressType(String id) {
         dressTypeRepository.deleteDressType(id);
-        listType.postValue(dressTypeRepository.getAllDressType(null));
     }
     public void getAllDressType(String search){
         dressTypeRepository.getAllDressType(search);
-        listType.postValue(dressTypeRepository.getListDressType().getValue());
     }
 
 
