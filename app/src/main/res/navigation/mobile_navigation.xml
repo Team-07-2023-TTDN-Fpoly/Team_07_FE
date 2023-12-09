@@ -233,8 +233,6 @@
       <action
           android:id="@+id/action_StatisticScreen_to_PaymentDetail"
           app:destination="@id/PaymentDetail" />
-
-
   </fragment>
     <fragment
         android:id="@+id/UpdateDetail"
