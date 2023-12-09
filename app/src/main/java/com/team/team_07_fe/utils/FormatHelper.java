@@ -15,7 +15,7 @@ public class FormatHelper {
 
     //Định dạng lại số tiền
     public static String convertPriceToString(long price){
-        return price >= 0  ? moneyFormatter.format(price) : "- " + moneyFormatter.format(Math.abs(price));
+        return price > 0  ? moneyFormatter.format(price) : "0 VNĐ";
     }
     //Định dạng lại ngày tháng
     @SuppressLint("SimpleDateFormat")

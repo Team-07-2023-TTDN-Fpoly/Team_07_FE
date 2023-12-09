@@ -58,8 +58,8 @@ public class CreateDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btn_add_detail.setOnClickListener(this::AddDetail);
         create_detail_input_date.getEditText().setOnClickListener(this::dateforcreatedetail);
+        btn_add_detail.setOnClickListener(this::AddDetail);
         observeData();
     }
     public void observeData(){
@@ -99,7 +99,7 @@ public class CreateDetailFragment extends Fragment {
         if (valueInput(date, name, money, text)) {
             loadingDialog.show();
             Log.i("DATA DATE", FormatHelper.convertStringtoMonth(date) +"");
-            DetailStatisticsRequest detailStatisticsRequest = new DetailStatisticsRequest(new Date(), name, Long.parseLong(money), text);
+            DetailStatisticsRequest detailStatisticsRequest = new DetailStatisticsRequest(FormatHelper.convertStringtoMonth(date), name, Long.parseLong(money), text);
             confirmCreateDetail(detailStatisticsRequest);
         }
     }

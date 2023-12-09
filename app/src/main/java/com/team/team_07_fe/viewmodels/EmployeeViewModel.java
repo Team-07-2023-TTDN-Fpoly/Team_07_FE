@@ -20,11 +20,13 @@ public class EmployeeViewModel extends ViewModel {
     private MutableLiveData<List<Employee>> listEmp;
     private MutableLiveData<String> dataInput;
     private MutableLiveData<String> errorMessage;
+    private MutableLiveData<Employee> dataEmployee;
     public EmployeeViewModel(){
         employeeRepository = new EmployeeRepository();
         listEmp = employeeRepository.getListEmployee();
         dataInput = employeeRepository.getDataInput();
         errorMessage = employeeRepository.getErrorMessage();
+        dataEmployee = employeeRepository.getDataEmployee();
     }
 
     //setters
@@ -51,6 +53,9 @@ public class EmployeeViewModel extends ViewModel {
     public LiveData<String> getErrorMessage() {
         return errorMessage;
     }
+    public LiveData<Employee> getEmployee() {
+        return dataEmployee;
+    }
 
     //
     public void createEmployee(EmployeeRequest employeeRequest){
@@ -63,6 +68,9 @@ public class EmployeeViewModel extends ViewModel {
         employeeRepository.getAllEmployee(search);
     }
 
+    public void getDataEmp(String id){
+        employeeRepository.getEmployee(id);
+    }
 
 
 }
