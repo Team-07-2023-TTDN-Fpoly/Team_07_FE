@@ -43,4 +43,7 @@ public class AuthViewModel extends ViewModel {
     public void disableAccount(String id,boolean disable){
         authRepository.disableAccount(id,disable);
     }
+    public void changePassword(String id, String oldPassword, String newPassword, String checkPassword){
+        authRepository.changePassword(id, oldPassword, newPassword, checkPassword);
+    }
 }

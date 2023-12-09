@@ -14,7 +14,9 @@ import androidx.navigation.ui.NavigationUI;
 
 
 public class MainActivity extends AppCompatActivity {
+
     private BottomNavigationView navView;
+
     private Toolbar toolbar;
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;

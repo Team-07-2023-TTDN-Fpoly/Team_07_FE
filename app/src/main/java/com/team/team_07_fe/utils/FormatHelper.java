@@ -15,10 +15,25 @@ public class FormatHelper {
 
     //Định dạng lại số tiền
     public static String convertPriceToString(long price){
-        return price >= 0 ? moneyFormatter.format(price) : "- " + moneyFormatter.format(Math.abs(price));
+        return price > 0  ? moneyFormatter.format(price) : "0 VNĐ";
+    }
+    //Định dạng lại ngày tháng
+    @SuppressLint("SimpleDateFormat")
+    private static SimpleDateFormat monthormat = new SimpleDateFormat("MM/yyyy");
+
+    public static String convertMonthtoString(Date date){
+        return date != null ? monthormat.format(date) : "";
     }
 
-    //Định dạng lại ngày tháng nắm
+    public static Date convertStringtoMonth(String input){
+        try {
+            return !input.isEmpty() ? monthormat.parse(input) : null;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    //Định dạng lại ngày tháng năm
     @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 

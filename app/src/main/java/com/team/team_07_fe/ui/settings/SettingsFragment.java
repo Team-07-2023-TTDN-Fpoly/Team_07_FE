@@ -3,8 +3,10 @@ package com.team.team_07_fe.ui.settings;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,14 +14,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.team.team_07_fe.LoginActivity;
 import com.team.team_07_fe.MainActivity;
 import com.team.team_07_fe.R;
+import com.team.team_07_fe.adapter.WorkShiftAdapter;
 import com.team.team_07_fe.models.Employee;
 import com.team.team_07_fe.models.WorkShift;
 import com.team.team_07_fe.utils.FormatHelper;
@@ -31,7 +36,7 @@ public class SettingsFragment extends Fragment {
     private LinearLayout layout_employee_manager,layout_employee_information, layout_change_password,
             layout_dresstype_manager,layout_workshift_information,layout_logout, layout_statistic_screen;
     private SettingsViewModel mViewModel;
-
+    Employee employee;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -39,6 +44,12 @@ public class SettingsFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
         mapping(view);
+
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyNS", Context.MODE_PRIVATE);
+        String employeeData = sharedPreferences.getString("employee",null);
+        Gson gson = new Gson();
+        employee = gson.fromJson(employeeData,Employee.class);
+
         return view;
     }
 
@@ -55,6 +66,14 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(!employee.getRole().equals("Quản lý")){
+            layout_dresstype_manager.setVisibility(View.GONE);
+            layout_workshift_information.setVisibility(View.GONE);
+            layout_employee_manager.setVisibility(View.GONE);
+            layout_statistic_screen.setVisibility(View.GONE);
+            layout_change_password.setBackgroundResource(R.drawable.background_corner_top);
+        }
         //Chuyển sang màn hình quản lý nhân viên
         layout_employee_manager.setOnClickListener(v->{
             NavHostFragment.findNavController(SettingsFragment.this)
@@ -68,7 +87,8 @@ public class SettingsFragment extends Fragment {
         //Chuyển sang màn hình xem thông tin chi tiết
         layout_employee_information.setOnClickListener(v->{
             Bundle bundle = new Bundle();
-//            bundle.putSerializable("data_employee",employee);
+
+            bundle.putSerializable("data_employee",employee);
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.action_navigation_settings_to_navigation_employee_information,bundle);
         });

@@ -3,7 +3,8 @@ package com.team.team_07_fe.request;
 import com.google.gson.annotations.SerializedName;
 
 public class DressRequest {
-
+    @SerializedName("id")
+    private String dress_id;
     @SerializedName("dress_name")
     private String dress_name;
     @SerializedName("dressTypeId")
@@ -22,7 +23,7 @@ public class DressRequest {
     private String dress_status;
 
     ///khi thêm áo cưới
-    public DressRequest(String dress_image, String dress_name, String dressTypeId, String color, String size, long dress_price, String dress_description){
+        public DressRequest(String dress_image, String dress_name, String dressTypeId, String color, String size, long dress_price, String dress_description){
         this.dress_image = dress_image;
         this.dress_name = dress_name;
         this.dressTypeId = dressTypeId;
@@ -32,7 +33,16 @@ public class DressRequest {
         this.dress_description = dress_description;
     }
     /// khi cập nhật áo cưới
-
+    public DressRequest(String id,String dress_image, String dress_name, String dressTypeId, String color, String size, long dress_price, String dress_description){
+        this.dress_id = id;
+        this.dress_image = dress_image;
+        this.dress_name = dress_name;
+        this.dressTypeId = dressTypeId;
+        this.color = color;
+        this.size = size;
+        this.dress_price = dress_price;
+        this.dress_description = dress_description;
+    }
 
     public String getDress_name() {
         return dress_name;
