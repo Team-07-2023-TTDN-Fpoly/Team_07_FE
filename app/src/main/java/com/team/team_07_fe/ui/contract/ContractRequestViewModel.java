@@ -50,11 +50,11 @@ public class ContractRequestViewModel extends ViewModel {
      * @param dress - thông tin thuê áo cưới
      * @desc loại bỏ dress ra khỏi contract
      */
-    public void removeDress(ContractDetail dress) {
+    public void removeDress(ContractDetailRequest dress) {
         List<ContractDetailRequest> currentDresses = contractDetailRequestList.getValue();
         if (dress != null) {
             for (ContractDetailRequest request: currentDresses) {
-                if(request.getDress_id().equals(dress.getDress().getId())){
+                if(request.getDress_id().equals(dress.getId())){
                     currentDresses.remove(request);
                 }
             }

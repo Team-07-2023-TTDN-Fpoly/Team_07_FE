@@ -246,13 +246,14 @@ public class ContractCreateFragment extends Fragment {
      * Hiển thị hộp thoại để xác nhận loại bỏ dress khỏi danh sách
      * @param contractDetail - thông tin dress trong contract
      */
-    private void confirmDeleteContractDress(ContractDetail contractDetail){
+    private void confirmDeleteContractDress(ContractDetail mcontractDetail){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                 .setTitle("Cảnh báo!")
                 .setMessage("Bạn có chắc muốn bỏ thông tin này không?")
                 .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    contractHandleViewModel.removeDress(contractDetail);
-                    contractRequestViewModel.removeDress(contractDetail);
+                    contractHandleViewModel.removeDress(mcontractDetail);
+                    ContractDetailRequest contractDetaiRequest = new ContractDetailRequest(mcontractDetail.getDress().getId(),mcontractDetail.getRental_date(),mcontractDetail.getReturn_date());
+                    contractRequestViewModel.removeDress(contractDetaiRequest);
                     contractHandleViewModel.updateTotalAmount();
                     dialog.dismiss();
                     Toast.makeText(requireContext(), "Loại bỏ thành công!", Toast.LENGTH_SHORT).show();
