@@ -230,9 +230,10 @@
                 app:nullable="true"
                 android:defaultValue="@null"/>
         </action>
-
-
-    </fragment>
+      <action
+          android:id="@+id/action_StatisticScreen_to_PaymentDetail"
+          app:destination="@id/PaymentDetail" />
+  </fragment>
     <fragment
         android:id="@+id/UpdateDetail"
         android:name="com.team.team_07_fe.fragment.UpdateDetailFragment"

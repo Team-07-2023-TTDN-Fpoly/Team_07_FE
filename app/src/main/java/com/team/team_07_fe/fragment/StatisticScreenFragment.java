@@ -38,6 +38,7 @@ public class StatisticScreenFragment extends Fragment {
     private DetailStatisticsAdapter detailStatisticsAdapter;
     private FloatingActionButton btn_create_detail;
 
+
     private RecyclerView recyclerView;
 
 
@@ -74,7 +75,6 @@ public class StatisticScreenFragment extends Fragment {
         recyclerView.setAdapter(detailStatisticsAdapter);
 
         detailStatisticsAdapter.setOnClickUpdateDetailClickListener(this::handleNavigateUpdateDetailForm);
-
     }
     public void mapping(View view){
         btn_create_detail = view.findViewById(R.id.btn_create_detail);
@@ -86,12 +86,14 @@ public class StatisticScreenFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable("data_detail", detailStatistics);
         NavHostFragment.findNavController(StatisticScreenFragment.this)
-                .navigate(R.id.action_StatisticScreen_to_UpdateDetail, bundle);
+                .navigate(R.id.action_StatisticScreen_to_PaymentDetail, bundle);
     }
+
     private void handlecreateForm(View view){
         NavHostFragment.findNavController(StatisticScreenFragment.this)
                 .navigate(R.id.action_StatisticScreen_to_createDetailFragment);
     }
+
     private void observeViewModel() {
         detailStatisticsViewModel.getListDt().observe(getViewLifecycleOwner(), new Observer<List<Statistic>>() {
             @Override

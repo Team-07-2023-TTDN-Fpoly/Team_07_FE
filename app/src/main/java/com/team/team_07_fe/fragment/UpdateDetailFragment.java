@@ -26,6 +26,7 @@ import com.team.team_07_fe.R;
 import com.team.team_07_fe.models.Customer;
 import com.team.team_07_fe.models.DetailStatistics;
 import com.team.team_07_fe.models.Dress;
+import com.team.team_07_fe.models.Statistic;
 import com.team.team_07_fe.request.CustomerRequest;
 import com.team.team_07_fe.request.DetailStatisticsRequest;
 import com.team.team_07_fe.ui.dress.DressUpdateFragment;
@@ -42,10 +43,10 @@ public class UpdateDetailFragment extends Fragment {
 
     private TextInputLayout  update_detail_input_date,update_detail_input_name,
             update_detail_input_money, update_detail_input_text;
-    private AppCompatButton btn_reload_item, btn_update_item;
+    private AppCompatButton btn_reload_item, btn_update_item, update;
     private DetailStatisticsViewModel mDetailStatisticsViewModel;
     private LoadingDialog loadingDialog;
-    private DetailStatistics originalData = null;
+    private Statistic originalData = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,10 +70,11 @@ public class UpdateDetailFragment extends Fragment {
         observeData();
 
         if(getArguments()!=null){
-            originalData = (DetailStatistics) getArguments().getSerializable("data_detail");
+            originalData = (Statistic) getArguments().getSerializable("data_detail");
             setData(originalData);
         }
         //Click button
+
         btn_reload_item.setOnClickListener(this::handleReloadData);
         btn_update_item.setOnClickListener(this::updateDetail);
     }
@@ -150,29 +152,8 @@ public class UpdateDetailFragment extends Fragment {
                 }));
         builder.create().show();
     }
-//    public static void showAlertDialog(Context context, String title, String message) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//
-//        builder.setTitle(title)
-//                .setMessage(message)
-//                .setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // Xử lý khi người dùng bấm OK
-//                        dialog.dismiss(); // Đóng dialog
-//                    }
-//                });
-//        builder.setNegativeButton("HỦY", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                // xu li khi nguoi dung bam HUY
-//                dialogInterface.dismiss();
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
-    private void setData(DetailStatistics detailStatistics){
+
+    private void setData(Statistic detailStatistics){
         // Set lại tên khoản chi
         if (update_detail_input_name.getEditText() != null) {
             update_detail_input_name.getEditText().setText(String.valueOf(detailStatistics.getDt_name()));
@@ -218,6 +199,7 @@ public class UpdateDetailFragment extends Fragment {
         update_detail_input_text = view.findViewById(R.id.update_detail_input_text);
         btn_reload_item = view.findViewById(R.id.btn_reload_item);
         btn_update_item = view.findViewById(R.id.btn_update_item);
+
     }
     private void refreshFragment(){
         loadingDialog.dismiss();
