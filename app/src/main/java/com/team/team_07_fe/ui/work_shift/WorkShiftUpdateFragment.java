@@ -54,6 +54,7 @@ public class WorkShiftUpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_work_shift_update, container, false);
+
         wViewModel = new ViewModelProvider(requireActivity()).get(WorkShiftViewModel.class);
         loadingDialog = new LoadingDialog(requireContext());
         //mapping
@@ -64,7 +65,7 @@ public class WorkShiftUpdateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-            observeData();
+        observeData();
         if(getArguments()!=null){
             originalData = (WorkShift) getArguments().getSerializable("data_workShift");
             setData(originalData);
@@ -77,9 +78,9 @@ public class WorkShiftUpdateFragment extends Fragment {
     }
 
     private void observeData() {
-        wViewModel.getDataMessage().observe(getViewLifecycleOwner(),s -> {
+        wViewModel.getErrorMessage().observe(getViewLifecycleOwner(),s -> {
             if(s!=null){
-                loadingDialog.dismiss();
+//                loadingDialog.dismiss();
                 Toast.makeText(requireContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
                 refreshFragment();
                 wViewModel.setDataMessage(null);
@@ -116,10 +117,11 @@ public class WorkShiftUpdateFragment extends Fragment {
         }
 
         layout_input_name_work_shirt.getEditText().setText(workShift.getName());
-        String formattedStartTime = FormatHelper.convertTimeToString(workShift.getTimeStart());
-        txtTimeStart.getEditText().setText(formattedStartTime);
+        String formattedEndTime = FormatHelper.convertTimeToString(workShift.getTimeEnd());
+        txtTimeEnd.getEditText().setText(formattedEndTime);
         String formattedStartEnd = FormatHelper.convertTimeToString(workShift.getTimeStart());
-        txtTimeEnd.getEditText().setText(formattedStartEnd);
+
+        txtTimeStart.getEditText().setText(formattedStartEnd);
     }
 
 //    private void observeData() {
@@ -184,7 +186,7 @@ public class WorkShiftUpdateFragment extends Fragment {
             Date formatTimeStart = null;
             Date formatTimeEnd = null;
             if (!TextUtils.isEmpty(timeStart)) {
-                formatTimeStart = (FormatHelper.convertStringtoDate(timeStart));
+                formatTimeStart = (FormatHelper.convertStringToTime(timeStart));
             }
             if(!TextUtils.isEmpty(timeEnd)){
                 formatTimeEnd = (FormatHelper.convertStringToTime(timeEnd));

@@ -19,10 +19,13 @@
             android:padding="12dp">
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_input_id"
-                style="@style/TextInputLayout"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mã ca làm"
+                android:enabled="false"
+                app:errorEnabled="true"
                 app:startIconDrawable="@drawable/icon_id">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -31,7 +34,7 @@
                     android:background="@drawable/background_text_input"
                     android:inputType="text"
                     android:lines="1"
-                    android:textColor="@color/black"
+
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
