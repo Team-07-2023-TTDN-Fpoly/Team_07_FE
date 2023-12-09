@@ -129,7 +129,6 @@ public class DetailStatisticsRepository {
         });
     }
 
-    public void UpdateDetail(Date date, DetailStatisticsRequest detailStatisticsRequest) {
-    }
+
 }
 

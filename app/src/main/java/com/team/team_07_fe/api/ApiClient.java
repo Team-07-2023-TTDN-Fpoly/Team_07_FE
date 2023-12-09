@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static String LOCAL_HOST = "192.168.1.16";
+    public static String LOCAL_HOST = "192.168.1.15";
 
     private static final String ROOT_URL = "http://"+LOCAL_HOST+":3000";
     private static Retrofit retrofit;

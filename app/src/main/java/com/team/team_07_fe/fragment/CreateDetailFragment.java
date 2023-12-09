@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,16 +98,7 @@ public class CreateDetailFragment extends Fragment {
 //    }
         if (valueInput(date, name, money, text)) {
             loadingDialog.show();
-            Date dateforcreatedetail = null;
-            if (!TextUtils.isEmpty(date)) {
-                dateforcreatedetail = FormatHelper.convertStringtoDate(date);
-                if (dateforcreatedetail != null && dateforcreatedetail.before(dateforcreatedetail)) {
-                    // Không quan tâm ngày được chọn chỉ quan tâm tháng
-                    create_detail_input_date.setError("Vui lòng chọn tháng.");
-                    return; // Dừng việc tạo yêu cầu
-                }
-            }
-
+            Log.i("DATA DATE", FormatHelper.convertStringtoMonth(date) +"");
             DetailStatisticsRequest detailStatisticsRequest = new DetailStatisticsRequest(new Date(), name, Long.parseLong(money), text);
             confirmCreateDetail(detailStatisticsRequest);
         }
@@ -125,7 +117,7 @@ public class CreateDetailFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int selectedYear,
                                           int selectedMonth, int dayOfMonth) {
-                        String selectedMonthYear = (selectedMonth + 1) + "/" + year;
+                        String selectedMonthYear = (selectedMonth + 1) + "/" + selectedYear;
                         create_detail_input_date.getEditText().setText(selectedMonthYear);
 
                     }
