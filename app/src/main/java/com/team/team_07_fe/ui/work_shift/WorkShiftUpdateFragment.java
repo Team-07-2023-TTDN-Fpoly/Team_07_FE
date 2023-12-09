@@ -186,7 +186,7 @@ public class WorkShiftUpdateFragment extends Fragment {
             Date formatTimeStart = null;
             Date formatTimeEnd = null;
             if (!TextUtils.isEmpty(timeStart)) {
-                formatTimeStart = (FormatHelper.convertStringtoDate(timeStart));
+                formatTimeStart = (FormatHelper.convertStringToTime(timeStart));
             }
             if(!TextUtils.isEmpty(timeEnd)){
                 formatTimeEnd = (FormatHelper.convertStringToTime(timeEnd));
