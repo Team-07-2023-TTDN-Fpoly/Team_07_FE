@@ -60,7 +60,7 @@ public class DressTypeRepository {
         }
     }
     //Lệnh để lấy tất cả nhân viên
-    public void getAllDressType(String search){
+    public List<DressType> getAllDressType(String search){
         dressTypeService.getAllDressType(search).enqueue(new Callback<ApiResponse<List<DressType>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<DressType>>> call, Response<ApiResponse<List<DressType>>> response) {
@@ -77,6 +77,7 @@ public class DressTypeRepository {
                 errorMessage.postValue("Lỗi kết nối");
             }
         });
+        return null;
     }
 
     //Lệnh để lấy nhân viên

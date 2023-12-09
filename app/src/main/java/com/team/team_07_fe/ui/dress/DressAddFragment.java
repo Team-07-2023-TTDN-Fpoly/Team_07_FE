@@ -118,7 +118,7 @@ public class DressAddFragment extends Fragment {
         dressTypeArrayAdapter = new ArrayAdapter<>(requireContext(),android.R.layout.simple_dropdown_item_1line,listDressTypeForDropdown);
         dropdown_type_dress.setAdapter(dressTypeArrayAdapter);
 
-        dressTypeViewModel.getDressTypeList().observe(getViewLifecycleOwner(),dressTypes -> {
+        dressTypeViewModel.getListDressType().observe(getViewLifecycleOwner(),dressTypes -> {
             if(dressTypes!=null){
                 listDressTypeForDropdown.clear();
                 listDressTypeForDropdown.addAll(dressTypes);

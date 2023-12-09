@@ -17,6 +17,7 @@ public class DressTypeRequest {
     //Cập nhật loại áo
     public DressTypeRequest(String type_id, String type_name) {
         this.type_name = type_name;
+        this.type_id = type_id;
     }
 
     public String getType_id() {

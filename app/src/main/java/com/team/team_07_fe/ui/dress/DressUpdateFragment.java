@@ -116,7 +116,7 @@ public class DressUpdateFragment extends Fragment {
         }
 
 
-        dressTypeViewModel.getDressTypeList().observe(getViewLifecycleOwner(),dressTypes -> {
+        dressTypeViewModel.getListDressType().observe(getViewLifecycleOwner(),dressTypes -> {
             if(dressTypes!=null){
                 //Dropdown list DressType
                 dressTypeArrayAdapter = new ArrayAdapter<>(requireContext(),android.R.layout.simple_dropdown_item_1line,dressTypes);
