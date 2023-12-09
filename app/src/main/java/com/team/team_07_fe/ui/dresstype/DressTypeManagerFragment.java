@@ -95,7 +95,7 @@ public class DressTypeManagerFragment extends Fragment {
 
                 dressTypeViewModel.createDressType(dressTypeRequest);
                 dressTypeViewModel.getAllDressType(null);
-                dressTypeAdapter.notifyItemChanged(selectedPosition);
+                dressTypeAdapter.notifyDataSetChanged();
                 Toast.makeText(requireContext(), "Thêm loại áo cưới thành công!", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             } else {
@@ -169,6 +169,7 @@ public class DressTypeManagerFragment extends Fragment {
                     DressTypeRequest updressTypeRequest = new DressTypeRequest(type_id, type_name);
                     dressTypeViewModel.updateDressType(id, updressTypeRequest);
                     dressTypeViewModel.getAllDressType(null);
+                    dressTypeAdapter.notifyDataSetChanged();
                     Toast.makeText(requireContext(), "Cập nhật loại áo thành công!", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
                 })
@@ -218,7 +219,7 @@ public class DressTypeManagerFragment extends Fragment {
         builder.setPositiveButton("Xóa", (dialog, which) -> {
             dressTypeViewModel.deleteDressType(dressType.getType_id());
             dressTypeViewModel.getAllDressType(null);
-            dressTypeAdapter.notifyItemChanged(position);
+            dressTypeAdapter.notifyDataSetChanged();
             Toast.makeText(requireContext(), "Xóa loại áo thành công!", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
