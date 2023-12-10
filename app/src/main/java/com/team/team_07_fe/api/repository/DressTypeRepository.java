@@ -60,7 +60,7 @@ public class DressTypeRepository {
         }
     }
     //Lệnh để lấy tất cả nhân viên
-    public List<DressType> getAllDressType(String search){
+    public void getAllDressType(String search){
         dressTypeService.getAllDressType(search).enqueue(new Callback<ApiResponse<List<DressType>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<DressType>>> call, Response<ApiResponse<List<DressType>>> response) {
@@ -77,7 +77,6 @@ public class DressTypeRepository {
                 errorMessage.postValue("Lỗi kết nối");
             }
         });
-        return null;
     }
 
     //Lệnh để lấy nhân viên
@@ -127,7 +126,7 @@ public class DressTypeRepository {
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                 if(response.isSuccessful()){
                     ApiResponse<String> apiResponse = response.body();
-                    dataInput.postValue(apiResponse.getData());
+                    dataInput.postValue(apiResponse.getMessage());
                 } else {
                     handeErrorMessage(response.errorBody());
                 }
@@ -145,7 +144,7 @@ public class DressTypeRepository {
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                 if (response.isSuccessful()) {
                     ApiResponse<String> apiResponse = response.body();
-                    dataInput.postValue(apiResponse.getData());
+                    dataInput.postValue(apiResponse.getMessage());
                 } else {
                     handeErrorMessage(response.errorBody());
                 }
